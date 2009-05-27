@@ -1,7 +1,7 @@
 <?php
 include("auth/include/session.php");
 if(!$session->logged_in){
-  $_SESSION['login_ref'] = '..'.$_SERVER['REQUEST_URI'];
+  $_SESSION['login_ref'] = '../../..'.$_SERVER['REQUEST_URI'];
   header("Location: auth/login.php");
 }
 else {
@@ -15,7 +15,9 @@ $name = $session->username;
 </head>
 <body>
 This page required you to login.  You're logged in.<br />
-Welcome <? echo $name; ?>!
+Welcome to Flitter, <strong><? echo $name; ?></strong>!<br />
+<a href="auth/login.php">Login Info</a><br />
+<a href="auth/logout.php">Logout</a>
 </body>
 </html>
 <?php } ?>
