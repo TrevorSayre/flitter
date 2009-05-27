@@ -5,7 +5,7 @@
 <title>Index Page</title>
 </head>
 <body>
-This page is the public Index Page<br />
+This page is the public Index Page.<br />
 Try to go to the <a href="secret.php">Secret Page</a>.
 </body>
 </html>
