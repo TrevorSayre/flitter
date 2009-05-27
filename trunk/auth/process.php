@@ -60,13 +60,19 @@ class Process
       
       /* Login successful */
       if($retval){
-         header("Location: ".$session->referrer);
+         //header("Location: ".$session->referrer);
+		 if(isset($_SESSION['login_ref'])) {
+		    $login_ref = $_SESSION['login_ref'];
+		    unset($_SESSION['login_ref']);
+		    header("Location: ".$login_ref);
+		 }
+		 else header("Location: index.php");
       }
       /* Login failed */
       else{
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: ".$session->referrer);
+         header("Location: login.php");
       }
    }
    
@@ -77,7 +83,7 @@ class Process
    function procLogout(){
       global $session;
       $retval = $session->logout();
-      header("Location: login.php");
+      header("Location: ../index.php");
    }
    
    /**
