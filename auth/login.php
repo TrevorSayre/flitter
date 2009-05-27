@@ -51,7 +51,7 @@ if($form->num_errors > 0){
    echo "<font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font>";
 }
 if(isset($_SESSION['login_ref'])) {
-    echo "<a href=\"".$_SESSION['login_ref']."\">back</a><br />";
+    echo "You came from ".$_SESSION['login_ref']."<br />";
 }
 ?>
 <form action="process.php" method="POST">
