@@ -1,7 +1,7 @@
 <?php
 include("auth/include/session.php");
 if(!$session->logged_in){
-  $_SESSION['login_ref'] = '../../..'.$_SERVER['REQUEST_URI'];
+  $_SESSION['login_ref'] = '..'.$_SERVER['REQUEST_URI'];
   header("Location: auth/login.php");
 }
 else {
