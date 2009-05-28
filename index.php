@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>Index Page</title>
+<script src="js/testing.js" type="text/javascript"></script>
 </head>
 <body>
 This page is the public Index Page.<br />
