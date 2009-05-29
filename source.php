@@ -1,6 +1,7 @@
 <?php
   require_once("Text/Highlighter.php");
   $code = file_get_contents($_GET['file']);
+  $dirPath = dirname($_GET['file']);
   $code .= "<ENDOFLIVECODE>";
   $url = explode('=',$_GET['file']);
   $fname = $url[1];
@@ -152,9 +153,11 @@
             $match_string = '/(<span class="hl-quotes">(&quot;|\')<\/span>)';
             $match_string .= '(<span class="hl-string">([\.\w\/]+\.(php|js|css|html))';
             $match_string .= '<\/span>)(<span class="hl-quotes">(&quot;|\')<\/span>)/';
-            $replace_string = '$1<a href="source.php?file=$4">$3</a>$6';
-
-            $str = '<span class="hl-quotes">&quot;</span><span class="hl-string">Hi/Bye.js</span><span class="hl-quotes">&quot;</span>';
+            $replace_string = '$1<a href="source.php?file='.$dirPath.'/$4">$3</a>$6';
+            $finalcode = preg_replace($match_string,$replace_string,$finalcode);
+            
+            $match_string = '/((src|href)=&quot;)([\.\w\/]+\.(php|js|css|html))(&quot;)/';
+            $replace_string = '$1<a href="source.php?file='.$dirPath.'/$3">$3</a>$5';
             $finalcode = preg_replace($match_string,$replace_string,$finalcode);
  
             //echo "Outputing final code<br/>";
