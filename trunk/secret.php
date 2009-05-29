@@ -9,21 +9,21 @@ if(!$session->logged_in){
 }
 // the user is logged in
 else {
-// set the session variables to something more useful
-$name = $session->username;
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
-"http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<title>Secret Page</title>
-</head>
-<body>
-This page required you to login.  You're logged in.<br />
-Welcome to Flitter, <strong><? echo $name; ?></strong>!<br />
-<a href="auth/login.php">Login Info</a><br />
-<a href="index.php">Index Page</a><br />
-<a href="auth/logout.php">Logout</a>
-</body>
-</html>
+  // set the session variables to something more useful
+  $name = $session->username;
+  ?>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+  "http://www.w3.org/TR/html4/strict.dtd">
+  <html>
+  <head>
+  <title>Secret Page</title>
+  </head>
+  <body>
+  This page required you to login.  You're logged in.<br />
+  Welcome to Flitter, <strong><? echo $name; ?></strong>!<br />
+  <a href="auth/login.php">Login Info</a><br />
+  <a href="index.php">Index Page</a><br />
+  <a href="auth/logout.php">Logout</a>
+  </body>
+  </html>
 <?php } ?>

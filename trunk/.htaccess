@@ -1,9 +1,3 @@
 RewriteEngine On
 
-RewriteRule ^(.+\.phps)$ source.php?file=$1 [L]
-
-RewriteCond %{REMOTE_ADDR} !^127.0.0.1
-RewriteRule ^(.+\.js)$ source.php?file=$1 [L]
-
-RewriteCond %{REMOTE_ADDR} !^127.0.0.1
-RewriteRule ^(.+\.css)$ source.php?file=$1 [L]
+#RewriteRule ^(.+\.phps)$ source.php?file=$1 [L]
