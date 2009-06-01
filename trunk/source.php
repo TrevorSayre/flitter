@@ -1,19 +1,26 @@
 <?php
   require_once("Text/Highlighter.php");
-  $code = file_get_contents($_GET['file']);
-  $dirPath = dirname($_GET['file']);
+  $file = "";
+  if( preg_match('/(.*?)(\w.*)/',$_GET['file'],$matches) )
+    $file = $matches[2];
+  $code = file_get_contents($file);
+  $dirPath = "";
+  if( preg_match('/(.*?)(\w.*)/',dirname($file),$matches) )
+    $dirPath = $matches[2];  
   $code .= "<ENDOFLIVECODE>";
-  $url = explode('=',$_GET['file']);
-  $fname = $url[1];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
 "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
 <head> 
-<title><?php echo $_GET['file']; ?></title> 
+<title><?php echo $file; ?></title> 
 <link href="css/highlighter.css" type="text/css" rel="stylesheet" />
 <link href="css/source.css" type="text/css" rel="stylesheet" />
+<script src="jquery-1.3.2.js" type="text/javascript"></script>
 <script>
+  $(document).ready( function() {
+    alert("Page Loaded");
+  });
 </script>
 </head> 
 
@@ -21,8 +28,8 @@
   <div id="container">
     <div id="header">
       <div id="feedback_button" class="header_button">Feedback</div>
-      <div id="flip_over_button" class="header_button">Flip Over</div>
-      <h1><?php echo $_GET['file']; ?></h1>
+      <a href="<?php ?>" class="div_button"><div id="flip_over_button" class="header_button">Flip Over</div></a>
+      <h1><?php echo $file; ?></h1>
     </div>
     <div id="left_col">
       This is some stuff in the right column<br/><br/>
@@ -30,7 +37,7 @@
     </div>
     <div id="line_numbers_col">
       <?php
-        $num_lines = count(file($_GET['file']));
+        $num_lines = count(file($file));
         echo "<pre>";
         for($i=1; $i<=$num_lines; $i++)
           echo $i.PHP_EOL;
@@ -42,10 +49,10 @@
         // If this file is a PHP file go in here
         // PHP files can contain bits of other languages in their code
         // Must split the doc apart to highlight pieces correctly
-        if (substr($_GET['file'],strpos($_GET['file'],'.')) == '.php') {
+        if (substr($file,strpos($file,'.')) == '.php') {
           // Check to make sure they are no accessing a protected file
           // We're denying access to our constants (db username and pass)
-        	if(strpos($_GET['file'],"constants") === FALSE) {
+        	if(strpos($file,"constants") === FALSE) {
             //Creating our various highlighters here   
             $hl_HTML =& Text_Highlighter::factory("HTML");
             $hl_PHP =& Text_Highlighter::factory("PHP");
@@ -149,9 +156,9 @@
             $match_string .= '<span class="hl-reserved">ENDOFLIVECODE<\/span>';
             $match_string .= '<span class="hl-brackets">&gt;<\/span>/';
             $finalcode = preg_replace($match_string,'',$finalcode);
-
+   
             $match_string = '/(<span class="hl-quotes">(&quot;|\')<\/span>)';
-            $match_string .= '(<span class="hl-string">([\.\w\/]+\.(php|js|css|html))';
+            $match_string .= '(<span class="hl-string">([\.\-\w\/]+\.(php|js|css|html))';
             $match_string .= '<\/span>)(<span class="hl-quotes">(&quot;|\')<\/span>)/';
             $replace_string = '$1<a href="source.php?file='.$dirPath.'/$4">$3</a>$6';
             $finalcode = preg_replace($match_string,$replace_string,$finalcode);
@@ -165,11 +172,11 @@
           }  
         	else echo "<img src=\"../images/gibbon_sticker.png\" alt=\"Angry Gibbon says, 'This page is forbidden!'\"><br />403 FORBIDDEN";
         }
-        if (substr($_GET['file'],strpos($_GET['file'],'.')) == '.js') {
+        if (substr($file,strpos($file,'.')) == '.js') {
             $hl =& Text_Highlighter::factory("JAVASCRIPT");   
             echo $hl->highlight($code);
         }
-        if (substr($_GET['file'],strpos($_GET['file'],'.')) == '.css') {
+        if (substr($file,strpos($file,'.')) == '.css') {
             $hl =& Text_Highlighter::factory("CSS");   
             echo $hl->highlight($code);
         }
