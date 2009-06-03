@@ -1,0 +1,82 @@
+/*CSS Document*/
+
+html,body {margin:0px;padding:0px;height:100%;}
+
+#header_container {
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:100%;
+  border-bottom:solid black 2px;
+  height:100px;
+  background:red;
+}
+  #header {
+    padding-left:250px;
+  }
+  
+    #home_button,#find_button,#create_button,#about_button,#contact_button,#feedback_button,#flip_over_button {
+      float:left;
+      border:solid black 1px;
+      background:lightblue;
+      margin:10px 9px;
+    }
+    
+    .header_button {
+      width:76px;
+      height:26px;
+      line-height:26px;
+      padding:2px 5px;
+      text-align:center;
+      background:orange;
+      margin:0px;
+      font-variant:small-caps;
+    }
+    
+#left_float_menu {
+  position:absolute;
+  background:lightblue;
+  top:0px;
+  left:0px;
+  width:250px;
+  border-right:solid black 2px;
+  
+  height:100%;
+}  
+  #logo {
+    width:100%;
+    height:150px;
+    border-bottom:solid black 2px;
+  }
+  
+  #binArea {
+    width:100%;
+  }
+  
+#container {
+  width:100%;
+  height:4000px; /*!important;*/
+  background:orange;
+}
+  #content {
+    padding-left:252px;
+    padding-top:100px;
+    background:green;
+    height:auto;  
+  }
+
+#left_col {
+  float:left;
+  width:250px;
+  
+}
+
+  
+#right_col {
+  margin-left:252px;
+  border-left:solid black 2px;
+}
+
+.footer { clear:both; }
+#header_clear {background:blue;height:10px;}  
+#container_clear {border-top:solid black 2px; height:20px;}

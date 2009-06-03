@@ -7,6 +7,8 @@ body {
   max-width:100%;
 }
 
+a.div_button {text-decoration:none; color:black;}
+
 h1 {
   font-size:30px;
   margin:0px;
@@ -81,7 +83,6 @@ pre {
   overflow:auto;
   width:825px;
   border-left:solid black 2px;
-   
 }
 
 #footer {
