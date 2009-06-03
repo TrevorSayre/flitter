@@ -14,7 +14,12 @@
  * to the MySQL database. Make sure the information is
  * correct.
  */
-define("DB_SERVER", "kingpinhosting.com");
+if($_SERVER['SERVER_NAME'] == "flitter.to") {
+	define("DB_SERVER", "localhost");
+}
+else {
+	define("DB_SERVER", "kingpinhosting.com");
+}
 define("DB_USER", "gibbon");
 define("DB_PASS", "pr0jectgibb0n");
 define("DB_NAME", "gibbon_flitter");
