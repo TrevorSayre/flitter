@@ -52,15 +52,16 @@
             $finalcode = "";
             $geshi = new GeSHi($code,'php');
             $geshi->enable_strict_mode(GESHI_ALWAYS);
-            /*
-            $match_string .= '/(<\?php(.*)?\?[>])/s';
+            
+            $match_string .= '/(<\?php.*?\?[>])/s';
             if(preg_match($match_string,$code,$matches) ){
               echo "\n\nSuccess!!!\n\n";
             }
             else
               echo "\n\nFail!!!\n\n";
-            
             echo "\n\n";
+            
+            /*
             for($i=0; $i < 20; $i++)
               echo "$code[$i] ";
             echo "\n\n\nSome Middle Area Stuff\n\n\n";
@@ -91,7 +92,7 @@
             $match_string .= ')(.*)/s';
             
             
-            //echo "\n\n\n\nSplitting and ripping the code apart\n\n";
+            echo "\n\n\n\nSplitting and ripping the code apart\n\n";
             while( preg_match($match_string,$code,$matches) ) {
             
               // If the code segement found has preceding code
@@ -100,7 +101,7 @@
                   $geshi->set_source($matches[1]);
                   $geshi->set_language('html4strict');
                   $finalcode .= $geshi->parse_code();
-                  //echo "\nMatching HTML\n:$matches[1]\n\n";
+                  echo "\nMatching HTML\n:";//$matches[1]\n\n";
                   //echo "\n\n\nAltered HTML Code:\n".$geshi->parse_code()."\n\n\n";
               }
               
@@ -108,8 +109,9 @@
                 $geshi->set_source($matches[2]);
                 $geshi->set_language('php');
                 $finalcode .= $geshi->parse_code();
-                /*
+                
                 echo "\nMatching PHP\n:";
+                /*
                 for($i=0;$i<strlen($matches[2]);$i++) 
                   echo $matches[2][$i]." ";
                 echo "\n\n";
@@ -119,13 +121,13 @@
                 $geshi->set_source($matches[2]);
                 $geshi->set_language('javascript');
                 $finalcode .= $geshi->parse_code();
-                //echo "\nMatching Javascript\n:$matches[2]\n\n";
+                echo "\nMatching Javascript\n:";//$matches[2]\n\n";
               }
               else if( preg_match( '/<style>/',$matches[2] ) ) {
                 $geshi->set_source($matches[2]);
                 $geshi->set_language('css');
                 $finalcode .= $geshi->parse_code();
-                //echo "\nMatching CSS\n:$matches[2]\n\n";
+                echo "\nMatching CSS\n:";//$matches[2]\n\n";
               }
               
               // Reset code to be whats left over for further processing
@@ -136,7 +138,7 @@
           $geshi->set_source($code);
           $geshi->set_language('html4strict');
           $finalcode .= $geshi->parse_code();
-          //echo "\nMatching Ending HTML\n:$code\n\n";
+          echo "\nMatching Ending HTML\n:";//$code\n\n";
         }
         
         // </pre><pre class="php" style="font-family:monospace;">
