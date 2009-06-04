@@ -3,6 +3,35 @@
   //require_once("Text/Highlighter.php");
   require_once "geshi.php";
   
+function get_files($dir) {
+  $files = scandir($dir);
+  $file_structure = array();
+  foreach($files as $file) {
+    if($file!='.' && $file!='..' && $file!='.svn' && $file!='images') {
+      $path = "$dir/$file";
+      if( is_dir($path)=='dir')
+        $file_structure[$file] = get_files($path);
+      else
+        $file_structure[$file] = $file;
+    }
+  }
+  return $file_structure;
+}
+
+function tree_view_list($file_struct,$id_it=false, $path='.') {
+  $ret = "";
+  if($id_it == true)  $ret = "<ul id=\"browser\">";
+  else                $ret = "<ul>";
+  foreach($file_struct as $name => $branch ) {
+    if( is_array($branch) )
+      $ret .= "<li><span class=\"folder\">$name</span>".tree_view_list($branch,false,$path."/".$name);
+    else
+      $ret .= "<li><span class=\"file\"><a class=\"file_link\" href=\"source.php?file=$path/$name\">$name</a></span></li>";
+  }
+  $ret .= "</ul>";
+  return $ret;
+}
+  
   $file = "";
   if( preg_match('/(.*?)(\w.*)/',$_GET['file'],$matches) )
     $file = $matches[2];
@@ -15,20 +44,25 @@
   $geshi = new GeSHi($code,'php');
   $geshi->enable_strict_mode(GESHI_ALWAYS);
   $geshi->enable_classes();
+  $geshi->set_header_type(GESHI_HEADER_NONE);
   
   
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
 "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
-<head> 
+<head>
 <title><?php echo $file; ?></title> 
 <link href="css/highlighter.css" type="text/css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="css/jquery.treeview.css" />
 <link href="css/source.css" type="text/css" rel="stylesheet" />
-<script src="jquery-1.3.2.js" type="text/javascript"></script>
+<script src="js/jquery-1.3.2.js" type="text/javascript"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/jquery.treeview.js" type="text/javascript"></script>
+	
 <script>
   $(document).ready( function() {
-    alert("Page Loaded");
+    $("#browser").treeview( { 'collapsed' : true } );
   });
 </script>
 <style>
@@ -87,24 +121,13 @@
 </head> 
 
 <body>
-  <div id="container">
     <div id="header">
       <div id="feedback_button" class="header_button">Feedback</div>
-      <a href="<?php ?>" class="div_button"><div id="flip_over_button" class="header_button">Flip Over</div></a>
-      <h1><?php echo $file; ?></h1>
+      <a href="<?php ?>" class="header_link"><div id="flip_over_button" class="header_button">Flip Over</div></a>
+      <h1 id="filepath"><?php echo $file; ?></h1>
     </div>
     <div id="left_col">
-      This is some stuff in the right column<br/><br/>
-      More and more stuff!!
-    </div>
-    <div id="line_numbers_col">
-      <?php
-        $num_lines = count(file($file));
-        echo "<pre>";
-        for($i=1; $i<=$num_lines; $i++)
-          echo $i.PHP_EOL;
-        echo "</pre>";
-      ?>
+      <?php echo tree_view_list(get_files('.'),true); ?>
     </div>
     <div id="code_col">
       <?php      
@@ -201,11 +224,16 @@
         $replace_string = '$1<a href="source.php?file='.$dirPath.'/$2">$2</a>$4';
         $finalcode = preg_replace($match_string,$replace_string,$finalcode);
         
-        echo $finalcode;
+        $lines = explode("\n",$finalcode);
+        echo "<ol class=\"php\" id=\"code\">\n";
+        foreach($lines as $line) {
+          //echo "<li><pre>$line</pre></li>";
+          echo "<li>$line</li>";
+        }
+        echo "</ol>\n";
+        
       ?>
     </div>
-    <div id="footer"></div>
-  </div>
 </body>
 </html>
 
