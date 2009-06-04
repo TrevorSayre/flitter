@@ -5,6 +5,7 @@ body {
   padding:0px;
   margin:0px;
   max-width:100%;
+  font-family:arial;
 }
 
 a.div_button {text-decoration:none; color:black;}
@@ -67,9 +68,6 @@ pre {
 
 #line_numbers_col {
   float:left;
-  /*position:absolute;
-  left:250px;
-  */
   background:lightblue;
   width:26px;
   padding:15px 2px 17px 2px;
