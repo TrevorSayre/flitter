@@ -15,6 +15,8 @@
   $geshi = new GeSHi($code,'php');
   $geshi->enable_strict_mode(GESHI_ALWAYS);
   $geshi->enable_classes();
+  
+  
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
 "http://www.w3.org/TR/html4/strict.dtd"> 
@@ -30,7 +32,10 @@
   });
 </script>
 <style>
-
+/**
+ *  The various values and regex's that these map to can be found in the
+ *  corresponding language file on the geshi folder i.e. geshi/php.php
+ */  
 /* The main wrapper */
 .php  {font-family:arial; font-size:12px;}
 /* not really sure */
@@ -41,14 +46,12 @@
 .php .kw2 {color: #000000; font-weight: bold;}
 .php .kw3 {color: #990000;}
 .php .kw4 {color: #009900; font-weight: bold;}
-
 /* Comments */
 .php .co1 {color: #666666; font-style: italic;}
 .php .co2 {color: #666666; font-style: italic;}
 .php .co3 {color: #0000cc; font-style: italic;}
 .php .co4 {color: #009933; font-style: italic;}
 .php .coMULTI {color: #666666; font-style: italic;}
-
 /* Escape Chars */
 .php .es0 {color: #000099; font-weight: bold;}
 .php .es1 {color: #000099; font-weight: bold;}
@@ -58,7 +61,6 @@
 .php .es5 {color: #006699; font-weight: bold; font-style: italic;}
 .php .es6 {color: #009933; font-weight: bold;}
 .php .es_h {color: #000099; font-weight: bold;}
-
 /* Brackets */
 .php .br0 {color: #009900;}
 /* Symbols */
