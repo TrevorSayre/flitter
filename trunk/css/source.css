@@ -1,91 +1,58 @@
 /* CSS Document */
 
-body {
-  background:darkblue;
-  padding:0px;
-  margin:0px;
-  max-width:100%;
-  font-family:arial;
-}
-
-a.div_button {text-decoration:none; color:black;}
-
-h1 {
-  font-size:30px;
-  margin:0px;
-  padding:0px;
-}
-
-pre {
-  margin:0px;
-  padding:0px;
-
-/*  white-space: pre-wrap;       /* css-3 */
-/*  white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
-/*  white-space: -pre-wrap;      /* Opera 4-6 */
-/*  white-space: -o-pre-wrap;    /* Opera 7 */
-/*  word-wrap: break-word;       /* Internet Explorer 5.5+ */
-
-}
-
-#container {
-  background:lightyellow;
-  overflow:auto;
-  border-bottom:solid black 2px;
-}
+body { background:lightyellow; padding:0px; margin:0px; font-family:arial; }
+pre { margin:0px; padding:0px; }
 
 #header {
   border-bottom: 2px solid black;
-  padding:20px 30px;
   background:gold;
+  min-width:800px;
 }
-
-#feedback_button,#flip_over_button {
-  float:right;
-  margin-left: 50px;
-}
-
-.header_button {
-  height:30px;
-  line-height:30px;
-  text-align:center;
-  font-variant:small-caps;
-  background:lightblue;
-  cursor:pointer;
-  width:200px;
-  border:1px solid black;
-}
-
+      #feedback_button,#flip_over_button {
+        float:right;
+        margin:10px 50px 10px 0px;
+      }
+      .header_button {
+        height:30px;
+        line-height:30px;
+        text-align:center;
+        font-variant:small-caps;
+        background:lightblue;
+        cursor:pointer;
+        width:200px;
+        border:1px solid black;
+      }
+      h1#filepath {
+        font-size:30px;
+        line-height:50px;
+        margin:0px 0px 0px 25px;
+        padding:0px;
+      }
+      a.header_link {text-decoration:none; color:black;}
+      
 #left_col {
   padding:10px;
   width:230px;
   float:left;
-  /*
-  position:absolute;
-  left:0px;
-  */
 }
-
-#line_numbers_col {
-  float:left;
-  background:lightblue;
-  width:26px;
-  padding:15px 2px 17px 2px;
-  border-left:solid black 2px;
-  text-align:right;
-}
-
+      a.file_link {text-decoration:none; color:black;}
+      
 #code_col {
-  padding:15px 0px 0px 5px;
+  padding:0px 0px 0px 0px;
   margin-left:282px;
-  overflow:auto;
-  width:825px;
   border-left:solid black 2px;
+  background:lightblue;
+  border-bottom:solid black 2px;
 }
-
-#footer {
-  clear:both;
-  width:100%;
-  height:20px;
-  background:purple;
-}
+    #code {
+      margin-top:0px;
+      margin-bottom:0px;
+      padding-left:47px;
+    }
+    #code li {
+      margin:0px;
+      padding:0px 0px 0px 3px;
+      border-left:solid black 1px;
+      background:lightgreen;
+      min-width:465px;
+    }
