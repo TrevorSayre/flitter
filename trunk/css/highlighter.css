@@ -1,57 +1,52 @@
-.hl-default {
-    color: Black;
-}
-.hl-code {
-    color: Gray;
-}
-.hl-brackets {
-    color: Olive;
-}
-.hl-comment {
-    color: Orange;
-}
-.hl-quotes {
-    color: Darkred;
-}
-.hl-string {
-    color: Red;
-}
-.hl-identifier {
-    color: Blue;
-}
-.hl-builtin {
-    color: Teal;
-}
-.hl-reserved {
-    color: Green;
-}
-.hl-inlinedoc {
-    color: Blue;
-}
-.hl-var {
-    color: Darkblue;
-}
-.hl-url {
-    color: Blue;
-}
-.hl-special {
-    color: Navy;
-}
-.hl-number {
-    color: Maroon;
-}
-.hl-inlinetags {
-    color: Blue;
-}
-.hl-main {
-    /*background-color: white;*/
-}
-.hl-gutter {
-    background-color: #999999;
-    color: White
-}
-.hl-table {
-    font-family: courier;
-    font-size: 12px;
-    border: solid 1px Lightgrey;
-}
+/* CSS Document */
+
+/**
+ *  The various values and regex's that these map to can be found in the
+ *  corresponding language file on the geshi folder i.e. geshi/php.php
+ */  
+/* The main wrapper */
+.php  {font-family:arial; font-size:12px;}
+/* not really sure */
+.php .imp {font-weight: bold; color: red;}
+
+/*Keywords*/
+.php .kw1 { color: #b1b100;}
+.php .kw2 {color: #000000; font-weight: bold;}
+.php .kw3 {color: #990000;}
+.php .kw4 {color: #009900; font-weight: bold;}
+/* Comments */
+.php .co1 {color: #666666; font-style: italic;}
+.php .co2 {color: #666666; font-style: italic;}
+.php .co3 {color: #0000cc; font-style: italic;}
+.php .co4 {color: #009933; font-style: italic;}
+.php .coMULTI {color: #666666; font-style: italic;}
+/* Escape Chars */
+.php .es0 {color: #000099; font-weight: bold;}
+.php .es1 {color: #000099; font-weight: bold;}
+.php .es2 {color: #660099; font-weight: bold;}
+.php .es3 {color: #660099; font-weight: bold;}
+.php .es4 {color: #006699; font-weight: bold;}
+.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
+.php .es6 {color: #009933; font-weight: bold;}
+.php .es_h {color: #000099; font-weight: bold;}
+/* Brackets */
+.php .br0 {color: #009900;}
+/* Symbols */
+.php .sy0 {color: #339933;}
+.php .sy1 {color: #000000; font-weight: bold;}
+/* Strings */
+.php .st0 {color: #0000ff;}
+.php .st_h {color: #0000ff;}
+/* Numbers */
+.php .nu0 {color: #cc66cc;}
+.php .nu8 {color: #208080;}
+.php .nu12 {color: #208080;}
+.php .nu19 {color:#800080;}
+/* Methods */
+.php .me1 {color: #004000;}
+.php .me2 {color: #004000;}
+/* Reg Exps */
+.php .re0 {color: #000088;}
+
+/* I don't know what this is for */
+.php span.xtra { display:block; }

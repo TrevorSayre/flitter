@@ -6,18 +6,7 @@
   <title>Flitter</title>
   <link href="css/index.css" type="text/css" rel="stylesheet" />
   <script src="js/jquery-1.3.2.js" type="text/javascript"></script>
-
-
-  <script>
-    var menuYloc = 0;
-    $(document).ready( function() {
-      $(window).scroll(function() {
-        var offset = menuYloc+$(document).scrollTop()+"px";  
-        $('#header_container').css({'top':offset});
-        $('#left_float_menu').css({'top':offset});
-      });
-    });
-  </script>
+  <script src="js/index.js" type="text/javascript"></script>
 
   <style>
     #unknown_tag_here {
@@ -33,16 +22,24 @@
 
 <body>
   
-  <div id="header_container"><div id="header">
-    <!--<div id="home_button" class="header_button">Home</div>
-    <div id="find_button" class="header_button">Find</div>
-    <div id="create_button" class="header_button">Create</div>
-    <div id="about_button" class="header_button">About</div>
-    <div id="contact_button" class="header_button">Contact</div>
-    <div id="feedback_button" class="header_button">Feedback</div>
-    <div id="flip_over_button" class="header_button">Flip Over</div>-->
-  </div></div>
-  <div id="left_float_menu"></div>
+  <div id="header_container">
+    <div id="left_brace"></div>
+    <div id="header">
+      <div id="home_button" class="header_button"><a href="index.php">Home</a></div>
+      <div id="find_button" class="header_button"><a href="find.php">Find</a></div>
+      <div id="create_button" class="header_button"><a href="create.php">Create</a></div>
+      <div id="about_button" class="header_button"><a href="about.php">About</a></div>
+      <div id="contact_button" class="header_button"><a href="contact.php">Contact</a></div>
+      <div id="feedback_button" class="header_button"><a href="feedback.php">Feedback</a></div>
+      <div id="flip_over_button" class="header_button"><a href="source.php?file=index.php">Flip Over</a></div>
+    </div>
+    <div id="right_brace"></div>
+  </div>
+  <div id="left_float_menu">
+    <div id="personal_area"></div>
+    <div id="personal_footer"></div>
+    <div id="logo"></div>
+  </div>
   <div id="container">
     <div id="content">
     The page is longer than it would really need to be to allow you to notice how the menu behave when it crosses content or graphics.
@@ -59,8 +56,9 @@ The page is longer than it would really need to be to allow you to notice how th
 Nulla imperdiet, enim non pellentesque imperdiet, nisl lacus condimentum metus, et gravida erat nisl ac nulla. Aliquam semper eleifend massa. Maecenas et eros. Donec nibh sem, laoreet et, consequat vel, vestibulum sit amet, orci. Curabitur semper bibendum neque. Suspendisse potenti. Cras lacinia diam in orci. Nullam orci lacus, placerat et, gravida at, iaculis sit amet, augue. Morbi faucibus. Morbi bibendum. Donec massa. Vivamus ut purus. Nunc nec urna nec diam rutrum lacinia. Ut eu nunc non enim consectetuer hendrerit. Nullam suscipit molestie enim. Proin et felis. Praesent vestibulum interdum est.
 
 In pulvinar. Aenean at mauris. Maecenas volutpat, leo elementum ultrices laoreet, augue purus euismod arcu, vitae tempor urna lectus vitae nisi. Nam aliquet, pede ac fermentum aliquam, libero mauris elementum tellus, a malesuada arcu diam a eros. Aenean ligula. Nunc pharetra. Donec ultrices ultricies quam. Sed fringilla, mi nec gravida rutrum, tortor erat volutpat odio, pharetra egestas neque purus a est. Sed lobortis purus. Nunc in diam in velit consectetuer pellentesque. Nullam facilisis semper augue. Sed ullamcorper magna nec massa. Sed blandit commodo magna. Sed purus dui, cursus nec, interdum at, ullamcorper at, felis. Etiam tempor porta eros.
-
-    </div>
+      <div id="content_footer">About Us | Contact Us | Copyright 2009 Trevor Sayre, Graylin Kim</div>
+    </div>  
+    
   </div>
 </body>
 </html>

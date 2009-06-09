@@ -8,29 +8,54 @@ html,body {margin:0px;padding:0px;height:100%;}
   left:0px;
   width:100%;
   border-bottom:solid black 2px;
-  height:100px;
+  height:37px;
   background:red;
 }
   #header {
-    padding-left:250px;
+    padding-left:275px;
   }
   
     #home_button,#find_button,#create_button,#about_button,#contact_button,#feedback_button,#flip_over_button {
       float:left;
       border:solid black 1px;
       background:lightblue;
-      margin:10px 9px;
+      margin:5px 5px;
+    }
+    
+    #left_brace {
+      position:absolute;
+      z-index:1;
+      left:252px;
+      top:0;
+      width:25px;
+      height:100%;
+      background:purple;
+    }
+    
+    #right_brace {
+      position:absolute;
+      right:0;
+      width:25px;
+      height:100%;
+      background:purple;
     }
     
     .header_button {
-      width:76px;
-      height:26px;
-      line-height:26px;
+      width:70px;
+      height:21px;
+      line-height:21px;
       padding:2px 5px;
       text-align:center;
       background:orange;
       margin:0px;
       font-variant:small-caps;
+    }
+    
+    .header_button a {
+      width:100%;
+      height:100%;
+      text-decoration:inherit;
+      color:inherit;
     }
     
 #left_float_menu {
@@ -44,15 +69,41 @@ html,body {margin:0px;padding:0px;height:100%;}
   height:100%;
 }  
   #logo {
-    width:100%;
+    z-index:2;
+    position:absolute;
+    width:250px;
     height:150px;
+    background:green;
     border-bottom:solid black 2px;
   }
   
-  #binArea {
+  #personal_area {
+    z-index:1;
+    position:absolute;
     width:100%;
+    height:100%;
+    background:black;
   }
   
+    #bin_area {
+      position:absolute;
+      z-index:3;
+      width:240px;
+      margin:160px 5px 10px 5px;
+      height:300px;
+      background:teal;
+    }
+    
+    #personal_footer {
+      position:absolute;
+      bottom:0px;
+      left:0px;
+      z-index:4;
+      width:100%;
+      height:25px;
+      background:red;
+    }
+    
 #container {
   width:100%;
   height:4000px; /*!important;*/
@@ -60,11 +111,22 @@ html,body {margin:0px;padding:0px;height:100%;}
 }
   #content {
     padding-left:252px;
-    padding-top:100px;
-    background:green;
+    padding-top:55px;
     height:auto;  
   }
-
+  
+  #content_footer {
+        font-variant:small-caps;
+        text-align:center;
+        font-size:15px;
+        width:100%;
+        height:25px;
+        line-height:25px;
+        border-top:solid black 1px;
+        margin-top:10px;
+  }
+  
+  
 #left_col {
   float:left;
   width:250px;
@@ -77,6 +139,5 @@ html,body {margin:0px;padding:0px;height:100%;}
   border-left:solid black 2px;
 }
 
-.footer { clear:both; }
 #header_clear {background:blue;height:10px;}  
 #container_clear {border-top:solid black 2px; height:20px;}
