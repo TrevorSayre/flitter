@@ -1,37 +1,39 @@
 <?php
 
-  //require_once("Text/Highlighter.php");
   require_once "geshi.php";
   
-function get_files($dir) {
-  $files = scandir($dir);
-  $file_structure = array();
-  foreach($files as $file) {
-    if($file!='.' && $file!='..' && $file!='.svn' && $file!='images') {
-      $path = "$dir/$file";
-      if( is_dir($path)=='dir')
-        $file_structure[$file] = get_files($path);
-      else
-        $file_structure[$file] = $file;
+  function get_files($dir) {
+    $files = scandir($dir);
+    $file_structure = array();
+    foreach($files as $file) {
+      if($file!='.' && $file!='..' && $file!='.svn' && $file!='images') {
+        $path = "$dir/$file";
+        if( is_dir($path)=='dir')
+          $file_structure[$file] = get_files($path);
+        else
+          $file_structure[$file] = $file;
+      }
     }
+    return $file_structure;
   }
-  return $file_structure;
-}
-
-function tree_view_list($file_struct,$id_it=false, $path='.') {
-  $ret = "";
-  if($id_it == true)  $ret = "<ul id=\"browser\">";
-  else                $ret = "<ul>";
-  foreach($file_struct as $name => $branch ) {
-    if( is_array($branch) )
-      $ret .= "<li><span class=\"folder\">$name</span>".tree_view_list($branch,false,$path."/".$name);
-    else
-      $ret .= "<li><span class=\"file\"><a class=\"file_link\" href=\"source.php?file=$path/$name\">$name</a></span></li>";
-  }
-  $ret .= "</ul>";
-  return $ret;
-}
   
+  function tree_view_list($file_struct,$id_it=false, $path='.') {
+    if($id_it == true)  $ret = "<ul id=\"browser\">";
+    else                $ret = "<ul>";
+    foreach($file_struct as $name => $branch ) {
+      if( is_array($branch) )
+        $ret .= "<li><span class=\"folder\">$name</span>".tree_view_list($branch,false,$path."/".$name);
+      else
+        $ret .= "<li><span class=\"file\"><a class=\"file_link\" href=\"source.php?file=$path/$name\">$name</a></span></li>";
+    }
+    $ret .= "</ul>";
+    return $ret;
+  }
+  
+  
+  /** Need to really do this differently
+   *  RegEx is waaaaay overkill here
+   */
   $file = "";
   if( preg_match('/(.*?)(\w.*)/',$_GET['file'],$matches) )
     $file = $matches[2];
@@ -46,84 +48,29 @@ function tree_view_list($file_struct,$id_it=false, $path='.') {
   $geshi->enable_classes();
   $geshi->set_header_type(GESHI_HEADER_NONE);
   
-  
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
 "http://www.w3.org/TR/html4/strict.dtd"> 
 <html>
-<head>
-<title><?php echo $file; ?></title> 
-<link href="css/highlighter.css" type="text/css" rel="stylesheet" />
-<link type="text/css" rel="stylesheet" href="css/jquery.treeview.css" />
-<link href="css/source.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-1.3.2.js" type="text/javascript"></script>
-<script src="js/jquery.cookie.js" type="text/javascript"></script>
-<script src="js/jquery.treeview.js" type="text/javascript"></script>
-	
-<script>
-  $(document).ready( function() {
-    $("#browser").treeview( { 'collapsed' : true } );
-  });
-</script>
-<style>
-/**
- *  The various values and regex's that these map to can be found in the
- *  corresponding language file on the geshi folder i.e. geshi/php.php
- */  
-/* The main wrapper */
-.php  {font-family:arial; font-size:12px;}
-/* not really sure */
-.php .imp {font-weight: bold; color: red;}
 
-/*Keywords*/
-.php .kw1 { color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-/* Comments */
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-/* Escape Chars */
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-/* Brackets */
-.php .br0 {color: #009900;}
-/* Symbols */
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-/* Strings */
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-/* Numbers */
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-/* Methods */
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-/* Reg Exps */
-.php .re0 {color: #000088;}
-
-/* I don't know what this is for */
-.php span.xtra { display:block; }
-
-</style>
-</head> 
+  <head>
+    <title><?php echo $file; ?></title> 
+    
+    <link type="text/css" rel="stylesheet" href="css/highlighter.css" />
+    <link type="text/css" rel="stylesheet" href="css/jquery.treeview.css" />
+    <link type="text/css" rel="stylesheet" href="css/source.css" />
+    
+    <script src="js/jquery-1.3.2.js" type="text/javascript"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="js/jquery.treeview.js" type="text/javascript"></script>
+    <script src="js/source.js" type="text/javascript"></script>
+  </head> 
 
 <body>
     <div id="header">
       <div id="feedback_button" class="header_button">Feedback</div>
-      <a href="<?php ?>" class="header_link"><div id="flip_over_button" class="header_button">Flip Over</div></a>
+      <a href="#" class="header_link"><div id="flip_over_button" class="header_button">Flip Over</div></a>
       <h1 id="filepath"><?php echo $file; ?></h1>
     </div>
     <div id="left_col">
@@ -208,12 +155,14 @@ function tree_view_list($file_struct,$id_it=false, $path='.') {
             // Reset code to be whats left over for further processing
             $code = $matches[6];              
           }
+          
           if(strlen($code)>0) {
             $geshi->set_source($code);
             $geshi->set_language('html4strict');
             $finalcode .= $geshi->parse_code();
             //echo "\nMatching Ending HTML\n:";//$code\n\n";
           }
+          
         }
         
         $match_string = '/<\/pre>\s*<pre .*?'.'>/';
@@ -236,8 +185,3 @@ function tree_view_list($file_struct,$id_it=false, $path='.') {
     </div>
 </body>
 </html>
-
-
-
-
-
