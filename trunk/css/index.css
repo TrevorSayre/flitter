@@ -1,143 +1,100 @@
 /*CSS Document*/
 
-html,body {margin:0px;padding:0px;height:100%;}
+html,body {margin:0px;padding:0px;height:100%;background:#766537;}
 
-#header_container {
-  position:absolute;
-  top:0px;
-  left:0px;
-  width:100%;
-  border-bottom:solid black 2px;
-  height:37px;
-  background:red;
-}
-  #header {
-    padding-left:275px;
-  }
-  
-    #home_button,#find_button,#create_button,#about_button,#contact_button,#feedback_button,#flip_over_button {
-      float:left;
-      border:solid black 1px;
-      background:lightblue;
-      margin:5px 5px;
-    }
-    
-    #left_brace {
-      position:absolute;
-      z-index:1;
-      left:252px;
-      top:0;
-      width:25px;
-      height:100%;
-      background:purple;
-    }
-    
-    #right_brace {
-      position:absolute;
-      right:0;
-      width:25px;
-      height:100%;
-      background:purple;
-    }
-    
-    .header_button {
-      width:70px;
-      height:21px;
-      line-height:21px;
-      padding:2px 5px;
-      text-align:center;
-      background:orange;
-      margin:0px;
-      font-variant:small-caps;
-    }
-    
-    .header_button a {
-      width:100%;
-      height:100%;
-      text-decoration:inherit;
-      color:inherit;
-    }
-    
-#left_float_menu {
-  position:absolute;
-  background:lightblue;
-  top:0px;
-  left:0px;
-  width:250px;
-  border-right:solid black 2px;
-  
-  height:100%;
-}  
-  #logo {
-    z-index:2;
-    position:absolute;
-    width:250px;
-    height:150px;
-    background:green;
-    border-bottom:solid black 2px;
-  }
-  
-  #personal_area {
-    z-index:1;
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:black;
-  }
-  
-    #bin_area {
-      position:absolute;
-      z-index:3;
-      width:240px;
-      margin:160px 5px 10px 5px;
-      height:300px;
-      background:teal;
-    }
-    
-    #personal_footer {
-      position:absolute;
-      bottom:0px;
-      left:0px;
-      z-index:4;
-      width:100%;
-      height:25px;
-      background:red;
-    }
-    
 #container {
-  width:100%;
-  height:4000px; /*!important;*/
-  background:orange;
+  width:1000px;
+  margin:0px auto;
+  height:100%;
+  border:solid black 2px;
+  background:purple;
 }
-  #content {
-    padding-left:252px;
-    padding-top:55px;
-    height:auto;  
+
+  #global_navigation {
+    float:left;
+    width:200px;
+    background:#592202;
+    height:100%;
+    
   }
   
-  #content_footer {
-        font-variant:small-caps;
-        text-align:center;
-        font-size:15px;
+    #logo {
+      width:200px;
+      height:100px;
+      line-height:100px;
+      font-variant:small-caps;
+      font-size:60px;
+      text-align:center;
+      background:#EEB415;
+      position:absolute;
+      top:0px;
+    }
+    
+    #navigation_links {
+      margin-top:150px;
+    }
+    
+      .navigation_area {
         width:100%;
-        height:25px;
-        line-height:25px;
-        border-top:solid black 1px;
-        margin-top:10px;
+        height:50px;
+        font-variant:small-caps;
+        line-height:50px;
+        text-align:center;
+        font-size:20px;
+        margin:10px 0px;
+        background:#EEB415;
+        display:block;
+        color:black;
+        text-decoration:none;
+      }
+      
+      .navigation_area:hover {
+        background:#bf5b02;
+      }
+      
+      #nav_area_legals {
+        position:absolute;
+        width:200px;
+        bottom:0px;
+      }
+      
+  #section_content {
+    margin-left:200px;
+    width:800px;
+    background:#bf5b02;
+    height:100%;
   }
   
-  
-#left_col {
-  float:left;
-  width:250px;
-  
-}
-
-  
-#right_col {
-  margin-left:252px;
-  border-left:solid black 2px;
-}
-
-#header_clear {background:blue;height:10px;}  
-#container_clear {border-top:solid black 2px; height:20px;}
+    #section_header {
+      width:100%;
+      height:80px;
+      padding: 10px 0px;
+      background:#592202;
+    }
+      
+      #section_logo {
+        position:absolute;
+        width:300px;
+        height:75px;
+        margin-left:25px;
+        font-variant:small-caps;
+        line-height:75px;
+        font-size:35px;
+        color:#EEB415;
+      }
+    
+      #section_navigation {
+        margin-left:300px;
+        margin-right:50px;
+      }
+      
+        .section_nav_link {
+          float:right;
+          text-decoration:none;
+          font-variant:small-caps;
+          line-height:75px;
+          color:#EEB415;
+          text-align:right;
+          width:100px;
+          margin:0px 10px;
+        }
