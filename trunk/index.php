@@ -12,32 +12,16 @@
 
 <body>
   <div id="container">
-    <div id="global_navigation">
-      <div id="logo"></div>
-      <div id="navigation_links">
-        <a href="login.php" class="navigation_area" id="nav_area_login">
-          Login Area
-        </a>
-        <a href="find.php" class="navigation_area" id="nav_area_find">
-          Find
-        </a>
-        <a href="create.php" class="navigation_area" id="nav_area_create">
-          Create
-        </a>
-        <a href="about.php" class="navigation_area" id="nav_area about">
-          About Us
-        </a>
-        <a href="contact.php" class="navigation_area" id="nav_area_contact">
-          Contact Us
-        </a>
-        <a href="devs.php" class="navigation_area" id="nav_area_devs">
-          Developers
-        </a>
-        <a href="legals.php" class="navigation_area" id="nav_area_legals">
-          Legal Docs
-        </a>
-      </div>
-    </div>
+    <?php load_template("global_navigation.tmpl", array( 'site_logo' => 'Flitter', 
+                                                         'active_section' => 'About', 
+                                                         'button_class' => 'navigation_area',
+                                                         'buttons' => array('login'   =>'Login Area',
+                                                                            'find'    =>'Find',
+                                                                            'create'  =>'Create',
+                                                                            'about'   =>'About',
+                                                                            'contact' =>'Contact',
+                                                                            'devs'    =>'Developers',
+                                                                            'legals'  =>'Legal Docs') ) ); ?>
     <div id="section_content">
       
       <div id="section_header">

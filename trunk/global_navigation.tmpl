@@ -1,0 +1,12 @@
+    <div id="global_navigation">
+      <div id="logo"><?=$template['site_logo']; ?></div>
+      <div id="navigation_links">
+        <?php
+          foreach( $template['buttons'] as $button_name => $button_label )
+            echo "
+              <a href=\"$button_name.php\" class=\"".$template['button_class']."\" id=\"".$template['button_class']."_$button_name\">
+                $button_label
+              </a>";
+        ?>
+      </div>
+    </div>
