@@ -1,5 +1,7 @@
 <?php 
   require_once "templates.php";
+  $templater = new Templater();
+  
   ($_GET['area']=="") ? $area = 'about' : $area = strtolower($_GET['area']);  
   
   $global_nav = $templater->load_template(  "global_nav",

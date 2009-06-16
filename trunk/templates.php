@@ -1,17 +1,45 @@
 <?php
-
-//This function checks a template file for errors
-//Includes it if everything checks out
-//Takes template_name -> string with the relative path of the template file
-//      template -> an array (name => value) of variables for template usage
-//      show_warnings if they want
-
+/** The Templater Class
+ *  
+ *  Used to string together different template files. 
+ *   
+ *  To use, create an instance of the templater:
+ *    $templater = new Templater();
+ *   
+ *  Then, *before* the HTML doc starts load up the templates
+ *  That you would like to use like below
+ *    $section_header = $templater->load_template(  "section_header",
+                              array(  'name' => 'section_header.tmpl',
+                                      'heading' => 'What is Flitter?',
+                                      'sublinks' => array( 'Sublink1' => '#',
+                                                           'Sublink2' => '#',
+                                                           'Sublink3' => '#' ),
+                                      'sublink_class' => 'section_nav_link') );
+ *  The second arguement to load template is an array of template variables
+ *  
+ *  The name variable is reserved for the filename of the template and must
+ *  be included in the template arguements: 'name' => 'section_header.tmpl'
+ *  
+ *  All other fields should map to values used in the templates themselves  
+ */
 class Templater {
+
+  //This flag determines whether warnings are dumped out when
+  //templater encounters a fatal error (such as a missing file)
   public  $dump_warnings;
+  
+  //Holds the generated warnings until a dump is requested
   private $warnings;
+  
+  //These arrays hold the script and style links for the html header
+  //This storage is required so they can be dumped out before the 
+  //display code is sent to the broswer
   private $scripts;
   private $styles;
   
+  /**
+   *  Constructor to provide default values for the class
+   */     
   function __construct() {
     $this->dump_warnings = true;
     $this->warnings = array();
@@ -20,19 +48,27 @@ class Templater {
   }
   
   //Get the path of the current file in pretty form for viewing
+  //It just has an akward backslash sometimes that I want to get rid of
   private function get_pretty_path() {
     $path = dirname($_SERVER['PHP_SELF']);
     if (substr($path,-1)=='\\') $path = substr($path,0,count($path)-1);
     return $path;
   }
   
+  //This function allows a user to request a warning dump
   public function show_warnings() {
-    //If they want to see the warnings then show them here
-      echo "<b>Showing ".count($this->warnings)." Warnings:</br>".implode("<br/>\n",$this->warnings)."<br/></b>";
+      echo "<b>Showing ".count($this->warnings)." Warnings:</br>\n".implode("<br/>\n",$this->warnings)."<br/>\n</b>";
   }
   
+  /**This function loads a template file and returns its <HTML> output
+  * $label is used only for debugging purposes to differentiate different
+  * instances of the same template in a file (it might be useful)
+  *
+  * $template is an array of variables for the template and must include
+  * 'name' => template_file_name so that the function knows where to find
+  * the template you want it to load.
+  */       
   public function load_template( $label, $template ) {
-  
     //Make sure they supplied a template name
     if( !array_key_exists('name',$template) ) {
       if ($this->dump_warnings) $this->show_warnings();
@@ -55,29 +91,25 @@ class Templater {
       if( !array_key_exists($match,$template) )
         array_push($this->warnings,"\"$match\" variable value was not supplied to $label");
     } 
-      
-    preg_match('/<!\-\-REQUIRED_FILES(.*?)\-\->/s',$contents,$matches);
-    preg_match_all("/(stylesheet|javascript) ([\w\/\.\-]+)/s",$matches[1],$matches);
     
-    for($i=0; $i<count($matches[0]); $i++) {
-      switch($matches[1][$i]) {
-        case 'javascript':$filename='js/'.$matches[2][$i].'.js';break;
-        case 'stylesheet':$filename='css/'.$matches[2][$i].'.css';break;
-      }
-      if( file_exists($filename) ) array_push( $this->req_files, $filename );
-      else array_push($this->warnings,"\"$filename\" required file cannot be found for $label");
-    }
-    
-    //Return the output from evaluating the template
+    /**
+     *  Here we are setting up an output buffer to hold the output from the
+     *  template file.  We then retreive the buffer contents and clear to so
+     *  it does not get sent to the server until we wish for it to.
+     */         
     ob_start();
     eval("?".">".file_get_contents($template['name']));
     $ret = ob_get_contents();
     ob_clean();
     return $ret;
-    //This throws the file contents into our page after we've checked everything out
-    //include $template['name'];
   }
   
+  /**
+   *  Use this function in template files to add css and js links
+   *  into the header section of the main template.  This output is
+   *  not automatic.  Use the linking_code() function in the header
+   *  to output the code you need for linking.         
+   */     
   public function add_link($file,$type) {
     if( file_exists($file) ) {
       if( $type == "js") 
@@ -89,15 +121,16 @@ class Templater {
       array_push($this->warnings,"\"$filename\" required file cannot be found");
   }
   
+  /**
+   *  This function will dump out the code needed to link all of
+   *  the files that embedded templates have said that they require   
+   */     
   public function linking_code() {
     foreach($this->styles as $file)
       echo "<link href=\"$file\" type=\"text/css\" rel=\"stylesheet\" />\n";
     foreach($this->scripts as $file)
       echo "<script src=\"$file\" type=\"text/javascript\"></script>\n";
   }
-  
 };
 
-$templater = new Templater();
-$templater->warnings_on = true;
 ?>
