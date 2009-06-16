@@ -1,0 +1,35 @@
+/* CSS Document */
+
+    #section_header {
+      width:100%;
+      height:80px;
+      padding: 10px 0px;
+      background:#592202;
+    }
+      
+      #section_logo {
+        position:absolute;
+        width:300px;
+        height:75px;
+        margin-left:25px;
+        font-variant:small-caps;
+        line-height:75px;
+        font-size:35px;
+        color:#EEB415;
+      }
+    
+      #section_navigation {
+        margin-left:300px;
+        margin-right:50px;
+      }
+      
+        .section_nav_link {
+          float:right;
+          text-decoration:none;
+          font-variant:small-caps;
+          line-height:75px;
+          color:#EEB415;
+          text-align:right;
+          width:100px;
+          margin:0px 10px;
+        }
