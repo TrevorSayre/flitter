@@ -1,4 +1,6 @@
 <?php
+$time_start = microtime(true); // seconds as float
+
 include("auth/include/session.php");
 // is the user not logged in?
 if(!$session->logged_in){
@@ -11,19 +13,25 @@ if(!$session->logged_in){
 else {
   // set the session variables to something more useful
   $name = $session->username;
-  ?>
-  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
-  "http://www.w3.org/TR/html4/strict.dtd">
-  <html>
-  <head>
-  <title>Secret Page</title>
-  </head>
-  <body>
-  This page required you to login.  You're logged in.<br />
-  Welcome to Flitter, <strong><? echo $name; ?></strong>!<br />
-  <a href="auth/login.php">Login Info</a><br />
-  <a href="index.php">Index Page</a><br />
-  <a href="auth/logout.php">Logout</a>
-  </body>
-  </html>
-<?php } ?>
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Secret Page</title>
+</head>
+<body>
+This page required you to login.  You're logged in.<br />
+Welcome to Flitter, <strong><? echo $name; ?></strong>!<br />
+<a href="auth/login.php">Login Info</a><br />
+<a href="index.php">Index Page</a><br />
+<a href="auth/logout.php">Logout</a>
+</body>
+</html>
+<?php } 
+
+$time_end = microtime(true);
+echo "<p>This page took ";
+echo number_format( ($time_end - $time_start), 4);
+echo " seconds to load.";
+?>
