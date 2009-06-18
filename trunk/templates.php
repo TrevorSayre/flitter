@@ -97,8 +97,11 @@ class Templater {
      *  template file.  We then retreive the buffer contents and clear to so
      *  it does not get sent to the server until we wish for it to.
      */         
+    foreach($GLOBALS as $key => $value) { global $key; }
     ob_start();
     eval("?".">".file_get_contents($template['name']));
+    #include $template['name'];
+    #include "auth/login.php";
     $ret = ob_get_contents();
     ob_clean();
     return $ret;

@@ -6,9 +6,9 @@
  * track of logged in users and also guests.
  *
  */
-include("database.php");
-include("mailer.php");
-include("form.php");
+include_once "database.php";
+include_once "mailer.php";
+include_once "form.php";
 
 class Session
 {
@@ -30,6 +30,7 @@ class Session
    function Session(){
       $this->time = time();
       $this->startSession();
+      
    }
 
    /**
@@ -40,7 +41,8 @@ class Session
     * update the active visitors tables.
     */
    function startSession(){
-      global $database;  //The database connection
+      $database = $GLOBALS['database'];  //The database connection
+      //global $database;
       session_start();   //Tell PHP to start the session
 
       /* Determine if user is logged in */
@@ -452,9 +454,10 @@ class Session
  * the form object because the form uses session variables,
  * which cannot be accessed unless the session has started.
  */
+global $session;
 $session = new Session;
 
 /* Initialize form object */
+global $form;
 $form = new Form;
-
 ?>

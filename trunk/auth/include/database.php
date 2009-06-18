@@ -6,7 +6,7 @@
  * information from the website's database.
  *
  */
-include("constants.php");
+include_once "constants.php";
       
 class MySQLDB
 {
@@ -286,6 +286,7 @@ class MySQLDB
 };
 
 /* Create database connection */
+global $database;
 $database = new MySQLDB;
 
 ?>
