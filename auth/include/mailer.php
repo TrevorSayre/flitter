@@ -17,9 +17,9 @@ class Mailer
     */
    function sendWelcome($user, $email, $pass){
       $from = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM_ADDR.">";
-      $subject = "Jpmaster77's Site - Welcome!";
+      $subject = "Flitter - Welcome!";
       $body = $user.",\n\n"
-             ."Welcome! You've just registered at Jpmaster77's Site "
+             ."Welcome! You've just registered at Flitter "
              ."with the following information:\n\n"
              ."Username: ".$user."\n"
              ."Password: ".$pass."\n\n"
@@ -28,7 +28,7 @@ class Mailer
              ."email address, if you would like to change your "
              ."email address you can do so by going to the "
              ."My Account page after signing in.\n\n"
-             ."- Jpmaster77's Site";
+             ."- The Flitter Team";
 
       return mail($email,$subject,$body,$from);
    }
@@ -40,18 +40,18 @@ class Mailer
     */
    function sendNewPass($user, $email, $pass){
       $from = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM_ADDR.">";
-      $subject = "Jpmaster77's Site - Your new password";
+      $subject = "Flitter - Your new password";
       $body = $user.",\n\n"
              ."We've generated a new password for you at your "
              ."request, you can use this new password with your "
-             ."username to log in to Jpmaster77's Site.\n\n"
+             ."username to log in to Flitter.\n\n"
              ."Username: ".$user."\n"
              ."New Password: ".$pass."\n\n"
              ."It is recommended that you change your password "
              ."to something that is easier to remember, which "
              ."can be done by going to the My Account page "
              ."after signing in.\n\n"
-             ."- Jpmaster77's Site";
+             ."- The Flitter Team";
              
       return mail($email,$subject,$body,$from);
    }
