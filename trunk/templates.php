@@ -68,7 +68,7 @@ class Templater {
   * 'name' => template_file_name so that the function knows where to find
   * the template you want it to load.
   */       
-  public function load_template( $label, $template ) {
+  public function load_template( $label, $template, $base = false ) {
     //Make sure they supplied a template name
     if( !array_key_exists('name',$template) ) {
       if ($this->dump_warnings) $this->show_warnings();
@@ -97,13 +97,12 @@ class Templater {
      *  template file.  We then retreive the buffer contents and clear to so
      *  it does not get sent to the server until we wish for it to.
      */         
-    foreach($GLOBALS as $key => $value) { global $key; }
-    ob_start();
-    eval("?".">".file_get_contents($template['name']));
+    foreach($GLOBALS as $key => $value) { global $$key; }
+    if($base) ob_start();
+    eval(" global \$templater; ?".">".file_get_contents($template['name']));
     #include $template['name'];
-    #include "auth/login.php";
-    $ret = ob_get_contents();
-    ob_clean();
+    if($base) $ret = ob_get_contents();
+    if($base) ob_clean();
     return $ret;
   }
   
