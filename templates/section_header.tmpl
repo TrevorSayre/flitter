@@ -1,0 +1,13 @@
+<?php
+  $this->add_link('css/section_header.css','css');
+?>
+      <div id="section_header">
+        <div id="section_logo"><?=$template['heading'];?></div>
+        <?php
+          echo "<div id=\"section_navigation\">";
+          foreach( $template['sublinks'] as $sublink => $sublink_href )
+            echo "
+              <a href=\"$sublink_href\" class=\"".$template['sublink_class']."\">$sublink</a>";
+          echo "</div>";
+        ?>
+      </div>

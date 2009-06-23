@@ -44,7 +44,7 @@ class Process
        * by mistake and therefore is redirected.
        */
        else{
-          header("Location: login.php");
+          header("Location: ../account/login.php");
        }
    }
 
@@ -66,13 +66,13 @@ class Process
 		    unset($_SESSION['login_ref']);
 		    header("Location: ".$login_ref);
 		 }
-		 else header("Location: index.php");
+		 else header("Location: ../index.php");
       }
       /* Login failed */
       else{
          $_SESSION['value_array'] = $_POST;
          $_SESSION['error_array'] = $form->getErrorArray();
-         header("Location: login.php");
+         header("Location: ../account/login");
       }
    }
    

@@ -1,0 +1,16 @@
+<?php
+include("auth/include/session.php");
+// is the user not logged in?
+if(!$session->logged_in){
+  // set the referrer for redirection from future pages
+  $_SESSION['login_ref'] = '..'.$_SERVER['REQUEST_URI'];
+  // throw this user to a login page, they shouldn't be here
+  header("Location: account/login");
+}
+// the user is logged in
+else {
+  // set the session variables to something more useful
+  $name = $session->username;
+?>
+This is the Create area
+<?php } ?>

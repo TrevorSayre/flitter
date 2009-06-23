@@ -7,33 +7,17 @@
  * can't register another name.
  *
  */
-require_once "include/session.php";
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
-"http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<title>Registration Page</title>
-<body>
-
-<?php
-/**
- * The user is already logged in, not allowed to register.
- */
-if($session->logged_in){
-   echo "<h1>Registered</h1>";
-   echo "<p>We're sorry <b>$session->username</b>, but you've already registered. "
-       ."<a href=\"login.php\">Main</a>.</p>";
-}
+require_once "auth/include/session.php";
 /**
  * The user has submitted the registration form and the
  * results have been processed.
  */
-else if(isset($_SESSION['regsuccess'])){
+if(isset($_SESSION['regsuccess'])){
    /* Registration was successful */
    if($_SESSION['regsuccess']){
       echo "<h1>Registered!</h1>";
       echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database, "
-          ."you may now <a href=\"login.php\">log in</a>.</p>";
+          ."you may now <a href=\"account/login\">log in</a>.</p>";
    }
    /* Registration failed */
    else{
@@ -51,15 +35,12 @@ else if(isset($_SESSION['regsuccess'])){
  * be changed.
  */
 else{
+  echo "<h1>Register</h1>";
+  if($form->num_errors > 0){
+     echo "<td><font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
+  }
 ?>
-
-<h1>Register</h1>
-<?php
-if($form->num_errors > 0){
-   echo "<td><font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
-}
-?>
-<form action="process.php" method="POST">
+<form action="auth/process.php" method="POST">
 <table align="left" border="0" cellspacing="0" cellpadding="3">
 <tr><td>Username:</td><td><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"></td><td><?php echo $form->error("user"); ?></td></tr>
 <tr><td>Password:</td><td><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"></td><td><?php echo $form->error("pass"); ?></td></tr>
@@ -67,13 +48,10 @@ if($form->num_errors > 0){
 <tr><td colspan="2" align="right">
 <input type="hidden" name="subjoin" value="1">
 <input type="submit" value="Join!"></td></tr>
-<tr><td colspan="2" align="left"><a href="login.php">Back to Login</a></td></tr>
+<tr><td colspan="2" align="left"><a href="account/login">Back to Login</a></td></tr>
 </table>
 </form>
 
 <?php
 }
 ?>
-
-</body>
-</html>

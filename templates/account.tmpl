@@ -1,0 +1,43 @@
+<?php   
+  include("auth/include/session.php");
+ 
+/********************************************
+ *        Set Up and Load Header Tmpl       *
+ ********************************************/
+  //Set Up for a Logged In User
+  if($session->logged_in) {
+    $tasks = array( 'Logout'        => 'auth/process.php',
+                    'My Activities' => 'account/activities',
+                    'Edit Account'  => 'account/edit',
+                    'Manage Events' => 'account/manage',
+                    'Home'          => 'account/home' );  
+    ($_GET['task']=="") ? $task = 'home' : $task = $_GET['task'];
+  }
+  //Set Up for a Logged out User
+  else {
+    $tasks = array( 'Login'         => 'account/login',
+                    'Forgot Pass'   => 'account/forgotpass',
+                    'Why'           => 'account/why',
+                    'Register'      => 'account/register' );
+    ($_GET['task']=="") ? $task = 'login' : $task = $_GET['task'];  
+  }
+
+  //Make sure that the URL specified task is legit
+  if( !in_array("account/$task",$tasks) )
+    die("Error: $task is not available in accounts for when logged_in is $session->logged_in");
+  
+  //Load the appropriate template
+  echo $templater->load_template( "accounts_header",
+                           array( 'name' => 'templates/section_header.tmpl',
+                                  'heading' => 'Personal Account',
+                                  'sublinks' => $tasks,
+                                  'active_tab' => "accounts/$task",
+                                  'sublink_class' => 'section_nav_link') );
+
+/*****************************************************
+ *  Determine Login Status and Load Up Display Tmpl  *
+ *****************************************************/
+  echo $templater->load_template( "accounts_$task",
+                           array( 'name' => "templates/account_$task.tmpl",
+                                  'detail' => $_GET['detail']) );
+?>
