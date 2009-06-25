@@ -2,4 +2,4 @@ RewriteEngine On
 RewriteBase /
 
 RewriteRule ^account/?(\w*)?/?(\w*)?/?$ index.php?http_area=account&http_task=$1&detail=$2 [L]
-RewriteRule ^(\w+)$ index.php?area=$1 [L]
+RewriteRule ^(\w+)$ index.php?http_area=$1 [L]
