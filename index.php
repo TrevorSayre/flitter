@@ -1,52 +1,35 @@
 <?php 
-  require_once "templates.php";
+  require_once "php/templates.php";
   $templater = new Templater();
+  $templater->set_app_root("/flitter/");
   
-  ($_GET['area']=="") ? $area = 'about' : $area = strtolower($_GET['area']);  
-  $global_nav = $templater->load_template(  "global_nav",
-                              array(  'name' => 'templates/global_navigation.tmpl',
-                                      'active_section' => $area,
-                                      'active_section_class' => 'navigation_area_active', 
-                                      'button_class' => 'navigation_area',
-                                      'buttons' => array('account'      =>'Accounts',
-                                                        'find'        =>'Find',
-                                                        'create'      =>'Create',
-                                                        'about'       =>'About',
-                                                        'contact'     =>'Contact',
-                                                        'developers'  =>'Developers',
-                                                        'legals'      =>'Legal Docs') ), true ); 
+  //Rest of paths are relative to the app root here
+  $ext = dirname($_SERVER['SCRIPT_NAME']);
+  if($ext=='\\') $ext='/';
+  $templater->set_http_root("http://".$_SERVER['SERVER_NAME'].$ext);
+  $templater->set_tmpl_root("tmpl/");
+  $templater->set_css_root("css/");
+  $templater->set_js_root("js/");
+  $templater->set_php_root("php/");
   
-  $section_content = $templater->load_template(  "section_content",
-                              array( 'name' => 'templates/'.$area.'.tmpl' ), true );
-
+  //Default Page title, can be overridden by loaded template files
+  $templater->page_title = "Flitter";
+  
+  //Load our layout into the body variable
+  //3 Args - Name Relative to tmpl_root, args to pass, and use output buffers
+  $body_tmpl_name = 'index';
+  //Pass $_GET args through but allow for manual override
+  $body_tmpl_args = array()+$_GET;
+  $body = $templater->load_template( $body_tmpl_name,  $body_tmpl_args, "body", true );
+  
+  //Now that the page has been processed produce the header
+  $head_tmpl_name = 'head';
+  //Pass $_GET args through but allow for manual override
+  $head_tmpl_args = array()+$_GET;
+  $head = $templater->load_template(  $head_tmpl_name, array(), "head", true ); 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" 
-"http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-
-<head>
-  <base href="http://<?php echo $_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']; ?>">
-  <title>Flitter</title>
-  <link href="css/index.css" type="text/css" rel="stylesheet" />
-  <script src="js/jquery-1.3.2.js" type="text/javascript"></script>
-  <script src="js/index.js" type="text/javascript"></script>
-  <?php $templater->linking_code(); ?>
-</head>
-
-<body>
-  <div id="container">
-    
-    <?php //Global Navigation Include
-      echo $global_nav;
-    ?>
-
-    <div id="section_content">
-      <?php //Section Content Include
-        echo $section_content;
-      ?>
-    </div>
-    
-  </div>
-  
-</body>
+  <?=$head?> <!-- php shorthand for echo -->
+  <?=$body?>
 </html>
