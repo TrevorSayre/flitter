@@ -1,5 +1,7 @@
 <?php
-  $this->add_link('css/section_header.css','css');
+  #USED_GLOBALS session END_GLOBALS#
+  $templater->php_link("session");
+  $templater->add_style("section_header");
 ?>
       <div id="section_header">
         <div id="section_logo"><?=$template['heading'];?></div>
@@ -7,7 +9,7 @@
           echo "<div id=\"section_navigation\">";
           foreach( $template['sublinks'] as $sublink => $sublink_href )
             echo "
-              <a href=\"$sublink_href\" class=\"".$template['sublink_class']."\">$sublink</a>";
+              <a $templater->add_link($sublink_href) class=\"".$template['sublink_class']."\">$sublink</a>";
           echo "</div>";
         ?>
       </div>

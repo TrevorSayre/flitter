@@ -1,0 +1,9 @@
+<?php
+require_once "auth/include/session.php";
+if(!$session->logged_in){
+  header("Location: login");
+}
+else {
+header("Location: ../auth/process.php");
+}
+?>
