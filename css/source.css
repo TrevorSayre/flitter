@@ -9,6 +9,7 @@ pre { margin:0px; padding:0px; }
   border-bottom: 2px solid black;
   background:gold;
   width:100%;
+  -moz-border-radius:10px 0px 0px 0px;
 }
       #feedback_button,#flip_over_button {
         float:right;

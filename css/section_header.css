@@ -5,11 +5,12 @@
       height:80px;
       padding: 10px 0px;
       background:#592202;
+      -moz-border-radius:10px 0px 0px 0px;
     }
       
       #section_logo {
         position:absolute;
-        width:300px;
+        width:350px;
         height:75px;
         margin-left:25px;
         font-variant:small-caps;

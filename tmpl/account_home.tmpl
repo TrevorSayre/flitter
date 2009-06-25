@@ -1,14 +1,15 @@
 <?php
-  require_once "auth/include/session.php";
+  #USED_GLOBALS session END_GLOBALS#
+  $templater->php_link("session");
   
   echo "<h1>Logged In</h1>";
   echo "Welcome <b>$session->username</b>, you are logged in. <br><br>"
-     ."[<a href=\"userinfo.php?user=$session->username\">My Account</a>] &nbsp;&nbsp;"
-     ."[<a href=\"useredit.php\">Edit Account</a>] &nbsp;&nbsp;";
+     ."[<a ".$templater->http_link("userinfo.php?user=$session->username").">My Account</a>] &nbsp;&nbsp;"
+     ."[<a ".$templater->http_link("useredit.php").">Edit Account</a>] &nbsp;&nbsp;";
   if($session->isAdmin()){
     echo "[<a href=\"admin/admin.php\">Admin Center</a>] &nbsp;&nbsp;";
   }
-  echo "[<a href=\"process.php\">Logout</a>]";
+  echo "[<a ".$templater->http_link("account/logout").">Logout</a>]";
   
   
 ?>

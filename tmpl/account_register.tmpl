@@ -18,7 +18,7 @@ if(isset($_SESSION['regsuccess'])){
    if($_SESSION['regsuccess']){
       echo "<h1>Registered!</h1>";
       echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database, "
-          ."you may now <a href=\"account/login\">log in</a>.</p>";
+          ."you may now <a ".$templater->http_link("account/login").">log in</a>.</p>";
    }
    /* Registration failed */
    else{
@@ -49,7 +49,7 @@ else{
 <tr><td colspan="2" align="right">
 <input type="hidden" name="subjoin" value="1">
 <input type="submit" value="Join!"></td></tr>
-<tr><td colspan="2" align="left"><a <?=$templater->add_link("account/login")?> >Back to Login</a></td></tr>
+<tr><td colspan="2" align="left"><a <?=$templater->http_link("account/login")?> >Back to Login</a></td></tr>
 </table>
 </form>
 

@@ -1,13 +1,13 @@
 <?php
   $templater->add_style("header");
   
-  echo "<div id=\"nav_bar\">";
+  echo "<ul id=\"nav_bar\">";
   foreach($template['sections'] as $section => $label) {
     echo "
-      <a ".$templater->add_link($section)." class=\"section_link\" id=\"section_link_$section\">
+      <li><a ".$templater->http_link($section)." class=\"section_link\" id=\"section_link_$section\">
         $label
-      </a>";
+      </a></li>";
   }  
-  echo "</div>
+  echo "</ul>
         <div style=\"clear:both;\"></div>";
 ?>

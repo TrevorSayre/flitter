@@ -11,14 +11,17 @@
   
   $header = $templater->load_template(  
                 'header',
-                array(  'sections' => array('account'     =>'Accounts',
-                                            'find'        =>'Find',
-                                            'create'      =>'Create',
-                                            'about'       =>'About',
-                                            'contact'     =>'Contact',
-                                            'developers'  =>'Developers',
-                                            'source/index.php'      =>'Source Code',
-                                            'legals'      =>'Legal Docs') ),
+                array(  'sections' => array( 'account'           =>'Accounts',
+//                                                    'account/login'          =>'Login',
+//                                                    'account/'
+//                                                  )
+                                            'find'              =>'Find',
+                                            'create'            =>'Create',
+                                            'about'             =>'About',
+                                            'contact'           =>'Contact',
+                                            'developers'        =>'Developers',
+                                            'source/index.php'  =>'Source Code',
+                                            'legals'            =>'Legal Docs') ),
                 'header');
                 
   $content = $templater->load_template(

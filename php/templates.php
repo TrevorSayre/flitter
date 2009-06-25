@@ -165,25 +165,7 @@ class Templater {
       echo "<script src=\"$file\" type=\"text/javascript\"></script>\n";
   }
   
-  public function set_app_root($root) {
-    $this->app_root = $root;
-  }
-  public function set_tmpl_root($root) {
-    $this->tmpl_root = $root;
-  }
-  public function set_css_root($root) {
-    $this->css_root = $root;
-  }
-  public function set_js_root($root) {
-    $this->js_root = $root;
-  }
-  public function set_http_root($root) {
-    $this->http_root = $root;
-  }
-  public function set_php_root($root) {
-    $this->php_root = $root;
-  }
-  public function add_link($link) {
+  public function http_link($link) {
     return " href=\"$this->http_root$link\" ";
   }
   public function php_link($link) {

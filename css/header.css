@@ -3,13 +3,23 @@
 
 #nav_bar {
   float:right;
-  padding:9px;
-  margin-top:10px;
-  background:darkblue;
-  border:solid black 1px;
+  padding:4px 4px 0px 4px;
+  background:lightblue;
+  border:solid black;
+  border-width:1px 1px 0px 1px;
+  margin:50px -2px 0px 0px;
+  -moz-border-radius:10px 10px 0px 0px;
 }
-  
-  .section_link {
-    margin:0px 5px;
-    color:gold;
+  #nav_bar li {
+    float:left;
+    list-style:none;
+    padding:5px;
+    background:gold;
+    -moz-border-radius:10px 10px 0px 0px;
+    text-align:center;
+    margin:3px 3px 0px 3px;
+  }
+  #nav_bar li a {
+    text-decoration:none;
+    color:inherit;
   }
