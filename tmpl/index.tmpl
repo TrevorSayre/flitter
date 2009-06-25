@@ -8,40 +8,42 @@
   else
     $area = strtolower($template['http_area']); //User Requested
   
-  $gn_tmpl_name = 'global_navigation';
-  $gn_tmpl_args = array(  'active_section' => $area,
-                          'active_section_class' => 'navigation_area_active', 
-                          'button_class' => 'navigation_area',
-                          'buttons' => array( 'account'     =>'Accounts',
-                                              'find'        =>'Find',
-                                              'create'      =>'Create',
-                                              'about'       =>'About',
-                                              'contact'     =>'Contact',
-                                              'developers'  =>'Developers',
-                                              'legals'      =>'Legal Docs') )+$template;
-  $global_nav = $templater->load_template(  $gn_tmpl_name, $gn_tmpl_args, "global_nav" );
   
-  $sc_tmpl_name = $area;
-  $sc_tmpl_args = array()+$template;
-  $section_content = $templater->load_template( $sc_tmpl_name, $sc_tmpl_args, "section_content" );
+  $header = $templater->load_template(  
+                'header',
+                array(  'sections' => array('account'     =>'Accounts',
+                                            'find'        =>'Find',
+                                            'create'      =>'Create',
+                                            'about'       =>'About',
+                                            'contact'     =>'Contact',
+                                            'developers'  =>'Developers',
+                                            'source/index.php'      =>'Source Code',
+                                            'legals'      =>'Legal Docs') ),
+                'header');
+                
+  $content = $templater->load_template(
+                $area,
+                array(),
+                $area);
+                
+  $footer = $templater->load_template(
+                'footer',
+                array(  'links' => array( 'link1'   => 'Link 1',
+                                          'link2'   => 'Link 2',
+                                          'link3'   => 'Link 3',
+                                          'link4'   => 'Link 4',
+                                          'link5'   => 'Link 5' ) ),
+                'footer');
 ?>
 
 <body>
-
   <div id="container">
-    
-    <?php
-      //Global Navigation Include
-      echo $global_nav;
-    ?>
-
-    <div id="section_content">
-      <?php 
-        //Section Content Include
-        echo $section_content;
-      ?>
+    <div id="logo">
+      Flitter.to
     </div>
-    
+    <div id="header"><?=$header?></div>
+    <div id="content"><?=$content?></div>
+    <div id="footer"><?=$footer?></div>
   </div>
   
 </body>

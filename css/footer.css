@@ -1,0 +1,13 @@
+/* CSS Document */
+
+#footer_bar {
+  margin:0px; auto;
+  text-align:center;
+  padding:5px;
+}
+
+  .footer_link {
+    color:black;
+    margin:0px 12px;
+    
+  }

@@ -1,12 +1,14 @@
 /* CSS Document */
 
-body { background:lightyellow; padding:0px; margin:0px; font-family:arial; }
 pre { margin:0px; padding:0px; }
 
-#header {
+#source_shell { padding-bottom:20px; }
+#left_col,#code_col,.header_button { -moz-border-radius:0px; }
+
+#section_header {
   border-bottom: 2px solid black;
   background:gold;
-  min-width:800px;
+  width:100%;
 }
       #feedback_button,#flip_over_button {
         float:right;
@@ -32,17 +34,16 @@ pre { margin:0px; padding:0px; }
       
 #left_col {
   padding:10px;
-  width:230px;
+  width:200px;
   float:left;
 }
       a.file_link {text-decoration:none; color:black;}
       
 #code_col {
+  margin-top:20px;
   padding:0px 0px 0px 0px;
   margin-left:282px;
   border-left:solid black 2px;
-  background:lightblue;
-  border-bottom:solid black 2px;
 }
     #code {
       margin-top:0px;
@@ -53,6 +54,5 @@ pre { margin:0px; padding:0px; }
       margin:0px;
       padding:0px 0px 0px 3px;
       border-left:solid black 1px;
-      background:lightgreen;
       min-width:465px;
     }

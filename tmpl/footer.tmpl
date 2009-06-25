@@ -1,0 +1,13 @@
+<?php
+  $templater->add_style("footer");  
+?>
+<div id="footer_bar">
+<?php  
+  foreach($template['links'] as $target => $label) {
+    echo "
+      |<a ".$templater->add_link($target)." class=\"footer_link\" id=\"section_link_$target\">
+        $label
+      </a>|";
+  }  
+?>
+</div>
