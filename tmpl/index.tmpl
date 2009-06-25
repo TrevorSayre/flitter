@@ -1,0 +1,47 @@
+<?php
+  $templater->add_script("jquery-1.3.2");
+  $templater->add_script("index");
+  $templater->add_style("index");
+  
+  if($template['http_area']=="")
+    $area = 'about';  //Default
+  else
+    $area = strtolower($template['http_area']); //User Requested
+  
+  $gn_tmpl_name = 'global_navigation';
+  $gn_tmpl_args = array(  'active_section' => $area,
+                          'active_section_class' => 'navigation_area_active', 
+                          'button_class' => 'navigation_area',
+                          'buttons' => array( 'account'     =>'Accounts',
+                                              'find'        =>'Find',
+                                              'create'      =>'Create',
+                                              'about'       =>'About',
+                                              'contact'     =>'Contact',
+                                              'developers'  =>'Developers',
+                                              'legals'      =>'Legal Docs') )+$template;
+  $global_nav = $templater->load_template(  $gn_tmpl_name, $gn_tmpl_args, "global_nav" );
+  
+  $sc_tmpl_name = $area;
+  $sc_tmpl_args = array()+$template;
+  $section_content = $templater->load_template( $sc_tmpl_name, $sc_tmpl_args, "section_content" );
+?>
+
+<body>
+
+  <div id="container">
+    
+    <?php
+      //Global Navigation Include
+      echo $global_nav;
+    ?>
+
+    <div id="section_content">
+      <?php 
+        //Section Content Include
+        echo $section_content;
+      ?>
+    </div>
+    
+  </div>
+  
+</body>

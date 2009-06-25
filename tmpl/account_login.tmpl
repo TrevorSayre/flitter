@@ -1,5 +1,6 @@
 <?php 
-  require_once "auth/include/session.php";
+  #USED_GLOBALS session,form,database END_GLOBALS#
+  $templater->php_link("session");
 
   echo "<h1>Login</h1>";
 
@@ -26,8 +27,8 @@ if(isset($_SESSION['login_ref'])) {
 <font size="2">Remember me next time &nbsp;&nbsp;&nbsp;&nbsp;
 <input type="hidden" name="sublogin" value="1">
 <input type="submit" value="Login"></td></tr>
-<tr><td colspan="2" align="left"><br><font size="2">[<a href="account/forgotpass">Forgot Password?</a>]</font></td><td align="right"></td></tr>
-<tr><td colspan="2" align="left"><br>Not registered? <a href="account/register">Sign-Up!</a></td></tr>
+<tr><td colspan="2" align="left"><br><font size="2">[<a <?=$templater->add_link("account/forgotpass")?> >Forgot Password?</a>]</font></td><td align="right"></td></tr>
+<tr><td colspan="2" align="left"><br>Not registered? <a <?=$templater->add_link("account/register")?> >Sign-Up!</a></td></tr>
 </table>
 </form>
 
@@ -43,5 +44,5 @@ echo "<b>Member Total:</b> ".$database->getNumMembers()."<br>";
 echo "There are $database->num_active_users registered members and ";
 echo "$database->num_active_guests guests viewing the site.<br><br>";
 
-include("auth/include/view_active.php");
+$templater->php_link("view_active");
 ?>

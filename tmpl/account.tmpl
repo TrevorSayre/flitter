@@ -1,17 +1,19 @@
 <?php   
-  include("auth/include/session.php");
- 
+  #USED_GLOBALS session END_GLOBALS#
+  $templater->php_link("session");
+  
 /********************************************
  *        Set Up and Load Header Tmpl       *
  ********************************************/
   //Set Up for a Logged In User
   if($session->logged_in) {
-    $tasks = array( 'Logout'        => 'auth/process.php',
+    $tasks = array( 'Logout'        => 'account/logout',
                     'My Activities' => 'account/activities',
                     'Edit Account'  => 'account/edit',
                     'Manage Events' => 'account/manage',
                     'Home'          => 'account/home' );  
-    ($_GET['task']=="") ? $task = 'home' : $task = $_GET['task'];
+                    
+    ($template['http_task']=="") ? $task = 'home' : $task = $_GET['http_task'];
   }
   //Set Up for a Logged out User
   else {
@@ -19,7 +21,7 @@
                     'Forgot Pass'   => 'account/forgotpass',
                     'Why'           => 'account/why',
                     'Register'      => 'account/register' );
-    ($_GET['task']=="") ? $task = 'login' : $task = $_GET['task'];  
+    ($_GET['http_task']=="") ? $task = 'login' : $task = $_GET['http_task'];  
   }
 
   //Make sure that the URL specified task is legit
@@ -27,17 +29,22 @@
     die("Error: $task is not available in accounts for when logged_in is $session->logged_in");
   
   //Load the appropriate template
-  echo $templater->load_template( "accounts_header",
-                           array( 'name' => 'templates/section_header.tmpl',
-                                  'heading' => 'Personal Account',
-                                  'sublinks' => $tasks,
-                                  'active_tab' => "accounts/$task",
-                                  'sublink_class' => 'section_nav_link') );
+  $acct_tmpl_name = "section_header";
+  $acct_tmpl_args = array(  'heading' => 'Personal Account',
+                            'sublinks' => $tasks,
+                            'active_tab' => "accounts/$task",
+                            'sublink_class' => 'section_nav_link');
+  $acct_tmpl_label = "accounts_header";
+
+  echo $templater->load_template( $acct_tmpl_name, $acct_tmpl_args, $acct_tmpl_label );
 
 /*****************************************************
  *  Determine Login Status and Load Up Display Tmpl  *
  *****************************************************/
-  echo $templater->load_template( "accounts_$task",
-                           array( 'name' => "templates/account_$task.tmpl",
-                                  'detail' => $_GET['detail']) );
+ 
+  $acct_tmpl_name = "account_$task";
+  $acct_tmpl_args = array('detail' => $_GET['detail']);
+  $acct_tmpl_label = "accounts_$task";
+  
+  echo $templater->load_template( $acct_tmpl_name, $acct_tmpl_args, $acct_tmpl_label );
 ?>

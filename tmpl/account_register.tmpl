@@ -7,7 +7,8 @@
  * can't register another name.
  *
  */
-require_once "auth/include/session.php";
+  #USED_GLOBALS session,form END_GLOBALS#
+  $templater->php_link("session");
 /**
  * The user has submitted the registration form and the
  * results have been processed.
@@ -48,7 +49,7 @@ else{
 <tr><td colspan="2" align="right">
 <input type="hidden" name="subjoin" value="1">
 <input type="submit" value="Join!"></td></tr>
-<tr><td colspan="2" align="left"><a href="account/login">Back to Login</a></td></tr>
+<tr><td colspan="2" align="left"><a <?=$templater->add_link("account/login")?> >Back to Login</a></td></tr>
 </table>
 </form>
 

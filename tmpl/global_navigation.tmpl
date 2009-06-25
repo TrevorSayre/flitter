@@ -1,5 +1,5 @@
 <?php
-  $this->add_link('css/global_navigation.css','css');
+  $this->add_style('global_navigation');
 ?>
     <div id="global_navigation">
       <div id="logo">Flitter</div>
@@ -12,7 +12,7 @@
               $class_type = $template['button_class'];
               
             echo "
-              <a href=\"$button_name\" class=\"$class_type\" id=\"".$template['button_class']."_$button_name\">
+              <a ".$templater->add_link($button_name)." class=\"$class_type\" id=\"".$template['button_class']."_$button_name\">
                 $button_label
               </a>";
           }
