@@ -9,7 +9,7 @@
           echo "<div id=\"section_navigation\">";
           foreach( $template['sublinks'] as $sublink => $sublink_href )
             echo "
-              <a $templater->add_link($sublink_href) class=\"".$template['sublink_class']."\">$sublink</a>";
+              <a $templater->http_link($sublink_href) class=\"".$template['sublink_class']."\">$sublink</a>";
           echo "</div>";
         ?>
       </div>

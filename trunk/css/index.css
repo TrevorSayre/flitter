@@ -2,8 +2,6 @@
 
 html,body {margin:0px;padding:0px;height:100%;background:#766537; font-family:verdana; font-size:12px;}
 
-body div { -moz-border-radius:10px 10px 0px 0px; }
-
 #container, #content, #logo { -moz-border-radius:10px; }
 
 #container {
@@ -30,9 +28,10 @@ body div { -moz-border-radius:10px 10px 0px 0px; }
   }
   
   #content {
-    margin:40px 0px 10px 0px;
+    margin:0px 0px 10px 0px;
     width:100%;
     background:white;
     border:solid black 1px;
     min-height:400px;
+    -moz-border-radius:10px 0px 10px 10px;
   }

@@ -1,16 +1,16 @@
 <?php 
   require_once "php/templates.php";
   $templater = new Templater();
-  $templater->set_app_root("/flitter/");
+  $templater->app_root = "/flitter/";
   
   //Rest of paths are relative to the app root here
   $ext = dirname($_SERVER['SCRIPT_NAME']);
   if($ext=='\\') $ext='/';
-  $templater->set_http_root("http://".$_SERVER['SERVER_NAME'].$ext);
-  $templater->set_tmpl_root("tmpl/");
-  $templater->set_css_root("css/");
-  $templater->set_js_root("js/");
-  $templater->set_php_root("php/");
+  $templater->http_root = "http://".$_SERVER['SERVER_NAME'].$ext;
+  $templater->tmpl_root = "tmpl/";
+  $templater->css_root  = "css/";
+  $templater->js_root   = "js/";
+  $templater->php_root  = "php/";
   
   //Default Page title, can be overridden by loaded template files
   $templater->page_title = "Flitter";
