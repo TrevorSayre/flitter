@@ -1,19 +1,38 @@
 /*CSS Document*/
 
-html,body {margin:0px;padding:0px;height:100%;background:#766537;}
+html,body {margin:0px;padding:0px;height:100%;background:#766537; font-family:verdana; font-size:12px;}
+
+body div { -moz-border-radius:10px 10px 0px 0px; }
+
+#container, #content, #logo { -moz-border-radius:10px; }
 
 #container {
-  width:1000px;
+  width:980px;
   margin:0px auto;
-  height:100%;
-  border:solid black;
-  border-width:0px 2px;
-  background:purple;
+  border:solid #766537;
+  border-width:1px;
 }
-      
-  #section_content {
-    margin-left:200px;
-    width:800px;
-    background:#bf5b02;
-    height:100%;
+  #logo {
+    position:absolute;
+    margin-left:15px;
+    top:15px;
+    padding:5px;
+    height:50px;
+    font-weight:bolder;
+    font-size:45px;
+    text-align:center;
+    line-height:50px;
+    background:lightgreen;
+  }
+  
+  #header,#footer {
+    width:100%;
+  }
+  
+  #content {
+    margin:40px 0px 10px 0px;
+    width:100%;
+    background:white;
+    border:solid black 1px;
+    min-height:400px;
   }
