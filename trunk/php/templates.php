@@ -1,5 +1,5 @@
 <?php
-/** The Templater Class
+/* The Templater Class
  *  
  *  Used to string together different template files. 
  *   
@@ -28,6 +28,16 @@ class Templater {
   //templater encounters a fatal error (such as a missing file)
   public  $dump_warnings;
   
+  //Shortcuts for absolute linking of files
+  public  $app_root;
+  public  $http_root;
+  public  $css_root;
+  public  $js_root;
+  public  $tmpl_root;
+  public  $php_root;
+  
+  public  $page_title;
+  
   //Holds the generated warnings until a dump is requested
   private $warnings;
   
@@ -45,6 +55,13 @@ class Templater {
     $this->warnings = array();
     $this->scripts = array();
     $this->styles = array();
+    $this->http_root = $_SERVER['SERVER_NAME'];
+    $this->doc_root = "/";
+    $this->css_root = "js/";
+    $this->js_root = "css/";
+    $this->tmpl_root = "tmpl/";
+    $this->page_title = $_SERVER['SERVER_NAME'];
+    $this->php_root = "";
   }
   
   //Get the path of the current file in pretty form for viewing
@@ -57,7 +74,7 @@ class Templater {
   
   //This function allows a user to request a warning dump
   public function show_warnings() {
-      echo "<b>Showing ".count($this->warnings)." Warnings:</br>\n".implode("<br/>\n",$this->warnings)."<br/>\n</b>";
+      echo "<b>Showing ".count($this->warnings)." Warnings:<br/>\n".implode("<br/>\n",$this->warnings)."<br/>\n</b>";
   }
   
   /**This function loads a template file and returns its <HTML> output
@@ -68,19 +85,23 @@ class Templater {
   * 'name' => template_file_name so that the function knows where to find
   * the template you want it to load.
   */       
-  public function load_template( $label, $template, $base = false ) {
+  public function load_template( $tmpl_name, $template, $label) {
     //Make sure they supplied a template name
-    if( !array_key_exists('name',$template) ) {
+    if( strlen($tmpl_name)==0 ) {
       if ($this->dump_warnings) $this->show_warnings();
-      die( "<b>Template Name was not supplied</b><br/><br/>" );
+      die( "\n\n<br/><br/><b>Fatal Error:<br/><br/>\n\nTemplate Name was not supplied for $label</b><br/><br/>" );
     }
     
+    //Construct the correct template file path and name
+    $name = $this->tmpl_root.$tmpl_name.'.tmpl';
+    
     //If the file exists, get the contents so we can check it first
-    if(file_exists($template['name']))
-      $contents = file_get_contents($template['name']);
+    if(file_exists($name))
+      $contents = file_get_contents($name);
+    //Else dump out any warnings generated so far and output fatal error
     else {
       if ($this->dump_warnings) $this->show_warnings();
-      die( "<b>".$this->get_pretty_path()."/".$template['name']." could not be located for $label</b><br/><br/>" );
+      die( "<b>".$name." could not be located for $label</b><br/><br/>" );
     }
    
     //Find all the variable references and make sure those variables exist
@@ -91,18 +112,24 @@ class Templater {
       if( !array_key_exists($match,$template) )
         array_push($this->warnings,"\"$match\" variable value was not supplied to $label");
     } 
-    
+
+    /**
+     *  Declare all globals used by the template script as found between the
+     *  #USED_GLOBALS and END_GLOBALS# pgp tags     
+     */              
+    $globals = array( 'templater' );
+    if(preg_match('/#USED_GLOBALS (.*)? END_GLOBALS#/',$contents,$matches))
+      $globals = $globals+explode(',',$matches[1]);
+    foreach($globals as $var) { global $$var; }
     /**
      *  Here we are setting up an output buffer to hold the output from the
      *  template file.  We then retreive the buffer contents and clear to so
      *  it does not get sent to the server until we wish for it to.
      */         
-    foreach($GLOBALS as $key => $value) { global $$key; }
-    if($base) ob_start();
-    eval(" global \$templater; ?".">".file_get_contents($template['name']));
-    #include $template['name'];
-    if($base) $ret = ob_get_contents();
-    if($base) ob_clean();
+    ob_start();
+      include $name;
+      $ret = ob_get_contents();
+    ob_end_clean();
     return $ret;
   }
   
@@ -111,18 +138,22 @@ class Templater {
    *  into the header section of the main template.  This output is
    *  not automatic.  Use the linking_code() function in the header
    *  to output the code you need for linking.         
-   */     
-  public function add_link($file,$type) {
-    if( file_exists($file) ) {
-      if( $type == "js") 
-        array_push( $this->scripts, $file );
-      else if ($type == "css")
-        array_push( $this->styles, $file );
-    }
+   */
+  public function add_script($filename) {
+    $file = $this->js_root.$filename.".js";
+    if( file_exists($file) )
+        array_push( $this->scripts, $file);
     else
-      array_push($this->warnings,"\"$filename\" required file cannot be found");
+      array_push($this->warnings,"\"$filename.js\" required file cannot be found in $this->js_root");
   }
   
+  public function add_style($filename) {
+    $file = $this->css_root.$filename.".css";
+    if( file_exists($file) )
+        array_push( $this->styles, $file );
+    else
+      array_push($this->warnings,"\"$filename.css\" required file cannot be found in $this->css_root");
+  }
   /**
    *  This function will dump out the code needed to link all of
    *  the files that embedded templates have said that they require   
@@ -132,6 +163,32 @@ class Templater {
       echo "<link href=\"$file\" type=\"text/css\" rel=\"stylesheet\" />\n";
     foreach($this->scripts as $file)
       echo "<script src=\"$file\" type=\"text/javascript\"></script>\n";
+  }
+  
+  public function set_app_root($root) {
+    $this->app_root = $root;
+  }
+  public function set_tmpl_root($root) {
+    $this->tmpl_root = $root;
+  }
+  public function set_css_root($root) {
+    $this->css_root = $root;
+  }
+  public function set_js_root($root) {
+    $this->js_root = $root;
+  }
+  public function set_http_root($root) {
+    $this->http_root = $root;
+  }
+  public function set_php_root($root) {
+    $this->php_root = $root;
+  }
+  public function add_link($link) {
+    return " href=\"$this->http_root$link\" ";
+  }
+  public function php_link($link) {
+    foreach($GLOBALS as $key => $value) { global $$key; }
+    return eval("require_once \"$this->php_root$link.php\";"); 
   }
 };
 
