@@ -1,0 +1,45 @@
+/* CSS Document */
+
+#flitter_info {
+  font-size:16px;
+  width:700px;
+  margin:40px auto 0px auto;
+  text-align:justify;
+}
+
+#infoboxes {
+  width:800px;
+  margin:0px auto;
+  background:orange;
+}
+  #discover_infobox,#create_infobox {
+    width:300px;
+    padding:0px 25px 10px 25px;
+    margin:30px 20px;
+    text-align:justify;
+    border:dashed black 1px;
+  }
+  #discover_infobox {
+    float:left;
+    background:#f0423b
+  }
+  
+  #create_infobox {
+    float:right;
+    background:#72c7c9
+  }
+  .title_text {
+    text-align:center;
+    font-size:14px;
+    font-weight:bolder;
+  }
+  .infobox_text {
+    width:100%;
+  }
+
+#get_involved {
+  font-size:16px;
+  clear:both;
+  width:700px;
+  margin:0px auto;
+}
