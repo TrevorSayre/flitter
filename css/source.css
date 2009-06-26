@@ -3,7 +3,10 @@
 pre { margin:0px; padding:0px; }
 
 #source_shell { margin:-20px 0px 0px -20px; padding-bottom:20px; }
-#left_col,#code_col,.header_button { -moz-border-radius:0px; }
+#left_col,#code_col,.header_button { 
+  -moz-border-radius:0px; 
+  -webkit-border-radius:0px;
+}
 
 #section_header {
   border-bottom: 2px solid black;
