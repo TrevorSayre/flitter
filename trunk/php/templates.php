@@ -176,7 +176,10 @@ class Templater {
     return "src=\"$this->img_root$link\"";
   }
   public function http_link($link) {
-    return "href=\"$this->http_root$link\"";
+    if(strpos($link,'http://')===false)
+      return "href=\"$this->http_root$link\"";
+    else
+      return "href=\"$link\"";
   }
   public function php_link($link) {
     foreach($GLOBALS as $key => $value) { global $$key; }
