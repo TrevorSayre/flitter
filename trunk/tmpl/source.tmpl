@@ -44,14 +44,16 @@
   /** Need to really do this differently
    *  RegEx is waaaaay overkill here
    */
+   
+  
   $file = "";
-  if( preg_match('/(.*?)(\w.*)/',$_GET['http_task'],$matches) )
+  if( preg_match('/(.*?)([\w\.].*)/',$_GET['http_task'],$matches) )
     $file = $matches[2];
   $code = file_get_contents($file);
   $dirPath = "";
   if( preg_match('/(.*?)(\w.*)/',dirname($file),$matches) )
     $dirPath = $matches[2];  
-  
+  //echo "\n\n\nDrivePath is: $dirPath\n\n\n";
   $finalcode = "";
   $geshi = new GeSHi($code,'php');
   $geshi->enable_strict_mode(GESHI_ALWAYS);
