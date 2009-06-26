@@ -39,7 +39,7 @@ function drop_down_menu($target,$label,$sublinks){
                             drop_down_menu("account/",'Account',$acct_tasks),
                             drop_down_menu('discover','Discover',array()),
                             drop_down_menu('create','Create',array()),
-                            drop_down_menu('developers','Developers',array()),
+                            drop_down_menu('contribute','Contribute',array()),
                             drop_down_menu('source/index.php','Source Code',array()))),
                 'header');
                 
@@ -56,7 +56,7 @@ function drop_down_menu($target,$label,$sublinks){
 <body>
   <div id="container">
     <div id="logo">
-      <a id="home_link" <?=$templater->http_link("home")?> alt="Flitter, Click to go Home"><img <?=$templater->img_link("flitter_logo_206x100.png")?> width="206" height="100" alt="Flitter Logo"></a>
+      <a <?=$templater->http_link("home")?> alt="Flitter, Click to go Home"><img id="logo_home" <?=$templater->img_link("flitter_logo_206x100.png")?> width="206" height="100" alt="Flitter Logo"></a>
     </div>
     <div id="header"><?=$header?></div>
     <div id="content"><?=$content?></div>

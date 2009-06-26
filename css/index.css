@@ -30,6 +30,7 @@ html,body {
   width:980px;
   padding-top:10px;
 }
+  #logo_home { color:inherit; border:none; }
   
 #content {
   width:940px;
