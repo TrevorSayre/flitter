@@ -38,8 +38,9 @@ class Templater {
   public  $img_root;
   
   //Used for setting the page title from pretty much anywhere
+  public  $page_title_prefix;
   public  $page_title;
-  
+  public  $page_title_postfix;
   //Holds the generated warnings until a dump is requested
   private $warnings;
   
@@ -67,6 +68,8 @@ class Templater {
     $this->tmpl_root = "tmpl/";
     $this->page_title = $_SERVER['SERVER_NAME'];
     $this->php_root = "php/";
+    $this->page_title_prefix = "";
+    $this->page_title_postfix = "";
   }
   
   //Get the path of the current file in pretty form for viewing
@@ -184,6 +187,10 @@ class Templater {
   public function php_link($link) {
     foreach($GLOBALS as $key => $value) { global $$key; }
     return eval("require_once \"$this->php_root$link.php\";"); 
+  }
+  
+  public function get_page_title () {
+    return $this->page_title_prefix.$this->page_title.$this->page_title_postfix;
   }
 };
 

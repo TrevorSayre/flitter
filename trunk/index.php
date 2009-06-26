@@ -13,8 +13,9 @@
   $templater->js_root   = "js/";
   $templater->php_root  = "php/";
   $templater->img_root  = "img/";
+  $templater->page_title_prefix = "Flitter - ";
   //Default Page title, can be overridden by loaded template files
-  $templater->page_title = "Flitter";
+  $templater->page_title = "Coming Soon...";
   
   //Load our layout into the body variable
   //3 Args - Name Relative to tmpl_root, args to pass, and use output buffers
