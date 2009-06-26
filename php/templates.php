@@ -179,7 +179,7 @@ class Templater {
     if(strpos($link,'http://')===false)
       return "href=\"$this->http_root$link\"";
     else
-      return "href=\"$link\"";
+      return "href=\"$link\" target=\"_blank\"";
   }
   public function php_link($link) {
     foreach($GLOBALS as $key => $value) { global $$key; }
