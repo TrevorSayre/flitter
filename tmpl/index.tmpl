@@ -39,23 +39,17 @@ function drop_down_menu($target,$label,$sublinks){
                             drop_down_menu("account/",'Account',$acct_tasks),
                             drop_down_menu('find','Find',array()),
                             drop_down_menu('create','Create',array()),
-                            drop_down_menu('about','About',array()),
-                            drop_down_menu('contact','Contact Us',array()),
                             drop_down_menu('developers','Developers',array()),
-                            drop_down_menu('source/index.php','Source Code',array()),
-                            drop_down_menu('legals','Legal Docs',
-                                 array( 'legals/tos'          =>  'Terms of Service',
-                                        'legals/privacy'      =>  'Privacy Policy')))),
+                            drop_down_menu('source/index.php','Source Code',array()))),
                 'header');
                 
   $content = $templater->load_template( $area, array(), $area);
   $footer = $templater->load_template(
                 'footer',
-                array(  'links' => array( 'link1'   => 'Link 1',
-                                          'link2'   => 'Link 2',
-                                          'link3'   => 'Link 3',
-                                          'link4'   => 'Link 4',
-                                          'link5'   => 'Link 5' ) ),
+                array(  'links' => array( 'about'   => 'About Us',
+                                          'contact'   => 'Contact Us',
+                                          'termsofservice'   => 'Terms of Service',
+                                          'privacy'   => 'Privacy Policy' ) ),
                 'footer');
 ?>
 
