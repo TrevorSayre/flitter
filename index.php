@@ -1,5 +1,6 @@
 <?php 
   require_once "php/templates.php";
+  
   $templater = new Templater();
   $templater->app_root = "/flitter/";
   
@@ -11,7 +12,7 @@
   $templater->css_root  = "css/";
   $templater->js_root   = "js/";
   $templater->php_root  = "php/";
-  
+  $templater->img_root  = "img/"
   //Default Page title, can be overridden by loaded template files
   $templater->page_title = "Flitter";
   

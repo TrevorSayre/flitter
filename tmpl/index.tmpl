@@ -8,20 +8,57 @@
   else
     $area = strtolower($template['http_area']); //User Requested
   
+  //Set Up for a Logged In User
+  if($session->logged_in) {
+    $tasks = array( 'Logout'        => 'account/logout',
+                    'My Activities' => 'account/activities',
+                    'Edit Account'  => 'account/edit',
+                    'Manage Events' => 'account/manage',
+                    'Home'          => 'account/home' );  
+                    
+    ($template['http_task']=="") ? $task = 'home' : $task = $_GET['http_task'];
+  }
+  //Set Up for a Logged out User
+  else {
+    $tasks = array( 'Login'         => 'account/login',
+                    'Forgot Pass'   => 'account/forgotpass',
+                    'Why'           => 'account/why',
+                    'Register'      => 'account/register' );
+    ($_GET['http_task']=="") ? $task = 'login' : $task = $_GET['http_task'];  
+  }
   
   $header = $templater->load_template(  
                 'header',
-                array(  'sections' => array( 'account'           =>'Accounts',
-//                                                    'account/login'          =>'Login',
-//                                                    'account/'
-//                                                  )
-                                            'find'              =>'Find',
-                                            'create'            =>'Create',
-                                            'about'             =>'About',
-                                            'contact'           =>'Contact',
-                                            'developers'        =>'Developers',
-                                            'source/index.php'  =>'Source Code',
-                                            'legals'            =>'Legal Docs') ),
+                array(  'sections' => array( 
+                            array(  'target'              =>  'account',
+                                    'label'               =>  'Accounts',
+                                    'sublinks'            =>  array(
+                                        'account/logout'      =>  'Logout',
+                                        'account/activities'  =>  'My Activities',
+                                        'account/edit'        =>  'Edit Account',
+                                        'account/manage'      =>  'Manage Events',
+                                        'account/home'        =>  'Home'),
+                            ),
+                            array(  'target'              =>  'find',
+                                    'label'               =>  'Find'),
+                            array(  'target'              =>  'create',
+                                    'label'               =>  'Create'),
+                            array(  'target'              =>  'about',
+                                    'label'               =>  'About'),
+                            array(  'target'              =>  'contact',
+                                    'label'               =>  'Contact'),
+                            array(  'target'              =>  'developers',
+                                    'label'               =>  'Developers'),
+                            array(  'target'              =>  'source/index.php',
+                                    'label'               =>  'Source Code'),
+                            array(  'target'              =>  'legals',
+                                    'label'               =>  'Legal Docs',
+                                    'sublinks'            =>  array(
+                                        'legals/tos'          =>  'Terms of Service',
+                                        'legals/privacy'      =>  'Privacy Policy')
+                            ) 
+                        )
+                ),
                 'header');
                 
   $content = $templater->load_template(
