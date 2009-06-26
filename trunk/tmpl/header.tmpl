@@ -1,13 +1,21 @@
 <?php
   $templater->add_style("header");
-  
+  $templater->add_script("header");
   echo "<ul id=\"nav_bar\">";
-  foreach($template['sections'] as $section => $label) {
-    echo "
-      <li><a ".$templater->http_link($section)." class=\"section_link\" id=\"section_link_$section\">
-        $label
-      </a></li>";
+  foreach($template['sections'] as $item) {
+    echo "<li><a ".$templater->http_link( $item['target'] )." id=\"section_link_".$templater->http_link($item['target'])."\">".$item['label']."</a>";
+    if(array_key_exists('sublinks',$item)) {
+      echo "<ul class=\"sub_nav_list\">";
+      foreach($item['sublinks'] as $target => $label) {
+        echo "
+          <li><a ".$templater->http_link($target)." id=\"section_link_".$templater->http_link($target)."\">
+            $label
+          </a>";
+      }
+      echo "</ul>";
+    }
+    echo "</li>";
   }  
   echo "</ul>
-        <div style=\"clear:both;\"></div>";
+      <div style=\"clear:both;\"></div>";
 ?>

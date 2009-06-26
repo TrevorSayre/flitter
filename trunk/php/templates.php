@@ -35,7 +35,7 @@ class Templater {
   public  $js_root;
   public  $tmpl_root;
   public  $php_root;
-  
+  public  $img_root;
   public  $page_title;
   
   //Holds the generated warnings until a dump is requested
@@ -59,6 +59,7 @@ class Templater {
     $this->doc_root = "/";
     $this->css_root = "js/";
     $this->js_root = "css/";
+    $this->img_root = "img/";
     $this->tmpl_root = "tmpl/";
     $this->page_title = $_SERVER['SERVER_NAME'];
     $this->php_root = "";
@@ -165,8 +166,11 @@ class Templater {
       echo "<script src=\"$file\" type=\"text/javascript\"></script>\n";
   }
   
+  public function img_link($link) {
+    return "src=\"$this->img_root$link\"";
+  }
   public function http_link($link) {
-    return " href=\"$this->http_root$link\" ";
+    return "href=\"$this->http_root$link\"";
   }
   public function php_link($link) {
     foreach($GLOBALS as $key => $value) { global $$key; }
