@@ -3,7 +3,7 @@
   $templater->add_script("header");
   echo "<ul id=\"nav_bar\">";
   foreach($template['sections'] as $item) {
-    echo "<li><a ".$templater->http_link( $item['target'] )." id=\"section_link_".$templater->http_link($item['target'])."\">".$item['label']."</a>";
+    echo "<li class=\"nav_bar_li\"><a ".$templater->http_link( $item['target'] )." id=\"section_link_".$templater->http_link($item['target'])."\">".$item['label']."</a>";
     if(array_key_exists('sublinks',$item)) {
       echo "<ul class=\"sub_nav_list\">";
       foreach($item['sublinks'] as $target => $label) {
