@@ -3,20 +3,23 @@
 
 #nav_bar {
   float:right;
-  padding:4px 4px 0px 4px;
-  background:lightblue;
-  border:solid black;
-  border-width:1px 1px 0px 1px;
-  margin:50px -2px 0px 0px;
+  padding:4px 0px 0px 4px;
+  margin:54px 0px 0px 0px;
+  background:transparent;
   -moz-border-radius:10px 10px 0px 0px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-top-right-radius:10px;
 }
   #nav_bar li {
     float:left;
     list-style:none;
-    padding:5px;
     background:gold;
+    text-align:center;
+    margin-left: 8px;
+    padding:8px 8px 4px 8px;
     -moz-border-radius:10px 10px 0px 0px;
-    margin:3px 3px 0px 3px;
+    -webkit-border-top-left-radius:10px;
+    -webkit-border-top-right-radius:10px;
   }
   #nav_bar li a {
     text-decoration:none;
