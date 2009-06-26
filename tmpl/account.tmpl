@@ -28,16 +28,15 @@
   if( !in_array("account/$task",$tasks) )
     die("Error: $task is not available in accounts for when logged_in is $session->logged_in");
   
-  //Load the appropriate template
-  $acct_tmpl_name = "section_header";
-  $acct_tmpl_args = array(  'heading' => 'Personal Account',
-                            'sublinks' => $tasks,
-                            'active_tab' => "accounts/$task",
-                            'sublink_class' => 'section_nav_link');
-  $acct_tmpl_label = "accounts_header";
-
-  echo $templater->load_template( $acct_tmpl_name, $acct_tmpl_args, $acct_tmpl_label );
-
+  //Load the appropriate template header
+  /*
+  echo $templater->load_template( "section_header", 
+                                  array(  'heading' => 'Personal Account',
+                                          'sublinks' => $tasks,
+                                          'active_tab' => "accounts/$task",
+                                          'sublink_class' => 'section_nav_link'), 
+                                  "accounts_header" );
+  */
 /*****************************************************
  *  Determine Login Status and Load Up Display Tmpl  *
  *****************************************************/
