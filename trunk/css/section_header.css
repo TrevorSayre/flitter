@@ -6,6 +6,7 @@
       padding: 10px 0px;
       background:#592202;
       -moz-border-radius:10px 0px 0px 0px;
+      -webkit-border-top-left-radius:10px;
     }
       
       #section_logo {
