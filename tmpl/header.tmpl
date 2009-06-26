@@ -8,7 +8,7 @@
       echo "<img ".$templater->img_link("plus.png");
       echo " width=\"12\" height=\"12\" alt=\"Plus Icon\"> ";
     }
-    echo "<a ".$templater->http_link( $item['target'] )." id=\"section_link_".$templater->http_link($item['target'])."\">".$item['label']."</a>";
+    echo "<a ".$templater->http_link( $item['target'] )." id=\"section_link_$item['target']\">".$item['label']."</a>";
     if(array_key_exists('sublinks',$item)) {
       echo "<ul class=\"sub_nav_list\">";
       foreach($item['sublinks'] as $target => $label) {
