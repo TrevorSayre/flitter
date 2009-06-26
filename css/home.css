@@ -11,6 +11,10 @@
   margin:0px auto;
   background:orange;
 }
+  #infoboxes a {
+    text-decoration:none;
+    color:inherit;
+  }
   #discover_infobox,#create_infobox {
     width:300px;
     padding:0px 25px 10px 25px;
