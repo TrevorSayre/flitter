@@ -3,11 +3,11 @@
 ?>
 <div id="footer_bar">
 <?php
+  $last_item = end($template['links']);
   foreach($template['links'] as $target => $label) {
-    echo "
-      |<a ".$templater->http_link($target)." class=\"footer_link\" id=\"section_link_$target\">
-        $label
-      </a>|";
+    echo "<a ".$templater->http_link($target);
+    echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
+    if($label != $last_item) echo "|";
   }  
 ?>
   <br/><br/>Copyright 2009 <i>flitter.to</i> - Some rights Reserved, consult 
