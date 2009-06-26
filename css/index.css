@@ -5,8 +5,20 @@ html,body {
   padding:0px;
   height:100%;
   background:#dcf1f1; 
-  font-family:verdana; 
+  font-family:verdana,sans-serif; 
   font-size:12px;
+}
+
+#content a {
+  text-decoration:none;
+  color:#72c7c8;
+  border:none;
+  border-bottom: 1px dashed #72c7c8;
+  font-weight:bold;
+}
+
+#content a:hover {
+  border-bottom-style: solid;
 }
 
 #container, #content, #logo { 
