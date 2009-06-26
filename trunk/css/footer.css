@@ -6,8 +6,17 @@
   padding:5px;
 }
 
-  .footer_link {
-    color:black;
-    margin:0px 12px;
-    
-  }
+#footer_bar .footer_link {
+  margin:0px 12px;
+}
+
+#footer_bar a {
+  text-decoration:none;
+  color:#72c7c8;
+  border:none;
+  border-bottom: 1px dashed #72c7c8;
+}
+
+#footer_bar a:hover {
+  border-bottom-style: solid;
+}
