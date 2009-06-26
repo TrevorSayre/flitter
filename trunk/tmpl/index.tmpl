@@ -1,4 +1,11 @@
 <?php
+
+function drop_down_menu($target,$label,$sublinks){
+  return array( 'target'              =>  $target,      //Head Button Link
+                'label'               =>  $label,       //Head Button Label
+                'sublinks'            =>  $sublinks );  //Link => Label Sets for submenu
+}
+
   $templater->add_script("jquery-1.3.2");
   $templater->add_script("index");
   $templater->add_style("index");
@@ -10,7 +17,7 @@
   
   //Set Up for a Logged In User
   if($session->logged_in) {
-    $tasks = array( 'Logout'        => 'account/logout',
+    $acct_tasks = array( 'Logout'        => 'account/logout',
                     'My Activities' => 'account/activities',
                     'Edit Account'  => 'account/edit',
                     'Manage Events' => 'account/manage',
@@ -20,7 +27,7 @@
   }
   //Set Up for a Logged out User
   else {
-    $tasks = array( 'Login'         => 'account/login',
+    $acct_tasks = array( 'Login'         => 'account/login',
                     'Forgot Pass'   => 'account/forgotpass',
                     'Why'           => 'account/why',
                     'Register'      => 'account/register' );
@@ -30,42 +37,19 @@
   $header = $templater->load_template(  
                 'header',
                 array(  'sections' => array( 
-                            array(  'target'              =>  'account',
-                                    'label'               =>  'Accounts',
-                                    'sublinks'            =>  array(
-                                        'account/logout'      =>  'Logout',
-                                        'account/activities'  =>  'My Activities',
-                                        'account/edit'        =>  'Edit Account',
-                                        'account/manage'      =>  'Manage Events',
-                                        'account/home'        =>  'Home'),
-                            ),
-                            array(  'target'              =>  'find',
-                                    'label'               =>  'Find'),
-                            array(  'target'              =>  'create',
-                                    'label'               =>  'Create'),
-                            array(  'target'              =>  'about',
-                                    'label'               =>  'About'),
-                            array(  'target'              =>  'contact',
-                                    'label'               =>  'Contact'),
-                            array(  'target'              =>  'developers',
-                                    'label'               =>  'Developers'),
-                            array(  'target'              =>  'source/index.php',
-                                    'label'               =>  'Source Code'),
-                            array(  'target'              =>  'legals',
-                                    'label'               =>  'Legal Docs',
-                                    'sublinks'            =>  array(
-                                        'legals/tos'          =>  'Terms of Service',
-                                        'legals/privacy'      =>  'Privacy Policy')
-                            ) 
-                        )
-                ),
+                            drop_down_menu("account/$task",'Account',$acct_tasks),
+                            drop_down_menu('find','Find',array()),
+                            drop_down_menu('create','Create',array()),
+                            drop_down_menu('about','About',array()),
+                            drop_down_menu('contact','Contact Us',array()),
+                            drop_down_menu('developers','Developers',array()),
+                            drop_down_menu('source/index.php','Source Code',array()),
+                            drop_down_menu('legals','Legal Docs',
+                                 array( 'legals/tos'          =>  'Terms of Service',
+                                        'legals/privacy'      =>  'Privacy Policy')))),
                 'header');
                 
-  $content = $templater->load_template(
-                $area,
-                array(),
-                $area);
-                
+  $content = $templater->load_template( $area, array(), $area);
   $footer = $templater->load_template(
                 'footer',
                 array(  'links' => array( 'link1'   => 'Link 1',

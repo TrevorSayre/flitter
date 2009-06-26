@@ -9,12 +9,12 @@
  *  Then, *before* the HTML doc starts load up the templates
  *  That you would like to use like below
  *    $section_header = $templater->load_template(  "section_header",
-                              array(  'name' => 'section_header.tmpl',
-                                      'heading' => 'What is Flitter?',
-                                      'sublinks' => array( 'Sublink1' => '#',
-                                                           'Sublink2' => '#',
-                                                           'Sublink3' => '#' ),
-                                      'sublink_class' => 'section_nav_link') );
+                           array( 'name' => 'section_header.tmpl',
+                                  'heading' => 'What is Flitter?',
+                                  'sublinks' => array( 'Sublink1' => '#',
+                                                       'Sublink2' => '#',
+                                                       'Sublink3' => '#' ),
+                                  'sublink_class' => 'section_nav_link') );
  *  The second arguement to load template is an array of template variables
  *  
  *  The name variable is reserved for the filename of the template and must
@@ -36,6 +36,8 @@ class Templater {
   public  $tmpl_root;
   public  $php_root;
   public  $img_root;
+  
+  //Used for setting the page title from pretty much anywhere
   public  $page_title;
   
   //Holds the generated warnings until a dump is requested
@@ -55,6 +57,8 @@ class Templater {
     $this->warnings = array();
     $this->scripts = array();
     $this->styles = array();
+    
+    //Some basic defaults people will probably use.
     $this->http_root = $_SERVER['SERVER_NAME'];
     $this->doc_root = "/";
     $this->css_root = "js/";
@@ -62,7 +66,7 @@ class Templater {
     $this->img_root = "img/";
     $this->tmpl_root = "tmpl/";
     $this->page_title = $_SERVER['SERVER_NAME'];
-    $this->php_root = "";
+    $this->php_root = "php/";
   }
   
   //Get the path of the current file in pretty form for viewing
@@ -75,7 +79,8 @@ class Templater {
   
   //This function allows a user to request a warning dump
   public function show_warnings() {
-      echo "<b>Showing ".count($this->warnings)." Warnings:<br/>\n".implode("<br/>\n",$this->warnings)."<br/>\n</b>";
+      echo "<b>Showing ",count($this->warnings)," Warnings:<br/>\n",
+            implode("<br/>\n",$this->warnings),"<br/>\n</b>";
   }
   
   /**This function loads a template file and returns its <HTML> output
@@ -90,7 +95,8 @@ class Templater {
     //Make sure they supplied a template name
     if( strlen($tmpl_name)==0 ) {
       if ($this->dump_warnings) $this->show_warnings();
-      die( "\n\n<br/><br/><b>Fatal Error:<br/><br/>\n\nTemplate Name was not supplied for $label</b><br/><br/>" );
+      die( "\n\n<br/><br/><b>Fatal Error:<br/><br/>\n
+            Template Name was not supplied for $label</b><br/><br/>" );
     }
     
     //Construct the correct template file path and name
@@ -111,7 +117,7 @@ class Templater {
       //If the a variable required by the template is missing
       //Create an appropriate warning and push it on the stack
       if( !array_key_exists($match,$template) )
-        array_push($this->warnings,"\"$match\" variable value was not supplied to $label");
+        array_push($this->warnings,"'$match' variable value was not supplied to $label");
     } 
 
     /**
