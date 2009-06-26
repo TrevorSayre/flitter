@@ -17,27 +17,26 @@ function drop_down_menu($target,$label,$sublinks){
   
   //Set Up for a Logged In User
   if($session->logged_in) {
-    $acct_tasks = array( 'Logout'        => 'account/logout',
-                    'My Activities' => 'account/activities',
-                    'Edit Account'  => 'account/edit',
-                    'Manage Events' => 'account/manage',
-                    'Home'          => 'account/home' );  
-                    
+    $acct_tasks = array('account/logout'      => 'Logout',
+                        'account/activities'  => 'My Activities',
+                        'account/edit'        => 'Edit Account',
+                        'account/manage'      => 'Manage Events',
+                        'account/home'        => 'Home');
     ($template['http_task']=="") ? $task = 'home' : $task = $_GET['http_task'];
   }
   //Set Up for a Logged out User
   else {
-    $acct_tasks = array( 'Login'         => 'account/login',
-                    'Forgot Pass'   => 'account/forgotpass',
-                    'Why'           => 'account/why',
-                    'Register'      => 'account/register' );
+    $acct_tasks = array('account/login'      => 'Login',
+                        'account/forgotpass' => 'Forgot Pass',
+                        'account/why'        => 'Why',
+                        'account/register'   => 'Register');
     ($_GET['http_task']=="") ? $task = 'login' : $task = $_GET['http_task'];  
   }
   
   $header = $templater->load_template(  
                 'header',
                 array(  'sections' => array( 
-                            drop_down_menu("account/$task",'Account',$acct_tasks),
+                            drop_down_menu("account/",'Account',$acct_tasks),
                             drop_down_menu('find','Find',array()),
                             drop_down_menu('create','Create',array()),
                             drop_down_menu('about','About',array()),

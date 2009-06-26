@@ -2,7 +2,7 @@
 
 pre { margin:0px; padding:0px; }
 
-#source_shell { padding-bottom:20px; }
+#source_shell { margin:-20px 0px 0px -20px; padding-bottom:20px; }
 #left_col,#code_col,.header_button { -moz-border-radius:0px; }
 
 #section_header {
@@ -10,6 +10,7 @@ pre { margin:0px; padding:0px; }
   background:gold;
   width:100%;
   -moz-border-radius:10px 0px 0px 0px;
+  padding:10px 20px 0px 0px;
 }
       #feedback_button,#flip_over_button {
         float:right;
