@@ -12,9 +12,10 @@
 }
   #nav_bar li {
     list-style:none;
-    font-size:12px;
+    font-size:14px;
     color:white;
     text-align:left;
+    font-weight:bold;
   }
   #nav_bar .nav_bar_li {
     float:left;
@@ -25,9 +26,15 @@
     -webkit-border-top-left-radius:10px;
     -webkit-border-top-right-radius:10px;
   }
+  #nav_bar .nav_bar_li {
+    vertical-align:middle;
+  }
   #nav_bar li a {
     text-decoration:none;
-    color:inherit;
+    color:white;
+  }
+  #nav_bar li a:hover {
+    color:#72c7c8;
   }
   
   #nav_bar li ul {
