@@ -1,37 +1,44 @@
 /*CSS Document*/
 
-html,body {margin:0px;padding:0px;height:100%;background:#766537; font-family:verdana; font-size:12px;}
+html,body {
+  margin:0px;
+  padding:0px;
+  height:100%;
+  background:fffae5; 
+  font-family:verdana; 
+  font-size:12px;
+}
 
-#container, #content, #logo { -moz-border-radius:10px; }
+#container, #content, #logo { 
+  -moz-border-radius:10px; 
+  -webkit-border-radius:10px;
+}
 
 #container {
   width:980px;
   margin:0px auto;
-  border:solid #766537;
-  border-width:1px;
 }
-  #logo {
-    position:absolute;
-    margin-left:15px;
-    top:15px;
-    padding:5px;
-    height:50px;
-    font-weight:bolder;
-    font-size:45px;
-    text-align:center;
-    line-height:50px;
-    background:lightgreen;
-  }
+
+#logo {
+  position:absolute;
+  margin:10px 0px 0px -22px;
+  width:206px;
+  height:100px;
+}
   
-  #header,#footer {
-    width:100%;
-  }
+#header,#footer {
+  width:980px;
+  padding-top:10px;
+}
   
-  #content {
-    margin:0px 0px 10px 0px;
-    width:100%;
-    background:white;
-    border:solid black 1px;
-    min-height:400px;
-    -moz-border-radius:10px 0px 10px 10px;
-  }
+#content {
+  width:940px;
+  padding:20px 20px 0px 20px;
+  background:deffd9;
+  min-height:400px;
+  -moz-border-radius:10px 0px 10px 10px;
+  -webkit-border-top-left-radius:10px;
+  -webkit-border-top-right-radius:0px;
+  -webkit-border-bottom-left-radius:10px;
+  -webkit-boder-bottom-right-radius:10px;
+}
