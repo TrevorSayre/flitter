@@ -20,16 +20,29 @@
     padding:0px 25px 10px 25px;
     margin:30px 20px;
     text-align:justify;
-    border:dashed black 1px;
+    /*border:dashed black 1px;*/
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
   }
   #discover_infobox {
     float:left;
-    background:#f0423b
+    background:#f0423b;
+    border:outset #f0423b 5px;
   }
-  
+  #discover_infobox:hover {
+    border-style:inset;
+    /*background:#9c2b26;*/
+    /*background:#ff4640;*/
+  }
   #create_infobox {
     float:right;
-    background:#72c7c9
+    background:#72c7c9;
+    border:outset #72c7c9 5px;
+  }
+  #create_infobox:hover {
+    border-style:inset;
+    /*background:#427475;*/
+    /*background:#7cd7d9;*/
   }
   .title_text {
     text-align:center;
