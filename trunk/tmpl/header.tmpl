@@ -14,7 +14,7 @@
       echo "<ul class=\"sub_nav_list\">";
       foreach($item['sublinks'] as $target => $label) {
         echo "
-          <li><a ".$templater->http_link($target)." id=\"section_link_".$templater->http_link($target)."\">
+          <li><a ".$templater->http_link($target)." id=\"section_link_$target\">
             $label
           </a>";
       }
