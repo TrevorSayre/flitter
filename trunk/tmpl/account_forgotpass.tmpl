@@ -14,7 +14,7 @@
  * your website.
  *
  */
- #USED_GLOBALS session END_GLOBALS#
+ #USED_GLOBALS session,form END_GLOBALS#
 $templater->php_link("session");
 /**
  * Forgot Password form has been submitted and no errors
@@ -62,10 +62,7 @@ username.<br><br>
 <input type="hidden" name="subforgot" value="1">
 <input type="submit" value="Get New Password">
 </form>
-
+<p><a <?=$templater->http_link("account/login")?> >Back to Login</a></p>
 <?php
 }
 ?>
-
-</body>
-</html>

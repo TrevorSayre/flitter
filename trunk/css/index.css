@@ -1,21 +1,12 @@
 /*CSS Document*/
 
-
-
 html,body {
-
   margin:0px;
-
   padding:0px;
-
   height:100%;
-
   background:#dcf1f1; 
-
   font-family:verdana,sans-serif; 
-
   font-size:12px;
-
 }
 
 acronym {
@@ -23,94 +14,52 @@ acronym {
 }
 
 #content a {
-
   text-decoration:none;
-
   color:#72c7c8;
-
   border:none;
-
   border-bottom: 1px dashed #72c7c8;
-
   font-weight:bold;
-
 }
-
-
 
 #content a:hover {
-
   border-bottom-style: solid;
-
 }
-
-
 
 #container, #content, #logo { 
-
   -moz-border-radius:10px; 
-
   -webkit-border-radius:10px;
-
 }
-
-
 
 #container {
-
   width:980px;
-
   margin:0px auto;
-
 }
-
-
 
 #logo {
-
   position:absolute;
-
   margin:12px 0px 0px -22px;
-
   width:206px;
-
   height:100px;
-
 }
-
-  
 
 #header,#footer {
-
   width:980px;
-
   padding-top:10px;
-
 }
-
-  #logo_home { color:inherit; border:none; }
-
   
+#logo_home { 
+  color:inherit; 
+  border:none; 
+}
 
 #content {
-
   width:940px;
-
   padding:20px;
-
   background:white;
-
   /*min-height:600px;*/
-
   -moz-border-radius:10px 0px 10px 10px;
-
   -webkit-border-top-left-radius:10px;
-
   -webkit-border-top-right-radius:0px;
-
   -webkit-border-bottom-left-radius:10px;
-
   -webkit-boder-bottom-right-radius:10px;
-
 }
-
