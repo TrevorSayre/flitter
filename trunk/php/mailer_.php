@@ -39,11 +39,11 @@ $msg = "";
 // Attachment 
 $msg .= "--".$mime_boundary.$eol; 
 // To send MS Word, use 'msword' instead of 'pdf' 
-$msg .= "Content-Type: application/pdf; name=\"".$letter."\"".$eol;
+$msg .= "Content-Type: application/pdf; name=\"".$file."\"".$eol;
 $msg .= "Content-Transfer-Encoding: base64".$eol; 
 $msg .= "Content-Disposition: attachment;";
 // Needs TWO end of lines !! IMPORTANT !!
-$msg .= "filename=\"".$letter."\"".$eol.$eol;  
+$msg .= "filename=\"".$file."\"".$eol.$eol;  
 $msg .= $f_contents.$eol.$eol; 
 // Setup for text OR HTML 
 $msg .= "Content-Type: multipart/alternative".$eol; 
