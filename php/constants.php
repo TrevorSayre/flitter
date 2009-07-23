@@ -81,7 +81,7 @@ define("COOKIE_PATH", "/");  //Avaible in whole domain
  * sends to users, and whether to send a
  * welcome email to newly registered users.
  */
-define("EMAIL_FROM_NAME", "Flitter");
+define("EMAIL_FROM_NAME", "flitter");
 define("EMAIL_FROM_ADDR", "flitter.to@gmail.com");
 define("EMAIL_WELCOME", false);
 
