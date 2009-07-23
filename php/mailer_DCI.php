@@ -1,6 +1,4 @@
 <?php 
-// RFC 2821 (faqs.org/rfcs/rfc2821.html) dictates that new lines in SMTP 
-// email must be denoted with CRLF (i.e. \r\n)
 
 $mail = new eMail();
 
@@ -16,6 +14,8 @@ class eMail {
   private $return_path;
   private $subject;
 
+  // RFC 2821 (faqs.org/rfcs/rfc2821.html) dictates that new lines in SMTP 
+  // email must be denoted with CRLF (i.e. \r\n)
   public function __construct($eol = "\r\n") {
     $this->eol = $eol;
     $this->attachments = array();
