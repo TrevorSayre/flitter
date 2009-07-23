@@ -17,9 +17,9 @@ class Mailer
     */
    function sendWelcome($user, $email, $pass){
       $from = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM_ADDR.">";
-      $subject = "Flitter - Welcome!";
+      $subject = "[flitter] Welcome!";
       $body = $user.",\n\n"
-             ."Welcome! You've just registered at Flitter "
+             ."Welcome! You've just registered at flitter "
              ."with the following information:\n\n"
              ."Username: ".$user."\n"
              ."Password: ".$pass."\n\n"
@@ -28,7 +28,7 @@ class Mailer
              ."email address, if you would like to change your "
              ."email address you can do so by going to the "
              ."My Account page after signing in.\n\n"
-             ."- The Flitter Team";
+             ."- The flitter Team";
 
       return mail($email,$subject,$body,$from);
    }
@@ -40,7 +40,7 @@ class Mailer
     */
    function sendNewPass($user, $email, $pass){
       $from = "From: ".EMAIL_FROM_NAME." <".EMAIL_FROM_ADDR.">";
-      $subject = "Flitter - Your new password";
+      $subject = "[flitter] Your new password";
       $body = $user.",\n\n"
              ."We've generated a new password for you at your "
              ."request, you can use this new password with your "
@@ -51,7 +51,7 @@ class Mailer
              ."to something that is easier to remember, which "
              ."can be done by going to the My Account page "
              ."after signing in.\n\n"
-             ."- The Flitter Team";
+             ."- The flitter Team";
              
       return mail($email,$subject,$body,$from);
    }
