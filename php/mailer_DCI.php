@@ -28,7 +28,7 @@ class eMail {
 
   public function makeEmail( $email, $alias=NULL ) {
     //Still need to validate the emails and aliases here!!!
-    //
+    //regex -> ^[\x20-\x2D\x2F-\x7E]+(\.[\x20-\x2D\x2F-\x7E]+)*@(([a-z0-9]([-a-z0-9]*[a-z0-9]+)?){1,63}\.)+[a-z0-9]{2,6}$
     //
 
     if($alias==NULL)
