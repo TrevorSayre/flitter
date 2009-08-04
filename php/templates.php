@@ -22,6 +22,7 @@
  *  
  *  All other fields should map to values used in the templates themselves  
  */
+
 class Templater {
 
   //This flag determines whether warnings are dumped out when
@@ -103,7 +104,7 @@ class Templater {
     }
     
     //Construct the correct template file path and name
-    $name = $this->tmpl_root.$tmpl_name.'.tmpl';
+    $name = $this->tmpl_root.$tmpl_name;
     
     //If the file exists, get the contents so we can check it first
     if(file_exists($name))
@@ -150,19 +151,19 @@ class Templater {
    *  to output the code you need for linking.         
    */
   public function add_script($filename) {
-    $file = $this->js_root.$filename.".js";
+    $file = $this->js_root.$filename;
     if( file_exists($file) )
         array_push( $this->scripts, $file);
     else
-      array_push($this->warnings,"\"$filename.js\" required file cannot be found in $this->js_root");
+      array_push($this->warnings,"\"$filename\" required file cannot be found in $this->js_root");
   }
   
   public function add_style($filename) {
-    $file = $this->css_root.$filename.".css";
+    $file = $this->css_root.$filename;
     if( file_exists($file) )
         array_push( $this->styles, $file );
     else
-      array_push($this->warnings,"\"$filename.css\" required file cannot be found in $this->css_root");
+      array_push($this->warnings,"\"$filename\" required file cannot be found in $this->css_root");
   }
   /**
    *  This function will dump out the code needed to link all of
@@ -186,12 +187,13 @@ class Templater {
   }
   public function php_link($link) {
     foreach($GLOBALS as $key => $value) { global $$key; }
-    return eval("require_once \"$this->php_root$link.php\";"); 
+    return eval("require_once \"$this->php_root$link\";"); 
   }
   
   public function get_page_title () {
     return $this->page_title_prefix.$this->page_title.$this->page_title_postfix;
   }
+
 };
 
 ?>

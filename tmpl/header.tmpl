@@ -1,20 +1,45 @@
 <?php
-  $templater->add_style("header");
-  $templater->add_script("header");
+  $templater->add_style("header.css");
+  $templater->add_script("header.js");
+  $templater->php_link("user_session.php");
+
+  $user = startUserSession();
+
+  //Set Up for a Logged In User
+  if($user->get_id() != -1) {
+    $sections = array( 
+		drop_down_menu("account/logout",'Logout',array()),
+		drop_down_menu('discover','Discover',array()),
+		drop_down_menu('create','Create',array()),
+		drop_down_menu('contribute','Contribute',array()),
+		drop_down_menu('source/index.php','Source Code',array()));
+    $task = ($template['http_task']=="") ? 'home' : $_GET['http_task'];
+  }
+  //Set Up for a Logged out User
+  else {
+    $sections = array( 
+		drop_down_menu("account/login",'Login',array()),
+		drop_down_menu('discover','Discover',array()),
+		drop_down_menu('create','Create',array()),
+		drop_down_menu('contribute','Contribute',array()),
+		drop_down_menu('source/index.php','Source Code',array()));
+    $task = ($_GET['http_task']=="") ? 'login' : $_GET['http_task'];  
+  }
+
   echo "<ul id=\"nav_bar\">";
-  foreach($template['sections'] as $item) {
+  foreach($sections as $item) {
     echo "<li class=\"nav_bar_li\">";
     if(array_key_exists('sublinks',$item)) {
       echo "<img ".$templater->img_link("plus.png");
       echo " width=\"12\" height=\"12\" alt=\"Plus Icon\"> ";
     }
     echo "<a ".$templater->http_link( $item['target'] );
-    echo " id=\"section_link_".$item['target']."\">".$item['label']."</a>";
+    echo " id=\"section_link_".implode('_',explode('/',$item['target']))."\">".$item['label']."</a>";
     if(array_key_exists('sublinks',$item)) {
       echo "<ul class=\"sub_nav_list\">";
       foreach($item['sublinks'] as $target => $label) {
         echo "
-          <li><a ".$templater->http_link($target)." id=\"section_link_$target\">
+          <li><a ".$templater->http_link($target)." id=\"section_link_".implode('_',explode('/',$item['target']))."\">
             $label
           </a>";
       }
@@ -24,4 +49,22 @@
   }  
   echo "</ul>
       <div style=\"clear:both;\"></div>";
+?>
+
+<div id="modal_iframe">Hello there, how are you?</div>
+
+<?php
+//Helper Functions
+function drop_down_menu($target,$label,$sublinks){
+  if($sublinks != null) {
+    return array( 'target'              =>  $target,      //Head Button Link
+                  'label'               =>  $label,       //Head Button Label
+                  'sublinks'            =>  $sublinks );  //Link => Label Sets 
+                                                          //        for submenu
+  }
+  else {
+    return array( 'target'              =>  $target,      //Head Button Link
+                  'label'               =>  $label);       //Head Button Label
+  }                                                               
+}
 ?>

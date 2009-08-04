@@ -1,15 +1,21 @@
 <?php
-  $templater->add_style("footer");  
+  $templater->add_style("footer.css");  
 ?>
 <div id="footer_bar">
-<?php
-  $last_item = end($template['links']);
-  foreach($template['links'] as $target => $label) {
-    echo "<a ".$templater->http_link($target);
-    echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
-    if($label != $last_item) echo "|";
-  }  
-?>
+  <?php
+    $links = array( 'about'   => 'About Us',
+		    'contact'   => 'Contact Us',
+		    'termsofservice'   => 'Terms of Service',
+		    'privacy'   => 'Privacy Policy',
+		    'http://blog.flitter.to' => 'Blog' );
+
+    $last_item = end($links);
+    foreach($links as $target => $label) {
+      echo "<a ".$templater->http_link($target);
+      echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
+      if($label != $last_item) echo "|";
+    }  
+  ?>
   <br/><br/>Copyright 2009 <i>flitter.to</i> - Some rights Reserved, consult 
   <a <?=$templater->http_link('licensing')?> >licensing</a> for more information
 </div>
