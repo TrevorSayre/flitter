@@ -55,3 +55,11 @@
   #nav_bar li ul li:hover {
     color:#72c7c8;
   }
+
+
+#modal_iframe {
+  position:absolute;
+  left:100px;
+  right:100px;
+  background:orange;
+}

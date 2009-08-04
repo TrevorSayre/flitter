@@ -1,0 +1,33 @@
+<?php
+
+  $templater->add_script("jquery-1.3.2.js");
+  $templater->add_script("jquery-ui-1.7.2.custom.min.js");
+  $templater->add_script("index.js");
+  $templater->add_style("redmond/jquery.ui-1.7.2.custom.css");  
+  $templater->add_style("index.css");
+  
+  //Lead the navigation module
+  $header = $templater->load_template( 'header.tmpl' ,$template, 'navigation' );
+
+  //Load the content module
+  $area = ($template['http_area']=="") ? 'home' : strtolower($template['http_area']);          
+  $content = $templater->load_template( $area.'.tmpl', array(), $area);
+
+  //Load the footer module
+  $footer = $templater->load_template( 'footer.tmpl', $template, 'footer' );
+
+?>
+
+<body>
+  <div id="container">
+    <div id="logo">
+      <a <?=$templater->http_link("home")?> alt="Flitter, Click to go Home">
+	<img id="logo_home" <?=$templater->img_link("flitter_logo_206x100.png")?> width="206" height="100" alt="Flitter Logo">
+      </a>
+    </div>
+    <div id="header"><?=$header?></div>
+    <div id="content"><?=$content?></div>
+    <div id="footer"><?=$footer?></div>
+  </div>
+  
+</body>

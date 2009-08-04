@@ -1,6 +1,6 @@
 <?php 
   require_once "php/templates.php";
-  
+
   $templater = new Templater();
   $templater->app_root = "/flitter/";
   
@@ -18,17 +18,12 @@
   $templater->page_title = "Coming Soon...";
   
   //Load our layout into the body variable
-  //3 Args - Name Relative to tmpl_root, args to pass, and use output buffers
-  $body_tmpl_name = 'index';
-  //Pass $_GET args through but allow for manual override
-  $body_tmpl_args = array()+$_GET;
-  $body = $templater->load_template( $body_tmpl_name,  $body_tmpl_args, "body", true );
+  $body_tmpl_args = array()+$_POST+$_GET;//Allows for pass through to $template variable
+  $body = $templater->load_template( 'flitter.layout',  $body_tmpl_args, "flitter_layout", true );
   
   //Now that the page has been processed produce the header
-  $head_tmpl_name = 'head';
-  //Pass $_GET args through but allow for manual override
-  $head_tmpl_args = array()+$_GET;
-  $head = $templater->load_template(  $head_tmpl_name, array(), "head", true ); 
+  $head_tmpl_args = array()+$_POST+$_GET;//Allows for pass through to $template variable
+  $head = $templater->load_template(  'head.tmpl', array(), "head", true ); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
