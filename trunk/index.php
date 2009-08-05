@@ -1,5 +1,5 @@
 <?php 
-  require_once "php/templates.php";
+  require_once "php/templater.php";
 
   $templater = new Templater();
 
