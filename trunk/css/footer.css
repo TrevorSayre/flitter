@@ -24,7 +24,11 @@
 }
 
 #button_source-code a {
-  border:none;	
+  border:none;
+}
+/* For Gecko */
+#button_source-code a img {
+  border:none;
 }
 
 #button_source-code a:hover {
