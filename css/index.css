@@ -13,6 +13,7 @@ html,body {
 acronym {
   /*border-bottom: 1px dotted black;*/
   font-weight:bold;
+  border:none;
 }
 
 a {
