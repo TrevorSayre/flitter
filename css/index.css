@@ -41,8 +41,8 @@ a:hover {
   height:75px;
 }
 
-#logo_home { 
-  border:none; 
+#logo img, #logo a {
+  border:none;	
 }
 
 #header,#footer {
