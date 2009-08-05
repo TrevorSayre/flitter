@@ -31,54 +31,137 @@ class Templater {
   
   //Shortcuts for absolute linking of files
   public  $app_root;
-  public  $http_root;
-  public  $css_root;
-  public  $js_root;
-  public  $tmpl_root;
-  public  $php_root;
-  public  $img_root;
-  
+
   //Used for setting the page title from pretty much anywhere
   public  $page_title_prefix;
   public  $page_title;
   public  $page_title_postfix;
   //Holds the generated warnings until a dump is requested
-  private $warnings;
+  private $warnings = array();
   
   //These arrays hold the script and style links for the html header
   //This storage is required so they can be dumped out before the 
   //display code is sent to the broswer
-  private $scripts;
-  private $styles;
+  private $js_paths = array();
+  private $css_paths = array();
   
-  /**
-   *  Constructor to provide default values for the class
-   */     
+  private $roots = array();
+
   function __construct() {
     $this->dump_warnings = true;
-    $this->warnings = array();
-    $this->scripts = array();
-    $this->styles = array();
     
     //Some basic defaults people will probably use.
-    $this->http_root = $_SERVER['SERVER_NAME'];
-    $this->doc_root = "/";
-    $this->css_root = "js/";
-    $this->js_root = "css/";
-    $this->img_root = "img/";
-    $this->tmpl_root = "tmpl/";
     $this->page_title = $_SERVER['SERVER_NAME'];
-    $this->php_root = "php/";
     $this->page_title_prefix = "";
     $this->page_title_postfix = "";
   }
   
-  //Get the path of the current file in pretty form for viewing
-  //It just has an akward backslash sometimes that I want to get rid of
-  private function get_pretty_path() {
-    $path = dirname($_SERVER['PHP_SELF']);
-    if (substr($path,-1)=='\\') $path = substr($path,0,count($path)-1);
+  public function set_app_root($root) { 
+    if(file_exists($root))
+      $this->roots['app'] = $root.'/'; 
+    else
+      die("Invalid relative path ($root) to app_root. Does not exist");
+  }
+
+  public function set_http_root($root) {
+    $this->http_root = $root.'/';
+  }
+  public function get_http_path($path) {
+    if(strstr($path,'http://')===FALSE) { //Local
+      if(isset($this->http_root))
+	return $this->http_root.$path;
+      else
+	die('Cannot get_http_path with setting http_root');	
+    }
     return $path;
+  }
+
+  public function set_directory($path,$label) {
+    if(isset($this->roots['app']))
+      $path = $this->roots['app'].$path.'/';
+    else
+      die("Setting $label directory requires an app_root");
+
+    if(file_exists($path))
+      $this->roots[$label] = $path;
+    else
+      die("Invalid relative path ($path) to $label directory. Does not exist");
+  }
+
+  //Should handle everything
+  public function get_path_str($file_name,$dir_label) {
+    // Might need this stuff for php
+    //    foreach($GLOBALS as $key => $value) { global $$key; }
+    //    return eval("require_once \"$this->php_root$link\";"); 
+    if(isset($this->roots[$dir_label]))
+      return $this->roots[$dir_label].$file_name;
+    else
+      die("get_path: $dir_label has not been defined. Cannot link $file_name.");
+  }
+
+  public function set_layout($layout,$dir_label='tmpl') {
+    if(isset($this->roots[$dir_label]))
+      $path = $this->roots[$dir_label].$layout.'/';
+    else
+      die("Setting layout requires a tmpl_root");
+
+    if(file_exists($path))
+      $this->roots['layout'] = $path;
+    else
+      die("Layout ($layout) does not exist in $_dir_label (".$this->roots[$dir_label].")");
+  }
+
+ /**
+  *This function loads a template file and returns its <HTML> output
+  * $args is an array of variables for the template 
+  */
+  public function load_file( $file_name, $args, $dir_label='layout' ) {
+    //Construct the path. layout must be previously set has been choosen
+    if( !isset($this->roots[$dir_label]))
+      die("load_body requires layout_root to be set");
+    $file_name = $this->roots[$dir_label].$file_name;
+
+    //If the file doesn't exist, dump warnings, exit with error
+    if( !file_exists($file_name) ) {
+      if ($this->dump_warnings) $this->show_warnings();
+      die( "<b>".$file_name." could not be located</b><br/><br/>" );
+    }
+    $contents = file_get_contents($file_name);
+
+    //Find all the variable references and make sure those variables exist
+    preg_match_all('/\$template\[["\'](\w+)["\']\]/s',$contents,$matches);
+    foreach($matches[1] as $match) {
+      //If the a variable required by the template is missing
+      //Create an appropriate warning and push it on the stack
+      if( !array_key_exists($match,$args) )
+        array_push($this->warnings,"'$match' variable value was not supplied to $label");
+    } 
+
+    // Declare all globals used by the template script as found between the
+    //  #USED_GLOBALS and END_GLOBALS# pgp tags                  
+    $globals = array( 'templater' ); //$templater is always global
+    if(preg_match('/#USED_GLOBALS (.*)? END_GLOBALS#/',$contents,$matches))
+      $globals = $globals+explode(',',$matches[1]);
+    foreach($globals as $var) { global $$var; }
+    
+
+    //This code forces embedded loads to look inside named folders for files
+    //get the file name without extention
+    $dir = array_shift(explode('.',$file_name));
+    $old_path = $this->roots[$dir_label];
+    $this->roots[$dir_label] .= $dir.'/';
+
+	//  Here we are setting up an output buffer to hold the output from the
+	//  template file.  We then retreive the buffer contents and clear to so
+	//  it does not get sent to the server until we wish for it to.
+	ob_start();
+	  include $file_name;
+	  $ret = ob_get_contents();
+	ob_end_clean();
+    
+    $this->roots[$dir_label] = $old_path;
+
+    return $ret;
   }
   
   //This function allows a user to request a warning dump
@@ -87,113 +170,41 @@ class Templater {
             implode("<br/>\n",$this->warnings),"<br/>\n</b>";
   }
   
-  /**This function loads a template file and returns its <HTML> output
-  * $label is used only for debugging purposes to differentiate different
-  * instances of the same template in a file (it might be useful)
-  *
-  * $template is an array of variables for the template and must include
-  * 'name' => template_file_name so that the function knows where to find
-  * the template you want it to load.
-  */       
-  public function load_template( $tmpl_name, $template, $label) {
-    //Make sure they supplied a template name
-    if( strlen($tmpl_name)==0 ) {
-      if ($this->dump_warnings) $this->show_warnings();
-      die( "\n\n<br/><br/><b>Fatal Error:<br/><br/>\n
-            Template Name was not supplied for $label</b><br/><br/>" );
-    }
-    
-    //Construct the correct template file path and name
-    $name = $this->tmpl_root.$tmpl_name;
-    
-    //If the file exists, get the contents so we can check it first
-    if(file_exists($name))
-      $contents = file_get_contents($name);
-    //Else dump out any warnings generated so far and output fatal error
-    else {
-      if ($this->dump_warnings) $this->show_warnings();
-      die( "<b>".$name." could not be located for $label</b><br/><br/>" );
-    }
-   
-    //Find all the variable references and make sure those variables exist
-    preg_match_all('/\$template\[["\'](\w+)["\']\]/s',$contents,$matches);
-    foreach($matches[1] as $match) {
-      //If the a variable required by the template is missing
-      //Create an appropriate warning and push it on the stack
-      if( !array_key_exists($match,$template) )
-        array_push($this->warnings,"'$match' variable value was not supplied to $label");
-    } 
-
-    /**
-     *  Declare all globals used by the template script as found between the
-     *  #USED_GLOBALS and END_GLOBALS# pgp tags     
-     */              
-    $globals = array( 'templater' );
-    if(preg_match('/#USED_GLOBALS (.*)? END_GLOBALS#/',$contents,$matches))
-      $globals = $globals+explode(',',$matches[1]);
-    foreach($globals as $var) { global $$var; }
-    /**
-     *  Here we are setting up an output buffer to hold the output from the
-     *  template file.  We then retreive the buffer contents and clear to so
-     *  it does not get sent to the server until we wish for it to.
-     */         
-    ob_start();
-      include $name;
-      $ret = ob_get_contents();
-    ob_end_clean();
-    return $ret;
-  }
-  
   /**
    *  Use this function in template files to add css and js links
    *  into the header section of the main template.  This output is
    *  not automatic.  Use the linking_code() function in the header
    *  to output the code you need for linking.         
    */
-  public function add_script($filename) {
-    $file = $this->js_root.$filename;
-    if( file_exists($file) )
-        array_push( $this->scripts, $file);
+  public function add_js($file_name,$dir_label='js') {
+    if(isset($this->roots[$dir_label]))
+      $file_name = $this->roots[$dir_label].$file_name;
     else
-      array_push($this->warnings,"\"$filename\" required file cannot be found in $this->js_root");
-  }
-  
-  public function add_style($filename) {
-    $file = $this->css_root.$filename;
-    if( file_exists($file) )
-        array_push( $this->styles, $file );
+      die($dir_label.' directory has not been set up.');
+
+    if( file_exists($file_name) )
+        array_push( $this->js_paths, $file_name);
     else
-      array_push($this->warnings,"\"$filename\" required file cannot be found in $this->css_root");
+      array_push($this->warnings,"\"$file_name\": required file cannot be found");
   }
-  /**
-   *  This function will dump out the code needed to link all of
-   *  the files that embedded templates have said that they require   
-   */     
-  public function linking_code() {
-    foreach($this->styles as $file)
-      echo "<link href=\"$file\" type=\"text/css\" rel=\"stylesheet\" />\n";
-    foreach($this->scripts as $file)
-      echo "<script src=\"$file\" type=\"text/javascript\"></script>\n";
-  }
-  
-  public function img_link($link) {
-    return "src=\"$this->img_root$link\"";
-  }
-  public function http_link($link) {
-    if(strpos($link,'http://')===false)
-      return "href=\"$this->http_root$link\"";
+  public function get_js_paths() { return $this->js_paths; }
+
+  public function add_css($file_name,$dir_label='css') {
+    if(isset($this->roots[$dir_label]))
+      $file_name = $this->roots[$dir_label].$file_name;
     else
-      return "href=\"$link\" target=\"_blank\"";
+      die($dir_label.' directory has not been set up.');
+
+    if( file_exists($file_name) )
+      array_push( $this->css_paths, $file_name );
+    else
+      array_push($this->warnings,"\"$file_name\": required file cannot be found");
   }
-  public function php_link($link) {
-    foreach($GLOBALS as $key => $value) { global $$key; }
-    return eval("require_once \"$this->php_root$link\";"); 
-  }
+  public function get_css_paths() { return $this->css_paths; }
   
   public function get_page_title () {
     return $this->page_title_prefix.$this->page_title.$this->page_title_postfix;
   }
-
 };
 
 ?>

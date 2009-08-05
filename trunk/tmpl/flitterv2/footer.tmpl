@@ -1,5 +1,5 @@
 <?php
-  $templater->add_style("footer.css");  
+  $templater->add_css("footer.css");  
 ?>
 <div id="footer_bar">
   <?php
@@ -10,17 +10,17 @@
 
     $last_item = end($links);
     foreach($links as $target => $label) {
-      echo "<a ".$templater->http_link($target);
+      echo "<a http=\"".$templater->get_http_path($target)."\"";
       echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
       if($label != $last_item) echo "|";
     }  
   ?>
   <p>Copyright 2009 <i>flitter.to</i> - Some rights Reserved,<br />consult 
-  <a <?=$templater->http_link('licensing')?> >licensing</a> for more 
+  <a href="<?=$templater->get_http_path('licensing')?>" >licensing</a> for more 
      information
   </p>
-  <p id="button_source-code"><a <?=$templater->http_link("source")?> alt="source code">
-     <img <?=$templater->img_link("button_source-code.png")?> width="102" 
+  <p id="button_source-code"><a href="<?=$templater->get_http_path("source")?>" alt="source code">
+     <img <?=$templater->get_path_str("button_source-code.png",'img')?> width="102" 
 	 height="34" alt="source code"></a>
   </p>
 </div>
