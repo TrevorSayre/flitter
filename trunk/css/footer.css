@@ -11,18 +11,6 @@
   margin:0px 6px;
 }
 
-#footer_bar a {
-  text-decoration:none;
-  color:#74c6ee;
-  border:none;
-  border-bottom: 1px dashed #74c6ee;
-  font-weight:bold;
-}
-
-#footer_bar a:hover {
-  border-bottom-style: solid;
-}
-
 #button_source-code a {
   border:none;
 }

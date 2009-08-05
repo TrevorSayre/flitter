@@ -15,16 +15,17 @@ acronym {
   font-weight:bold;
 }
 
-#content a {
+a {
   text-decoration:none;
   color:#74c6ee;
   border:none;
-  border-bottom: 1px dashed #74c6ee;
+  /*border-bottom: 1px dashed #74c6ee;*/
   font-weight:bold;
 }
 
-#content a:hover {
-  border-bottom-style: solid;
+a:hover {
+  /*border-bottom-style: solid;*/
+  border-bottom: 1px dashed #74c6ee;
 }
 
 #container {
@@ -60,7 +61,6 @@ acronym {
 #content {
   width:760px;/*800-40 for left and right padding of 20*/
   padding:0px 20px;
-  border: 1px solid black;
   background: #bce5f1 url('../img/content.png') repeat-y; 
   min-height:100px;
 }
