@@ -23,6 +23,10 @@
   border-bottom-style: solid;
 }
 
-#button_source-code {
+#button_source-code a {
+  border:none;	
+}
+
+#button_source-code a:hover {
   border:none;	
 }
