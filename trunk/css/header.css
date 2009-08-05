@@ -1,65 +1,15 @@
 /* CSS Document */
 
-
-#nav_bar {
-  float:right;
-  padding:4px 0px 0px 0px;
-  margin:52px 0px 0px 0px;
-  background:transparent;
-  -moz-border-radius:10px 10px 0px 0px;
-  -webkit-border-top-left-radius:10px;
-  -webkit-border-top-right-radius:10px;
+#definition {
+  padding-top:52px;
+  margin-left:183px;
+  font-size:18px;	
 }
-  #nav_bar li {
-    list-style:none;
-    font-size:14px;
-    color:white;
-    text-align:left;
-    font-weight:bold;
-  }
-  #nav_bar .nav_bar_li {
-    float:left;
-    margin-left: 12px;
-    padding:6px 12px;
-    background:#808080;
-    -moz-border-radius:10px 10px 0px 0px;
-    -webkit-border-top-left-radius:10px;
-    -webkit-border-top-right-radius:10px;
-  }
-  #nav_bar .nav_bar_li img {
-    vertical-align:baseline;
-  }
-  #nav_bar li a {
-    text-decoration:none;
-    color:white;
-  }
-  #nav_bar li a:hover {
-    color:#72c7c8;
-  }
-  
-  #nav_bar li ul {
-    position:absolute;
-    margin:6px 0px 0px -12px;
-    padding:0px;
-    background:#808080;
-    -moz-border-radius:0px 0px 10px 10px;
-    /*-webkit-border-top-right-radius:10px;*/
-    -webkit-border-bottom-left-radius:10px;
-    -webkit-border-bottom-right-radius:10px;
-  }
-  #nav_bar li ul li {
-    float:none;
-    padding:6px;
-    margin:6px 12px;
-  }
-  #nav_bar li ul li:hover {
-    color:#72c7c8;
-  }
 
+.bold {
+  font-weight:bold;
+}
 
-#modal_iframe {
-  position:absolute;
-  left:100px;
-  right:100px;
-  background:orange;
+.italic {
+  font-style:italic;	
 }

@@ -44,7 +44,6 @@ acronym {
 
 #header,#footer {
   width:800px;
-  /*padding-top:10px;*/
 }
 
 #header {
@@ -58,8 +57,8 @@ acronym {
 }
 
 #content {
-  width:800px;
-  padding:10px;
+  width:760px;/*800-40 for left and right padding of 20*/
+  padding:0px 20px;
   background: #bce5f1 url('../img/content.png') repeat-y; 
   min-height:100px;
 }
