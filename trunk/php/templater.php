@@ -76,9 +76,13 @@ class Templater {
     return $path;
   }
 
-  public function set_directory($path,$label) {
-    if(isset($this->roots['app']))
-      $path = $this->roots['app'].$path.'/';
+  public function set_directory($path,$label,$sub_dir_label=NULL) {
+    if(isset($this->roots['app'])) {
+      if($sub_dir_label==NULL)
+	$path = $this->roots['app'].$path.'/';
+      else
+	$path = $this->roots[$sub_dir_label].$path.'/';
+    }
     else
       die("Setting $label directory requires an app_root");
 
@@ -144,22 +148,13 @@ class Templater {
       $globals = $globals+explode(',',$matches[1]);
     foreach($globals as $var) { global $$var; }
     
-
-    //This code forces embedded loads to look inside named folders for files
-    //get the file name without extention
-    $dir = array_shift(explode('.',$file_name));
-    $old_path = $this->roots[$dir_label];
-    $this->roots[$dir_label] .= $dir.'/';
-
-	//  Here we are setting up an output buffer to hold the output from the
-	//  template file.  We then retreive the buffer contents and clear to so
-	//  it does not get sent to the server until we wish for it to.
-	ob_start();
-	  include $file_name;
-	  $ret = ob_get_contents();
-	ob_end_clean();
-    
-    $this->roots[$dir_label] = $old_path;
+    //  Here we are setting up an output buffer to hold the output from the
+    //  template file.  We then retreive the buffer contents and clear to so
+    //  it does not get sent to the server until we wish for it to.
+    ob_start();
+      include $file_name;
+      $ret = ob_get_contents();
+    ob_end_clean();
 
     return $ret;
   }
