@@ -1,5 +1,25 @@
 /* CSS Document */
 
 div#content_container {
-  font-size:18px;	
+  font-size:18px;
+  padding-top:10px;
+  padding-left:10px;
+  height:180px;
+}
+
+div#content_container img, div#content_container div {
+  position:absolute;	
+}
+
+#arrows_tall {
+
+}
+
+#arrows_short_top {
+  padding-left:50px;
+}
+
+#arrows_short_bottom {
+  padding-left:50px;
+  padding-top:94px;
 }
