@@ -30,7 +30,7 @@ class Templater {
   public  $dump_warnings;
   
   //Shortcuts for absolute linking of files
-  public  $app_root;
+  private  $app_root;
 
   //Used for setting the page title from pretty much anywhere
   public  $page_title_prefix;
