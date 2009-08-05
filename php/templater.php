@@ -64,7 +64,7 @@ class Templater {
   }
 
   public function set_http_root($root) {
-    $this->http_root = $root.'/';
+    $this->http_root = $root;
   }
   public function get_http_path($path) {
     if(strstr($path,'http://')===FALSE) { //Local

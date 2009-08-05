@@ -10,7 +10,7 @@
 
     $last_item = end($links);
     foreach($links as $target => $label) {
-      echo "<a http=\"".$templater->get_http_path($target)."\"";
+      echo "<a href=\"".$templater->get_http_path($target)."\"";
       echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
       if($label != $last_item) echo "|";
     }  
