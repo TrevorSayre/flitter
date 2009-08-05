@@ -59,6 +59,7 @@ acronym {
 #content {
   width:760px;/*800-40 for left and right padding of 20*/
   padding:0px 20px;
+  border: 1px solid black;
   background: #bce5f1 url('../img/content.png') repeat-y; 
   min-height:100px;
 }
