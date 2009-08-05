@@ -1,0 +1,16 @@
+<?php
+  $templater->add_css("home.css");
+  $templater->add_js("home.js");
+?>
+<div id="content_container">
+  <img src="<?=$templater->get_path_str("arrows_tall.png",'img')?>" width="40" 
+    height="180" alt="" id="arrows_tall">
+  <img src="<?=$templater->get_path_str("arrows_short.png",'img')?>" width="40" 
+	height="84" alt="" id="arrows_short_top">
+  <img src="<?=$templater->get_path_str("arrows_short.png",'img')?>" width="40" 
+	height="84" alt="" id="arrows_short_bottom">
+  <div id="follow">follow</div>
+  <div id="search">search</div>
+  <div id="create">create</div>
+  <div id="manage">manage</div>
+</div>

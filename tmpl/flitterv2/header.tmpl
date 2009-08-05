@@ -1,7 +1,7 @@
 <?php
-  $templater->add_style("header.css");
-  $templater->add_script("header.js");
-  $templater->php_link("user_session.php");
+  $templater->add_css("header.css");
+  $templater->add_js("header.js");
+  require_once $templater->get_path_str("user_session.php",'php');
 
   $user = startUserSession();
 

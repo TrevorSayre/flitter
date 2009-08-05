@@ -8,7 +8,6 @@ abstract class Resource {
   abstract public function issetAr($field); //used for arrays
   abstract public function __unset($field);
   
-  
   abstract public function getFields();
 }
 

@@ -7,28 +7,22 @@
   $templater->add_style("index.css");
   
   //Lead the navigation module
-  $header = $templater->load_template( 'header.tmpl' ,$template, 
-    'navigation' );
+  $header = $templater->load_template( 'header.tmpl' ,$template, 'navigation' );
 
   //Load the content module
-  $area = ($template['http_area']=="") ? 'home' : 
-    strtolower($template['http_area']);          
+  $area = ($template['http_area']=="") ? 'home' : strtolower($template['http_area']);          
   $content = $templater->load_template( $area.'.tmpl', array(), $area);
 
   //Load the footer module
-  $footer = $templater->load_template( 'footer.tmpl', $template, 
-    'footer' );
+  $footer = $templater->load_template( 'footer.tmpl', $template, 'footer' );
 
 ?>
 
 <body>
   <div id="container">
     <div id="logo">
-      <a <?=$templater->http_link("home")?> alt="flitter, Click to go
-        Home">
-	<img id="logo_home" 
-	  <?=$templater->img_link("logo.png")?> width="144" 
-	    height="75" alt="flitter logo">
+      <a <?=$templater->http_link("home")?> alt="Flitter, Click to go Home">
+	<img id="logo_home" <?=$templater->img_link("flitter_logo_206x100.png")?> width="206" height="100" alt="Flitter Logo">
       </a>
     </div>
     <div id="header"><?=$header?></div>
