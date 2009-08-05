@@ -1,23 +1,28 @@
 /* CSS Document */
 
 #footer_bar {
-  margin:0px auto;
+  margin-left:-95px;
+  padding-top:75px;
   text-align:center;
-  padding:5px;
+  font-size:12px;
 }
 
 #footer_bar .footer_link {
-  margin:0px 12px;
+  margin:0px 6px;
 }
 
 #footer_bar a {
   text-decoration:none;
-  color:#72c7c8;
+  color:#74c6ee;
   border:none;
-  border-bottom: 1px dashed #72c7c8;
+  border-bottom: 1px dashed #74c6ee;
   font-weight:bold;
 }
 
 #footer_bar a:hover {
   border-bottom-style: solid;
+}
+
+#button_source-code {
+  border:none;	
 }
