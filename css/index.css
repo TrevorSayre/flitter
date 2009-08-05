@@ -4,9 +4,10 @@ html,body {
   margin:0px;
   padding:0px;
   height:100%;
-  background:#dcf1f1; 
+  background:#bce5f1; 
   font-family:verdana,sans-serif; 
   font-size:12px;
+  color:#595959;
 }
 
 acronym {
@@ -15,9 +16,9 @@ acronym {
 
 #content a {
   text-decoration:none;
-  color:#72c7c8;
+  color:#74c6ee;
   border:none;
-  border-bottom: 1px dashed #72c7c8;
+  border-bottom: 1px dashed #74c6ee;
   font-weight:bold;
 }
 
@@ -25,41 +26,40 @@ acronym {
   border-bottom-style: solid;
 }
 
-#container, #content, #logo { 
-  -moz-border-radius:10px; 
-  -webkit-border-radius:10px;
-}
-
 #container {
-  width:980px;
+  width:800px;
   margin:0px auto;
 }
 
 #logo {
   position:absolute;
-  margin:12px 0px 0px -22px;
-  width:206px;
-  height:100px;
+  margin:10px 0px 0px 0px;
+  width:144px;
+  height:75px;
 }
 
-#header,#footer {
-  width:980px;
-  padding-top:10px;
-}
-  
 #logo_home { 
-  color:inherit; 
   border:none; 
 }
 
+#header,#footer {
+  width:800px;
+  /*padding-top:10px;*/
+}
+
+#header {
+  height:80px;
+  background:#bce5f1 url('../img/header.png') no-repeat;	
+}
+
+#footer {
+  height:212px;
+  background:#bce5f1 url('../img/footer.png') no-repeat;
+}
+
 #content {
-  width:940px;
-  padding:20px;
-  background:white;
-  /*min-height:600px;*/
-  -moz-border-radius:10px 0px 10px 10px;
-  -webkit-border-top-left-radius:10px;
-  -webkit-border-top-right-radius:0px;
-  -webkit-border-bottom-left-radius:10px;
-  -webkit-boder-bottom-right-radius:10px;
+  width:800px;
+  padding:10px;
+  background: #bce5f1 url('../img/content.png') repeat-y; 
+  min-height:100px;
 }

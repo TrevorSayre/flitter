@@ -13,16 +13,19 @@
   $templater->js_root   = "js/";
   $templater->php_root  = "php/";
   $templater->img_root  = "img/";
-  $templater->page_title_prefix = "Flitter - ";
+  $templater->page_title_prefix = "flitter - ";
   //Default Page title, can be overridden by loaded template files
   $templater->page_title = "Coming Soon...";
   
   //Load our layout into the body variable
-  $body_tmpl_args = array()+$_POST+$_GET;//Allows for pass through to $template variable
-  $body = $templater->load_template( 'flitter.layout',  $body_tmpl_args, "flitter_layout", true );
+  $body_tmpl_args = array()+$_POST+$_GET;
+    //Allows for pass through to $template variable
+  $body = $templater->load_template( 'flitter.layout',  $body_tmpl_args,
+    "flitter_layout", true );
   
   //Now that the page has been processed produce the header
-  $head_tmpl_args = array()+$_POST+$_GET;//Allows for pass through to $template variable
+  $head_tmpl_args = array()+$_POST+$_GET;
+    //Allows for pass through to $template variable
   $head = $templater->load_template(  'head.tmpl', array(), "head", true ); 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
