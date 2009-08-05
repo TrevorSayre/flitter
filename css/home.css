@@ -12,7 +12,7 @@ div#content_container img, div#content_container div {
 }
 
 #arrows_tall {
-
+  /*win*/
 }
 
 #arrows_short_top {
@@ -22,7 +22,7 @@ div#content_container img, div#content_container div {
 
 #arrows_short_bottom {
   padding-left:50px;
-  padding-top:155px;
+  padding-top:195px;
 }
 
 #looking {
@@ -38,4 +38,19 @@ div#content_container img, div#content_container div {
 #search {
   padding-left:100px;
   padding-top:119px;
+}
+
+#know {
+  padding-left:49px;
+  padding-top:160px;
+}
+
+#create {
+  padding-left:100px;
+  padding-top:209px;	
+}
+
+#manage {
+  padding-left:100px;
+  padding-top:259px	
 }
