@@ -4,7 +4,7 @@ div#content_container {
   font-size:18px;
   padding-top:10px;
   padding-left:10px;
-  height:180px;
+  height:300px;
 }
 
 div#content_container img, div#content_container div {
@@ -17,9 +17,25 @@ div#content_container img, div#content_container div {
 
 #arrows_short_top {
   padding-left:50px;
+  padding-top:55px;
 }
 
 #arrows_short_bottom {
   padding-left:50px;
-  padding-top:94px;
+  padding-top:155px;
+}
+
+#looking {
+  padding-left:49px;
+  padding-top:20px;	
+}
+
+#follow {
+  padding-left:100px;
+  padding-top:69px;	
+}
+
+#search {
+  padding-left:100px;
+  padding-top:119px;
 }
