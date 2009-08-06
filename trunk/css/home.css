@@ -8,7 +8,8 @@ div#content_container {
 }
 
 div#content_container img, div#content_container div {
-  position:absolute;	
+  position:absolute;
+  /*border: 1px solid black;*/	
 }
 
 #arrows_tall {
@@ -16,41 +17,45 @@ div#content_container img, div#content_container div {
 }
 
 #arrows_short_top {
-  padding-left:50px;
-  padding-top:55px;
+  margin-left:49px;
+  margin-top:56px;
 }
 
 #arrows_short_bottom {
-  padding-left:50px;
-  padding-top:195px;
+  margin-left:49px;
+  margin-top:196px;
+}
+
+#button_login {	
+  margin-left:502px;
 }
 
 #looking {
-  padding-left:49px;
-  padding-top:20px;	
+  margin-left:49px;
+  margin-top:18px;	
 }
 
 #follow {
-  padding-left:100px;
-  padding-top:69px;	
+  margin-left:98px;
+  margin-top:68px;	
 }
 
 #search {
-  padding-left:100px;
-  padding-top:119px;
+  margin-left:98px;
+  margin-top:118px;
 }
 
 #know {
-  padding-left:49px;
-  padding-top:160px;
+  margin-left:49px;
+  margin-top:158px;
 }
 
 #create {
-  padding-left:100px;
-  padding-top:209px;	
+  margin-left:98px;
+  margin-top:208px;	
 }
 
 #manage {
-  padding-left:100px;
-  padding-top:259px	
+  margin-left:98px;
+  margin-top:258px	
 }
