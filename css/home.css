@@ -9,7 +9,7 @@ div#content_container {
 
 div#content_container img, div#content_container div {
   position:absolute;
-  /*border: 1px solid black;*/	
+  /*border: 1px solid black;*/
 }
 
 #arrows_tall {
@@ -18,12 +18,12 @@ div#content_container img, div#content_container div {
 
 #arrows_short_top {
   margin-left:49px;
-  margin-top:56px;
+  margin-top:49px;
 }
 
 #arrows_short_bottom {
   margin-left:49px;
-  margin-top:196px;
+  margin-top:189px;
 }
 
 #button_login {	
@@ -37,12 +37,12 @@ div#content_container img, div#content_container div {
 
 #follow {
   margin-left:98px;
-  margin-top:68px;	
+  margin-top:61px;	
 }
 
 #search {
   margin-left:98px;
-  margin-top:118px;
+  margin-top:111px;
 }
 
 #know {
@@ -52,10 +52,10 @@ div#content_container img, div#content_container div {
 
 #create {
   margin-left:98px;
-  margin-top:208px;	
+  margin-top:201px;	
 }
 
 #manage {
   margin-left:98px;
-  margin-top:258px	
+  margin-top:251px	
 }
