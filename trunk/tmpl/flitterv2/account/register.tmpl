@@ -2,6 +2,7 @@
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('user_session.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+  $templater->add_css('register.css','css');
 
   $user = startUserSession();
   
@@ -27,13 +28,17 @@
   }
 ?>
 
-<br/>
 <?php if(isset($error)) echo $error,"<br/><br/>"; ?>
-<b>Register for an Account</b>
-<br/><br/>
+
 <form action="" method="POST">
-  Email:<input type="textbox" name="email" /><br/><br/>
-  Password:<input type="password" name="password" /><br/><br/>
-  <input type="Submit" value="Create User" />
+  <div class="header">Register</div>
+  <img src="<?=$templater->get_path_str("email.png","img")?>" 
+    width="45" height="18" alt="E-mail"> 
+  <input type="textbox" class="textbox" name="email" /><br />
+  <img src="<?=$templater->get_path_str("password.png","img")?>" 
+    width="45" height="18" alt="Password">
+  <input type="password" class="textbox" name="password" /><br />
+  <input type="image" class="submit" 
+    src="<?=$templater->get_path_str("submit.png","img")?>" 
+    value="Submit" />
 </form>
-<br/>
