@@ -1,0 +1,16 @@
+<?php
+  require_once $templater->get_path_str('user_session.php','php');
+
+  $user = startUserSession();  
+  //Registered user went the wrong way, send user home
+  if($user->get_id() != -1) {
+    header('Location: '.$templater->get_http_path(""));
+  }
+?>
+<b>Login Below:</b><br/><br/>
+<form method="POST" action="<?=$templater->get_path_str('native_login.php','php');?>">
+  Email:   <input type="textbox" name="email" /><br/><br/>
+  Password:<input type="textbox" name="password" /><br/><br/>
+  <input type="submit" value="submit" />
+</form>
+<br/>
