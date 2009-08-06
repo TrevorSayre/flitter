@@ -1,7 +1,9 @@
 <?php
 
 require_once 'twitter_library.php'; 
-require_once '../OAuth.php';
+if(file_exists('../OAuth.php'))
+  require_once '../OAuth.php';
+else require_once '/home/websites/flitter/php/OAuth.php';
 
 /**
  * TwitterOAuth Class extending the TwitterBase for OAuth Support
@@ -13,6 +15,7 @@ require_once '../OAuth.php';
  */
 class TwitterOAuth extends TwitterLibrary {
 
+  private $curl_timeout;
   /* Set up the API root URL */
   public static $TO_API_ROOT = "https://twitter.com/";
  
@@ -32,10 +35,14 @@ class TwitterOAuth extends TwitterLibrary {
     return self::$TO_API_ROOT . 'oauth/authenticate' . '?oauth_token=' . $token;    
   }
 
+  function getCurlTimeOut() { return $this->curl_timeout; }
+  function setCurlTimeOut($timeout) { $this->curl_timeout = $timeout; }
+
   /**
    * construct TwitterOAuth object
    */
   function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL) {
+    $curl_timeout=10;
     $this->sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
     $this->consumer = new OAuthConsumer($consumer_key, $consumer_secret);
     if (!empty($oauth_token) && !empty($oauth_token_secret)) {
@@ -100,7 +107,7 @@ class TwitterOAuth extends TwitterLibrary {
     if($format != '') $api_url .= '.'.$format;
     $req = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, strtoupper($http_method), $api_url, $options);
     $req->sign_request($this->sha1_method, $this->consumer, $this->token);
-
+    
     switch( $http_method ) {
       case 'get': 
 	curl_setopt($curl_handle, CURLOPT_URL, $req->to_url());
@@ -114,7 +121,7 @@ class TwitterOAuth extends TwitterLibrary {
     }
 
     curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 30);
-    curl_setopt($curl_handle, CURLOPT_TIMEOUT, 30);
+    curl_setopt($curl_handle, CURLOPT_TIMEOUT, $curl_timeout);
     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
     //////////////////////////////////////////////////
     ///// Set to 1 to verify Twitter's SSL Cert //////
