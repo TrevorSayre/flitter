@@ -5,16 +5,16 @@
 
   $user = startUserSession();
   $loginbar = 'Welcome <span style="font-weight:bold;">'.
-    $user->get_email().'</span>, ';
+    $user->get_email().'</span> | ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    $loginbar .= '<a href="logout">Log out?</a>, <a href="account">Settings?</a>';
+    $loginbar .= '<a href="account">Settings</a> | <a href="logout">Log Out</a>';
   }
   //Set Up for a Logged out User
   else {
     $loginbar = 'For the full 
       <span style="font-weight:bold;">flitter</span> experience, 
-      <a href="login">Log in!</a>'; 
+      <a href="login">Log In!</a>'; 
   }
 
 ?>
