@@ -35,11 +35,11 @@
 
   //Load our page body first, it well specify its dependencies
   $app_args = array();//Allows for pass through to $template variable
-  $body = $templater->load_file('layout.tmpl',$app_args+$_POST+$_GET);
+  $body = $templater->load_file('layout.tmpl',$app_args+$_GET);
   
   //Now that dependencies have been loaded form the header
   $app_args = array();//Allows for pass through to $template variable
-  $head = $templater->load_file('head.tmpl',$app_args+$_POST+$_GET);
+  $head = $templater->load_file('head.tmpl',$app_args+$_GET);
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

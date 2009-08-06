@@ -7,15 +7,16 @@
   $templater->add_css("index.css");
   
   //Lead the navigation module
-  $header = $templater->load_file( 'header.tmpl' ,$template );
+  $header = $templater->load_file( 'header.tmpl' , $args );
 
   //Load the content module
-  $area = ($template['http_area']=="") ? 'home' : 
-    strtolower($template['http_area']);          
+  $area = ($args['http_area']=="") ? 'home' : 
+    strtolower($args['http_area']);          
+
   $content = $templater->load_file( $area.'.tmpl', array() );
 
   //Load the footer module
-  $footer = $templater->load_file( 'footer.tmpl', $template );
+  $footer = $templater->load_file( 'footer.tmpl', $args );
 
 ?>
 

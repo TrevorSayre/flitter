@@ -24,17 +24,15 @@ if($_GET['state']=='start') {
   $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY, FLITTERTO_CONSUMER_SECRET);
   // Get Request token, used to validate on Twitter's login authorize page
   $token = $twitter->getRequestToken();
+
+  //Put code you would like to execute before redirecting the user here
+  //For instance rememberme and reference redirect code, play with the token
+  twitter_oauth_start_hook($token);
+  
   // Save request tokens for use in grabbing the access tokens in finish section
   $_SESSION['oauth_request_token'] = $token['oauth_token'];
   $_SESSION['oauth_request_token_secret'] = $token['oauth_token_secret'];
 
-  //Put code you would like to execute before redirecting the user here
-  //For instance rememberme and reference redirect code
-  twitter_oauth_start_hook($token);
-  
-  if($_GET['method']=='ajax') {
-    echo $twitter->getAuthorizeURL($token); exit;
-  }
   // Send the user to Twitter's authorization page to grant us access tokens
   header("Location: ".$twitter->getAuthorizeURL($token));
 }
@@ -71,7 +69,7 @@ else if($_GET['state']=='finish') {
   else {
 
     //output the error content for debugging
-    twitter_oauth_invalid_auth_hook($token,$content);
+    twitter_oauth_invalid_auth_hook($$token,$content,$twitter->lastStatusCode());
   }
 
   //Put app specific code here
