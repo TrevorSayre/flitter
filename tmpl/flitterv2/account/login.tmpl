@@ -1,15 +1,32 @@
 <?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
   $templater->add_css('login.css','css');
 
   $user = startUserSession();  
   //Registered user went the wrong way, send user home
   if($user->get_id() != -1) {
-    header('Location: '.$templater->get_http_path(""));
+    header('Location: '.$templater->get_http_path('home'));
+  }
+
+  if(isset($_POST['email']) && isset($_POST['password'])) {
+    $flitter = new FlitterLibrary();
+    $user = $flitter->validateUser($_POST['email'],$_POST['password']);
+    //Valid Credentials
+    if($user!=NULL) {
+      $user = new User($user);
+      //Write user to session
+      getSessionResource()->storeResource($user->get_info(),'accounts');
+      header('Location: '.$templater->get_http_path('home'));
+    }
+    else
+      $error = 'Invalid user credentials supplied';
   }
 ?>
 
-<form method="POST" action="<?=$templater->get_path_str('native_login.php','php');?>">
+<form method="POST" action="">
   <div class="header">Log In</div>
   <img src="<?=$templater->get_path_str("email.png","img")?>" 
     width="45" height="18" alt="E-mail"> 

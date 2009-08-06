@@ -1,22 +1,28 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('user_session.php','php');
-  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
 
   $user = startUserSession();
   
   //Guest User, Redirect them to login
   if($user->get_id() == -1)
-    header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
+    header('Location: '.$templater->get_http_path('account/login'));
 
   if(isset($_POST['title']) && isset($_POST['location']) && isset($_POST['description'])) {
     $flitter = new FlitterLibrary();
-    $flitter->addEvent($_POST['title'],time(),time()+3600,$_POST['location'],$_POST['description']);
-    header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?http_area=manage_events');
+    $id = $flitter->addEvent($_POST['title'],time(),time()+3600,$_POST['location'],$_POST['description']);
+    if($id) {
+      $flitter->addUserEventCommitment($user->get_id(),$id,'admin');
+      header('Location: '.$templater->get_http_path('event/manage'));
+    }
+    else
+      $error = 'Error occured while adding event!';
   }
 ?>
 
 <br/>
+<?=$error;?>
+<br/><br/>
 <b>Create Event</b>
 <br/><br/>
 <form action="" method="POST">

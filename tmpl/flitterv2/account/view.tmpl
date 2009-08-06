@@ -1,0 +1,19 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
+  $flitter = new FlitterLibrary();
+  $user = $flitter->getUserById($args['http_detail']);
+
+  echo "<br/>";
+  if(!$user) {
+    echo 'user_id ',$args['http_detail'],' is not a valid id';
+  }
+  else {
+    echo "<b>User Profile</b>:<br/><br/>";
+    foreach(array('user_id','email') as $key) {
+      echo "$key : ".$user[$key].'<br/>';
+    }
+  }
+?>
