@@ -8,7 +8,7 @@
     $user->get_email().'</span>, ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    $loginbar .= '<a href="logout">Log out?</a>';
+    $loginbar .= '<a href="logout">Log out?</a>, <a href="account">Settings?</a>';
   }
   //Set Up for a Logged out User
   else {
