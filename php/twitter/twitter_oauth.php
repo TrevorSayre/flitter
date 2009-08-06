@@ -1,9 +1,8 @@
 <?php
 
-require_once 'twitter_library.php'; 
-if(file_exists('../OAuth.php'))
-  require_once '../OAuth.php';
-else require_once '/home/websites/flitter/php/OAuth.php';
+require_once 'hack.php';
+require_once getFullPath(__FILE__,'twitter_library.php'); 
+require_once getFullPath(__FILE__,'../OAuth.php');
 
 /**
  * TwitterOAuth Class extending the TwitterBase for OAuth Support
