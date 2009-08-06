@@ -10,13 +10,13 @@
 
     $last_item = end($links);
     foreach($links as $target => $label) {
-      echo "<a href=\"".$templater->get_http_path($target)."\"";
+      echo "<a href=\"".$templater->get_http_path('info/'.$target)."\"";
       echo " class=\"footer_link\" id=\"section_link_$target\">$label</a>";
       if($label != $last_item) echo "|";
     }  
   ?>
   <p>Copyright 2009 <i>flitter.to</i> - Some rights reserved,<br />consult 
-  <a href="<?=$templater->get_http_path('licensing')?>" >licensing</a> for more 
+  <a href="<?=$templater->get_http_path('info/licensing')?>" >licensing</a> for more 
      information
   </p>
   <p id="button_source-code"><a href="<?=$templater->get_http_path("source")?>" alt="source code">
