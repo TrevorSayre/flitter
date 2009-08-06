@@ -4,7 +4,7 @@ html,body {
   margin:0px;
   padding:0px;
   height:100%;
-  background:#bce5f1; 
+  background:#bce5f1 url('../img/background.png') repeat-x; 
   font-family:verdana,sans-serif; 
   font-size:12px;
   color:#3f3f3f;
@@ -51,17 +51,17 @@ a:hover {
 
 #header {
   height:80px;
-  background:#bce5f1 url('../img/header.png') no-repeat;	
+  background:#bce5f1 url('../img/header2.png') no-repeat;	
 }
 
 #footer {
   height:212px;
-  background:#bce5f1 url('../img/footer.png') no-repeat;
+  background:#bce5f1 url('../img/footer2.png') no-repeat;
 }
 
 #content {
   width:760px;/*800-40 for left and right padding of 20*/
   padding:0px 20px;
-  background: #bce5f1 url('../img/content.png') repeat-y; 
+  background:#bce5f1 url('../img/content.png') repeat-y; 
   min-height:100px;
 }
