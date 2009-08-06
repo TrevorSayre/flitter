@@ -43,7 +43,7 @@ function twitter_oauth_valid_auth_hook($token,$content) {
     //Add account for the user
     $success = $flitter->addNetworkAccount(
 		  'twitter', $token['user_id'], $user->get_id(),
-		  array('oauth_token'=>$token['oauth_token'],
+		  array('oauth_key'=>$token['oauth_token'],
 			'oauth_secret'=>$token['oauth_token_secret']));
     if( !$success ) die("Failure to add network account to user");
   }
