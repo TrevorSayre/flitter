@@ -18,9 +18,13 @@
   $ext = dirname($_SERVER['SCRIPT_NAME']); if($ext=='\\') $ext='/';
   $templater->set_http_root('http://'.$_SERVER['SERVER_NAME'].$ext);
 
-  
+  //Select your layout
   $templater->set_layout("flitterv2");
   
+  //Set up some sub_dirs for easy template access
+  //foreach(array('account','create','search','manage') as $type)
+  //  $templater->set_directory($tpye,$type,'layout');
+
   $templater->page_title_prefix = "Flitter - ";
   //Default Page title, can be overridden by loaded template files
   $templater->page_title = "Coming Soon...";
