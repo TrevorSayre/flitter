@@ -13,8 +13,14 @@
     $flitter = new FlitterLibrary();
     if( ($user = $flitter->getUserByEmail($_POST['email'])) === FALSE) {
       $id = $flitter->addUser(array('email'=>$_POST['email'],'password'=>$_POST['password']));
-      echo "hello!!!";
-      header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?http_area=login');
+      if($id) {
+	$user = new User( array('email'=>$_POST['email'],'user_id'=>$id) );
+	//Write user to session
+	getSessionResource()->storeResource($user->get_info(),'accounts');
+	header('Location: http://'.$_SERVER['SERVER_NAME']);
+      }
+      else
+	$error = "There was some sort of error registering the account";
     }
     else
       $error = 'The email '.$user['email'].' has already been taken';
