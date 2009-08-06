@@ -4,17 +4,18 @@
   require_once $templater->get_path_str("user_session.php",'php');
 
   $user = startUserSession();
-
+  $loginbar = 'Welcome <b>'.$user->get_email().'</b>, ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    
+    $loginbar .= '<a href="logout">Logout</a>';
   }
   //Set Up for a Logged out User
   else {
- 
+    $loginbar .= '<a href="login">Log in!</a>'; 
   }
 
 ?>
+<div id="loginbar"><?=$loginbar?></div>
 
 <div id="definition"><span class="bold">flitter</span>
   <span class="italic">v.</span>, to move about quickly from one location 

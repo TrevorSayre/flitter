@@ -105,6 +105,11 @@ class FlitterLibrary {
     else
       return FALSE;
   }
+  public function validateUser($email,$password) {
+    $query = 'SELECT * FROM users WHERE email="'.$email.'" AND password="'.$password.'"';
+    $result = $this->database->query($query);
+    return mysql_fetch_assoc($result);
+  }
 
   public function getUserNetworkAccounts($user_id,$network) {
     switch(strtolower($network)) {
@@ -118,6 +123,18 @@ class FlitterLibrary {
     }
     return $accounts;
   }
+  public function getNetworkAccountUsers($network,$network_id) {
+    switch(strtolower($network)) {
+      case 'twitter': $table = 'twitter_accounts'; break;
+      default: $table = 'Unsupported_Network'; break;
+    }
+    $result = $this->database->query('SELECT user_id FROM connections WHERE acct_id='.$network_id.' AND type="'.$network.'"');
+    while( ($connection = mysql_fetch_assoc($result)) ) {      
+      $result2 = $this->database->query('SELECT * FROM '.$table.' WHERE user_id='.$connection['user_id']);
+      $users[] = mysql_fetch_assoc($result2);
+    }
+    return $users;
+  }
   public function getUserEvents($user_id,$type=NULL) {
     $query = 'SELECT event_id FROM commitments WHERE user_id='.$user_id;
     //Allow for filtering based on role
@@ -129,6 +146,14 @@ class FlitterLibrary {
       $events[] = mysql_fetch_assoc($result2);
     }
     return $events;
+  }
+  public function getUserNetworkAccountConnection($user_id,$network,$network_id) {
+    $query = 'SELECT * FROM connections 
+	      WHERE user_id='.$user_id.' 
+		AND acct_id='.$network_id.'
+		AND type="'.$network.'"';
+    $result = $this->database->query($query);
+    return mysql_fetch_assoc($result);
   }
 
   public function getNetworkAccountInfo($network,$network_id) {

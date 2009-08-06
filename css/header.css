@@ -1,6 +1,7 @@
 /* CSS Document */
 
 #definition {
+  position:absolute;
   padding-top:52px;
   margin-left:183px;
   font-size:18px;	
@@ -12,4 +13,10 @@
 
 .italic {
   font-style:italic;	
+}
+
+#loginbar {
+  float:right;
+  padding-right:30px;
+  padding-top:20px;
 }

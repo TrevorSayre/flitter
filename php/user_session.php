@@ -16,7 +16,6 @@ function startUserSession($user_id = NULL) {
   $cookie = getCookieResource();
   $flitter = new FlitterLibrary();
   
-  
   //make sure the supplied user_id is valid, otherwise NULL
   if($user_id!=NULL) {
     $info = $flitter->getUserInfo($user_id);
@@ -26,7 +25,7 @@ function startUserSession($user_id = NULL) {
   else {
     foreach(array($session,$cookie) as $resource) {
       //Check for valid resource params  
-      if(isResourceValid($resource,array('user_id','user_name'))===TRUE) {
+      if(isResourceValid($resource,array('user_id','email'))===TRUE) {
 	//Make sure the user_id is still valid
 	$info = $flitter->getUserInfo($resource->user_id);
 	if($info!==FALSE) {
@@ -39,7 +38,7 @@ function startUserSession($user_id = NULL) {
   //If user_id is still NULL, just load the guest account
   if($user_id==NULL)  {
     //load the guest account
-    $user = new User( array('user_id'=>-1,'user_name'=>'Anonymous') );
+    $user = new User( array('user_id'=>-1,'email'=>'Anonymous') );
   }
   else {
     //echo "<br/>CreatingUser<br/>";
@@ -49,10 +48,11 @@ function startUserSession($user_id = NULL) {
     foreach( array('twitter') as $type ) {
 	//Get all information about any accounts the user might have and add them
 	$accounts = $flitter->getUserNetworkAccounts($user_id,$type);
-	foreach($accounts as $account) {
-	  //echo "<br/>AddingNewAccount<br/>";
-	  $user->addAccount( $type, $account);
-	}
+	if(is_array($accounts)) 
+	  foreach($accounts as $account) {
+	    //echo "<br/>AddingNewAccount<br/>";
+	    $user->addAccount( $type, $account);
+	  }
     }
   }
 
