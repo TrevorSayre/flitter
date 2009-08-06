@@ -8,13 +8,13 @@
     $user->get_email().'</span> | ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    $loginbar .= '<a href="account">Settings</a> | <a href="logout">Log Out</a>';
+    $loginbar .= '<a href="'.$templater->get_http_path('account/manage').'">My Account</a> | <a href="'.$templater->get_http_path('logout').'">Log Out</a>';
   }
   //Set Up for a Logged out User
   else {
     $loginbar = 'For the full 
       <span style="font-weight:bold;">flitter</span> experience, 
-      <a href="login">Log In!</a> | <a href="register">Register</a>'; 
+      <a href="'.$templater->get_http_path('account/login').'">Log In!</a> | <a href="'.$templater->get_http_path('account/register').'">Register</a>'; 
   }
 
 ?>

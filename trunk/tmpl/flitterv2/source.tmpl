@@ -2,15 +2,15 @@
   $templater->page_title = "Live Code";
   
 //  $templater->add_style("highligher");
-  $templater->add_style("jquery.treeview");
-  $templater->add_style("source");
+  $templater->add_css("jquery.treeview.css");
+  $templater->add_css("source.css");
 
-  $templater->add_script("jquery-1.3.2");
-  $templater->add_script("jquery.cookie");
-  $templater->add_script("jquery.treeview");
-  $templater->add_script("source");
+  $templater->add_js("jquery-1.3.2.js");
+  $templater->add_js("jquery.cookie.js");
+  $templater->add_js("jquery.treeview.js");
+  $templater->add_js("source.js");
   
-  $templater->php_link("geshi");
+  require_once $templater->get_path_str('geshi.php','php');
   
   function get_files($dir) {
     $files = scandir($dir);
@@ -47,7 +47,7 @@
    
   
   $file = "";
-  if( preg_match('/(.*?)([\w\.].*)/',$_GET['http_task'],$matches) )
+  if( preg_match('/(.*?)([\w\.].*)/',$_GET['http_detail'],$matches) )
     $file = $matches[2];
   $code = file_get_contents($file);
   $dirPath = "";

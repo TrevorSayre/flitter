@@ -3,17 +3,26 @@
   $templater->add_js("jquery-1.3.2.js");
   $templater->add_js("jquery-ui-1.7.2.custom.min.js");
   $templater->add_js("index.js");
-  $templater->add_css("redmond/jquery.ui-1.7.2.custom.css");  
+  $templater->add_css("redmond/jquery-ui-1.7.2.custom.css");  
   $templater->add_css("index.css");
   
   //Lead the navigation module
   $header = $templater->load_file( 'header.tmpl' , $args );
 
   //Load the content module
-  $area = ($args['http_area']=="") ? 'home' : 
-    strtolower($args['http_area']);          
+  if(isset($args['http_file'])) {
+    if(isset($args['http_folder'])) {
+      //We have an area specified
+      $file = $args['http_folder'].'/'.$args['http_file'];
+    }
+    else
+      $file = $args['http_file'];
+  }
+  else
+    $file = 'home';
+  $file = strtolower($file);
 
-  $content = $templater->load_file( $area.'.tmpl', array() );
+  $content = $templater->load_file( $file.'.tmpl', array() );
 
   //Load the footer module
   $footer = $templater->load_file( 'footer.tmpl', $args );
