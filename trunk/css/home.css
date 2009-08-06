@@ -3,7 +3,7 @@
 div#content_container {
   font-size:18px;
   padding-top:10px;
-  padding-left:10px;
+  padding-left:15px;
   height:300px;
 }
 
@@ -26,9 +26,13 @@ div#content_container img, div#content_container div {
   margin-top:189px;
 }
 
-#button_login {	
+#button_login img {	
+  display:none;
   margin-left:502px;
-  border:none;
+}
+
+#button_login, #button_login img {
+  border:none;	
 }
 
 #looking {

@@ -11,11 +11,7 @@
   margin:0px 6px;
 }
 
-#button_source-code a {
-  border:none;
-}
-/* For Gecko */
-#button_source-code a img {
+#button_source-code a, #button_source-code a img {
   border:none;
 }
 
