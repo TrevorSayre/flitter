@@ -16,7 +16,26 @@
 }
 
 #loginbar {
-  float:right;
-  padding-right:30px;
-  padding-top:20px;
+  position:absolute;
+  right:0px;
+  height:50px;
+}
+
+#banner_end {
+  position:absolute;
+  margin-left:-65px;
+  margin-top:-4px;
+}
+
+#banner_slice {
+  height:50px;
+  display:block;
+  padding-top:4px;
+  padding-right:32px;
+  background:url('../img/banner_slice.png') repeat-x;
+}
+
+#page_curl {
+  position:absolute;
+  right:0px;	
 }

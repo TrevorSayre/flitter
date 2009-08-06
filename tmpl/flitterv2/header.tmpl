@@ -4,20 +4,28 @@
   require_once $templater->get_path_str("user_session.php",'php');
 
   $user = startUserSession();
-  $loginbar = 'Welcome <b>'.$user->get_email().'</b>, ';
+  $loginbar = 'Welcome <span style="font-weight:bold;">'.
+    $user->get_email().'</span>, ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    $loginbar .= '<a href="logout">Logout</a>';
+    $loginbar .= '<a href="logout">Log out?</a>';
   }
   //Set Up for a Logged out User
   else {
-    $loginbar .= '<a href="login">Log in!</a>'; 
+    $loginbar = 'For the full 
+      <span style="font-weight:bold;">flitter</span> experience, 
+      <a href="login">Log in!</a>'; 
   }
 
 ?>
-<div id="loginbar"><?=$loginbar?></div>
 
-<div id="definition"><span class="bold">flitter</span>
+<div id="definition"><span class="bold">flit&#183;ter</span>
   <span class="italic">v.</span>, to move about quickly from one location 
   to another
+</div>
+
+<div id="loginbar">
+  <span id="banner_slice"><img 
+	src="<?=$templater->get_path_str("banner_end.png","img")?>" 
+    width="65" height="50" alt="" id="banner_end"><?=$loginbar?></span>
 </div>
