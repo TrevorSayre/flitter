@@ -7,7 +7,7 @@ html,body {
   background:#bce5f1; 
   font-family:verdana,sans-serif; 
   font-size:12px;
-  color:#595959;
+  color:#3f3f3f;
 }
 
 acronym {
@@ -18,7 +18,7 @@ acronym {
 
 a {
   text-decoration:none;
-  color:#74c6ee;
+  color:#4abded;
   border:none;
   /*border-bottom: 1px dashed #74c6ee;*/
   font-weight:bold;
@@ -26,7 +26,7 @@ a {
 
 a:hover {
   /*border-bottom-style: solid;*/
-  border-bottom: 1px dashed #74c6ee;
+  border-bottom: 1px dashed #4abded;
 }
 
 #container {
