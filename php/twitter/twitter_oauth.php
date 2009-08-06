@@ -1,8 +1,7 @@
 <?php
 
-require_once 'hack.php';
-require_once getFullPath(__FILE__,'twitter_library.php'); 
-require_once getFullPath(__FILE__,'../OAuth.php');
+require_once 'twitter_library.php';
+require_once dirname(__FILE__).'/'.'../OAuth.php';
 
 /**
  * TwitterOAuth Class extending the TwitterBase for OAuth Support
