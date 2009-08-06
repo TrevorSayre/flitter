@@ -1,0 +1,35 @@
+.header {
+  font-size:18px;
+  font-weight:bold;
+  padding:5px;
+  margin-left:-38px;
+}
+
+.textbox {
+  font-size:12px;
+  height:18px;
+  width:150px;
+  border:2px solid #3f3f3f;
+  background:url('../img/form_textbox.png') repeat-x;	
+  margin:0px;
+  padding:0px;
+}
+
+.submit {
+  margin-left:-48px;
+  margin-top:-5px;	
+}
+
+img {
+  vertical-align:top;	
+}
+
+form {
+  text-align:center;
+  padding-top:10px;
+  margin-bottom:-10px;
+}
+
+input {
+  padding:5px !important	
+}
