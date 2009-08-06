@@ -1,0 +1,26 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
+  $user = startUserSession();
+  
+  //Guest User, Redirect them to login
+  if($user->get_id() == -1)
+    header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
+
+  $flitter = new FlitterLibrary();
+  $events = $flitter->getUserEvents($user->get_id());
+?>
+
+<br/>
+<a href="<?=$templater->get_http_path('create');?>">Create an Event</a>
+<br/>
+<br/>
+<?php
+  foreach($events as $event) {
+    print_r($event);
+    echo "<br/><br/>";
+  }
+?>
+<br/>

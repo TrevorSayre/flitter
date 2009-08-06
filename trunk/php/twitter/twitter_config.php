@@ -38,12 +38,12 @@ function twitter_oauth_valid_auth_hook($token,$content) {
 		  'twitter', $token['user_id'],
 		  array('oauth_key'=>$token['oauth_token'],
 			'oauth_secret'=>$token['oauth_token_secret']));
-    if( !$success ) die("Failure to add network account to user");
+    if( !$success ) die("Failure to add network account");
     $makeConnect = TRUE;
   }
   else {
     //Check if connection is present between user and account
-    $connection = $flitter->getUserAccountConnection($user->get_id(),$token['user_id']);
+    $connection = $flitter->getUserNetworkAccountConnection($user->get_id(),'twitter',$token['user_id']);
     if($connection == NULL) $makeConnect = TRUE;
   }
 
@@ -53,8 +53,8 @@ function twitter_oauth_valid_auth_hook($token,$content) {
 
 function twitter_oauth_finish_hook($token,$content) {
   //Redirect to Origional Page
-  //header("Location: ".$_SESSION['refering_page']);
-  header("Location: http://flitter/show_session.php");
+  header("Location: ".$_SESSION['refering_page']);
+  //header("Location: http://flitter/show_session.php");
 }
 
 function twitter_oauth_invalid_auth_hook($token,$content,$statusCode) {

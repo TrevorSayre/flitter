@@ -4,7 +4,7 @@
   $flitter = new FlitterLibrary();
 
   //Reset the DB as needed
-  $tables = array('users','twitter_accounts','connections','events');
+  $tables = array('twitter_accounts','connections','events');
   foreach($tables as $table) {
     $flitter->reset_table($table);
     echo "Reset table $table<br/>";

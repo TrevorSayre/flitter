@@ -1,0 +1,29 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
+  $user = startUserSession();
+  if($user->get_id() == -1) //They are a guest
+    header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
+  
+  $flitter = new FlitterLibrary();
+  $accounts = $flitter->getUserNetworkAccounts($user->get_id(),'twitter');
+  if($accounts==NULL) $accounts=array();
+?>
+
+<br/>
+<a href="<?=$templater->get_path_str('twitter/twitter_login.php?state=start','php');?>">Add a twitter Account</a><br/><br/>
+<?php
+  foreach($accounts as $account) {
+    $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
+    $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
+    if ($twitter->lastStatusCode() != 200)
+      handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
+    else {
+      $info = simplexml_load_string($response);
+      echo "<b>",$info->screen_name,"</b> (twitter) has ",$info->friends_count," friends and ",$info->followers_count," followers";
+    }
+    echo "<br/><br/>";
+  }
+?>

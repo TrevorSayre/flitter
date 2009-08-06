@@ -470,4 +470,19 @@ abstract class TwitterLibrary {
   }
 }
 
+
+function handle_twitter_error($error_code,$api_call,$response) {
+  switch($error_code) {
+    case 0: //libCurl Timeout
+      echo "Twitter Api Call $api_call has timed out<br/>";break;
+    case 400: //Bad Request
+      echo "Error 400 Bad Request @ $api_call: $response<br/>";break;
+    case 403: //Forbidden
+      echo "Error 403 Forbidden @ $api_call: $response<br/>";break;
+    case 404: //Invalid Resource
+      echo "Error 404 Not Found @ $api_call: $response<br/>";break;
+    default:
+      echo "Unknown Error Code $error_code @ $api_call: $response<br/>"; break;
+  }
+}
 ?>

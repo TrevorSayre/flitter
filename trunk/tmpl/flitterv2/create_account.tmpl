@@ -1,0 +1,36 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
+  $user = startUserSession();
+  
+  //Logged in user, they don't need to be here
+  if($user->get_id() != -1)
+    header('Location: http://'.$_SERVER['SERVER_NAME']);
+
+  if(isset($_POST['email']) && isset($_POST['password'])) {
+    $flitter = new FlitterLibrary();
+    if( ($user = $flitter->getUserByEmail($_POST['email'])) === FALSE) {
+      $id = $flitter->addUser(array('email'=>$_POST['email'],'password'=>$_POST['password']));
+      echo "hello!!!";
+      header('Location: http://'.$_SERVER['SERVER_NAME'].'/index.php?http_area=login');
+    }
+    else
+      $error = 'The email '.$user['email'].' has already been taken';
+  }
+  else
+    $error = 'The post has not been sent';
+?>
+
+<br/>
+<?=$error?>
+<br/>
+<b>Add User</b>
+<br/><br/>
+<form action="" method="POST">
+  Email:<input type="textbox" name="email" /><br/><br/>
+  Password:<input type="password" name="password" /><br/><br/>
+  <input type="Submit" value="Create User" />
+</form>
+<br/>

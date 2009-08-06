@@ -67,9 +67,11 @@ class FlitterLibrary {
 
     //Should return new user_id on success FALSE on Failure
     if($this->database->query($query))
-      return mysql_insert_id($this->database->connection);
-    else
+      return $network_id;
+    else {
+      die($this->database->error_msg);
       return FALSE;
+    }
   }
   public function addEvent($title,$start,$end,$location,$description) {
     $query = 'INSERT INTO events
@@ -81,6 +83,11 @@ class FlitterLibrary {
       return mysql_insert_id($this->database->connection);
     else
       return FALSE;    
+  }
+
+  public function getUserByEmail($email) {
+    $result = $this->database->query('SELECT * FROM users WHERE email="'.$email.'"');
+    return mysql_fetch_assoc($result);
   }
 
   public function addUserEventCommitment($user_id,$event_id,$type) {
@@ -129,7 +136,7 @@ class FlitterLibrary {
       default: $table = 'Unsupported_Network'; break;
     }
     $result = $this->database->query('SELECT user_id FROM connections WHERE acct_id='.$network_id.' AND type="'.$network.'"');
-    while( ($connection = mysql_fetch_assoc($result)) ) {      
+    while( ($connection = mysql_fetch_assoc($result)) ) {    
       $result2 = $this->database->query('SELECT * FROM '.$table.' WHERE user_id='.$connection['user_id']);
       $users[] = mysql_fetch_assoc($result2);
     }
@@ -141,6 +148,7 @@ class FlitterLibrary {
     if($type!=NULL)
       $query .= ' AND type='.$type;
     $result = $this->database->query($query);
+    $events = array();
     while( ($commitment = mysql_fetch_assoc($result)) ) {
       $result2 = $this->database->query('SELECT * FROM events WHERE event_id='.$commitment['event_id']);
       $events[] = mysql_fetch_assoc($result2);
