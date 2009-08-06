@@ -1,18 +1,7 @@
 <?php
-
-if(file_exists('../constants.php'))
-  require_once '../constants.php';
-elseif(file_exists('constants.php'))
-  require_once 'constants.php';
-else
-  require_once 'php/constants.php';
-
-if(file_exists('../database.php'))
-  require_once '../database.php';
-elseif(file_exists('database.php'))
-  require_once 'database.php';
-else
-  require_once 'php/database.php';
+  require_once 'hack.php';
+  require_once getFullPath(__FILE__,'../constants.php');
+  require_once getFullPath(__FILE__,'../database.php');
 
 class FlitterLibrary {
   
