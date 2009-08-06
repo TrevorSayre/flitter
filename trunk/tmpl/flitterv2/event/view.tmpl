@@ -1,0 +1,29 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+
+  $flitter = new FlitterLibrary();
+  $event = $flitter->getEventById($args['http_detail']);
+  echo "<br/>";
+  if(!$event)
+    echo 'You\'ve attempted to access event_id '.$args['http_detail'].'. This event does not exist';
+  else {
+    echo "<b>Event Information</b><br/>";
+    foreach(array('title','loc','desc') as $key) {
+      echo "$key: ",$event['event_'.$key],'<br/>';
+    }
+    echo "<br/><br/>";
+    echo "<b>Users Related to the Event</b><br/><br/>";
+    $commitments = $flitter->getEventCommitments($args['http_detail']);
+    foreach($commitments as $commitment) {
+      $user = $flitter->getUserById($commitment['user_id']);
+      if($user) {
+	echo '('.$commitment['type'].') <a href="'.$templater->get_http_path('account/view/'.$commitment['user_id']).'" alt="Visit user profile">'.$user['email'].'</a>';
+      }
+      else
+	echo 'Problem loading user '.$commitment['user_id'];
+      echo '<br/><br/>';
+    }
+  }
+?>

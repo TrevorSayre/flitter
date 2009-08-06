@@ -22,7 +22,7 @@
     $file = 'home';
   $file = strtolower($file);
 
-  $content = $templater->load_file( $file.'.tmpl', array() );
+  $content = $templater->load_file( $file.'.tmpl', $args );
 
   //Load the footer module
   $footer = $templater->load_file( 'footer.tmpl', $args );

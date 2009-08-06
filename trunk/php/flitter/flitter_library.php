@@ -64,7 +64,7 @@ class FlitterLibrary {
   public function addEvent($title,$start,$end,$location,$description) {
     $query = 'INSERT INTO events
 	      (event_title,event_start,event_end,event_loc,event_desc)
-	      VALUES ("'.$title.'",'.$start.','.$end.',"'.$location.'","'.$event_desc.'")';
+	      VALUES ("'.$title.'",'.$start.','.$end.',"'.$location.'","'.$description.'")';
 
     //Should return new user_id on success FALSE on Failure
     if($this->database->query($query))
@@ -72,12 +72,6 @@ class FlitterLibrary {
     else
       return FALSE;    
   }
-
-  public function getUserByEmail($email) {
-    $result = $this->database->query('SELECT * FROM users WHERE email="'.$email.'"');
-    return mysql_fetch_assoc($result);
-  }
-
   public function addUserEventCommitment($user_id,$event_id,$type) {
     $query = 'INSERT INTO commitments
 	      (user_id,event_id,type)
@@ -87,6 +81,32 @@ class FlitterLibrary {
       return mysql_insert_id($this->database->connection);
     else
       return FALSE;
+  }
+
+  public function getEventCommitments($event_id,$type=NULL) {
+    $query = 'SELECT * FROM commitments WHERE event_id='.$event_id;
+    //Allow for filtering based on role
+    if($type!=NULL)
+      $query .= ' AND type='.$type;
+    $result = $this->database->query($query);
+    $commitments = array();
+    while( ($commitment = mysql_fetch_assoc($result)) )
+      $commitments[] = $commitment;
+
+    return $commitments;
+  }
+
+  public function getEventById($event_id) {
+    $result = $this->database->query('SELECT * FROM events WHERE event_id="'.$event_id.'"');
+    return mysql_fetch_assoc($result);
+  }
+  public function getUserByEmail($email) {
+    $result = $this->database->query('SELECT * FROM users WHERE email="'.$email.'"');
+    return mysql_fetch_assoc($result);
+  }
+  public function getUserById($user_id) {
+    $result = $this->database->query('SELECT * FROM users WHERE user_id="'.$user_id.'"');
+    return mysql_fetch_assoc($result);
   }
   public function addUserNetworkAccountConnection($user_id,$network,$network_id) {
     $query = 'INSERT INTO connections
