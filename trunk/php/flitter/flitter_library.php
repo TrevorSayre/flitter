@@ -1,7 +1,6 @@
 <?php
-  require_once 'hack.php';
-  require_once getFullPath(__FILE__,'../constants.php');
-  require_once getFullPath(__FILE__,'../database.php');
+  require_once dirname(__FILE__).'/'.'../constants.php';
+  require_once dirname(__FILE__).'/'.'../database.php';
 
 class FlitterLibrary {
   
