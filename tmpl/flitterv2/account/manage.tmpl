@@ -1,14 +1,12 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
-  require_once $templater->get_path_str('user_session.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
 
-  $user = startUserSession();
-  if($user->get_id() == -1) //They are a guest
+  if($args['user']['user_id'] == -1) //They are a guest
     header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
   
   $flitter = new FlitterLibrary();
-  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
+  $accounts = $flitter->getUserAccounts($args['user']['user_id'],'twitter');
   if($accounts==NULL) $accounts=array();
 ?>
 

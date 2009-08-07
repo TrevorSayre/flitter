@@ -7,11 +7,10 @@
   $templater->add_js('ui.selectable.js','js');
   $templater->add_js('create.js','js');
 
-  //Hack so I don't have to change code
-  $user = $args['user'];
+
   
   //Guest User, Redirect them to login
-  if($user->get_id() == -1)
+  if($args['user']['user_id'] == -1)
     header('Location: '.$templater->get_http_path('account/login'));
 
   if(isset($_POST['title']) && isset($_POST['location']) && isset($_POST['description']) && isset($_POST['start']) && isset($_POST['end']) ) {
@@ -23,8 +22,7 @@
       if($end > $start) {
 	$id = $flitter->addEvent($_POST['title'],$start,$end,$_POST['location'],$_POST['description']);
 	if($id) {
-	  $flitter->addCommitment($user->get_id(),$id,'admin');
-	  $user = $flitter->getUserById($user->get_id());
+	  $flitter->addCommitment($args['user']['user_id'],$id,'admin');
 	  
       //tweet this shit out!!
 	  $link = 'http://'.$_SERVER['SERVER_NAME']."/event/view/$id";
@@ -60,7 +58,7 @@
   <ul id="selectable">
 	<?php
 	  $flitter = new FlitterLibrary();
-	  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
+	  $accounts = $flitter->getUserAccounts($args['user']['user_id'],'twitter');
 	  if(count($accounts)>0) {
 	    foreach($accounts as $account) {
 	      $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);

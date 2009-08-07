@@ -2,21 +2,22 @@
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
 
-  //Hack so I don't have to change code
-  $user = $args['user'];
-
   $flitter = new FlitterLibrary();
   $event = $flitter->getEventById($args['http_detail']);
   echo "<br/>";
   if(!$event)
     echo 'You\'ve attempted to access event_id '.$args['http_detail'].'. This event does not exist';
   else {
-    echo "<b>".$event['event_title']."</b><br/><br/>";
+    echo "<b>".$event['event_title']."</b>";
+    echo '<br/><br/>';
     echo "Where: ",$event['event_loc'],"<br/>";
-    echo "When: ",$event['event_start']," to ",$event['event_end'],"<br/>";
+    $format = 'g:i a M j, Y';
+    echo "When: ",date($format,$event['event_start'])," to ",date($format,$event['event_end']),"<br/>";
     echo "What: ",$event['event_desc'],"<br/>";
     echo "<br/>";
-    $commitment = $flitter->getUserEventCommitment($user->get_id(),$event['event_id']);
+    echo '<a href="" alt="">Tweet This Event</a>';
+    echo '<br/><br/>';
+    $commitment = $flitter->getUserEventCommitment($args['user']['user_id'],$event['event_id']);
     if(!$commitment) { //Unaffilitated User
       echo '<a href="'.$templater->get_http_path('event/join/'.$event['event_id']).'" alt="Join this Event!">Join this Event!</a>';
     }

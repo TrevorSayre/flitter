@@ -1,16 +1,12 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
-  require_once $templater->get_path_str('user_session.php','php');
 
-  //Hack so I don't have to change code
-  $user = $args['user'];
-  
   //Guest User, Redirect them to login
-  if($user->get_id() == -1)
+  if($args['user']['user_id'] == -1)
     header('Location: '.$templater->get_http_path('account/login'));
 
   $flitter = new FlitterLibrary();
-  $commitments = $flitter->getUserCommitments($user->get_id());
+  $commitments = $flitter->getUserCommitments($args['user']['user_id']);
 ?>
 
 <br/>

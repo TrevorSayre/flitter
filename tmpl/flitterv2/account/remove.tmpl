@@ -4,7 +4,7 @@
 
   $flitter = new FlitterLibrary();
   
-  $connection = $flitter->getUserAccountConnection($args['user']->get_id(),'twitter',$args['http_detail']);
+  $connection = $flitter->getUserAccountConnection($args['user']['user_id'],'twitter',$args['http_detail']);
 
   //If the user is not an event admin
   if(is_array($connection))

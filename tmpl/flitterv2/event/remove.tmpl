@@ -4,7 +4,7 @@
 
   $flitter = new FlitterLibrary();
   
-  $commitment = $flitter->getUserEventCommitment($args['user']->get_id(),$args['http_detail']);
+  $commitment = $flitter->getUserEventCommitment($args['user']['user_id'],$args['http_detail']);
 
   //If the user is not an event admin
   if(is_array($commitment) && $commitment['type']=='admin')
