@@ -11,11 +11,11 @@
   if(!$event)
     echo 'You\'ve attempted to access event_id '.$args['http_detail'].'. This event does not exist';
   else {
-    echo "<b>Event Information</b><br/>";
-    foreach(array('title','loc','desc') as $key) {
-      echo "$key: ",$event['event_'.$key],'<br/>';
-    }
-    echo "<br/><br/>";
+    echo "<b>".$event['event_title']."</b><br/><br/>";
+    echo "Where: ",$event['event_loc'],"<br/>";
+    echo "When: ",$event['event_start']," to ",$event['event_end'],"<br/>";
+    echo "What: ",$event['event_desc'],"<br/>";
+    echo "<br/>";
     $commitment = $flitter->getUserEventCommitment($user->get_id(),$event['event_id']);
     if(!$commitment) { //Unaffilitated User
       echo '<a href="'.$templater->get_http_path('event/join/'.$event['event_id']).'" alt="Join this Event!">Join this Event!</a>';
@@ -33,11 +33,11 @@
     foreach($commitments as $commitment) {
       $user = $flitter->getUserById($commitment['user_id']);
       if($user) {
-	echo '('.$commitment['type'].') <a href="'.$templater->get_http_path('account/view/'.$commitment['user_id']).'" alt="Visit user profile">'.$user['email'].'</a>';
+	echo '('.$commitment['type'].') <a href="'.$templater->get_http_path('account/view/'.$commitment['user_id']).'" alt="Visit user profile">'.$user['display_name'].'</a>';
       }
       else
 	echo 'Problem loading user '.$commitment['user_id'];
-      echo '<br/><br/>';
+      echo '<br/>';
     }
   }
 ?>
