@@ -3,10 +3,10 @@
 
   $flitter = new FlitterLibrary();
   
-  $commitment = $flitter->getUserEventCommitment($args['user']->get_id(),$args['http_detail']);
+  $commitment = $flitter->getUserEventCommitment($args['user']['user_id'],$args['http_detail']);
 
   //If the user is committed already
   if(!is_array($commitment))
-    $flitter->addCommitment($args['user']->get_id(),$args['http_detail'],'attendee');
+    $flitter->addCommitment($args['user']['user_id'],$args['http_detail'],'attendee');
   header('Location: '.getRefererURL());
 ?>

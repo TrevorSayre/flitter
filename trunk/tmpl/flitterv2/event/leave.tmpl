@@ -1,10 +1,9 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
-  require_once $templater->get_path_str('user_session.php','php');
 
   $flitter = new FlitterLibrary();
   
-  $commitment = $flitter->getUserEventCommitment($args['user']->get_id(),$args['http_detail']);
+  $commitment = $flitter->getUserEventCommitment($args['user']['user_id'],$args['http_detail']);
 
   //Is user an affiliated non-admin?
   if(is_array($commitment) && $commitment['type']!='admin')

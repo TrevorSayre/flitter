@@ -1,13 +1,11 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
-  require_once $templater->get_path_str('user_session.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
 
   $templater->add_css('login.css','css');
 
-  $user = startUserSession();  
   //Registered user went the wrong way, send user home
-  if($user->get_id() != -1) {
+  if($args['user']['user_id'] != -1) {
     header('Location: '.$templater->get_http_path('home'));
   }
 

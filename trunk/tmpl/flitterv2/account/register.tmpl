@@ -1,13 +1,10 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
-  require_once $templater->get_path_str('user_session.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
   $templater->add_css('register.css','css');
 
-  $user = startUserSession();
-  
   //Logged in user, they don't need to be here
-  if($user->get_id() != -1)
+  if($args['user']['user_id'] != -1)
     header('Location: http://'.$_SERVER['SERVER_NAME']);
 
   if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['display'])) {
@@ -15,7 +12,7 @@
     if( ($user = $flitter->getUserByEmail($_POST['email'])) === FALSE) {
       $id = $flitter->addUser(array('email'=>$_POST['email'],'password'=>$_POST['password'],'display_name'=>$_POST['display']));
       if($id) {
-	$user = new User( array('email'=>$_POST['email'],'user_id'=>$id,'display_name'=>$_POST['display']) );
+	$user = array('email'=>$_POST['email'],'user_id'=>$id,'display_name'=>$_POST['display']);
 	//Write user to session
 	getSessionResource()->storeResource($user->get_info(),'accounts');
 	header('Location: http://'.$_SERVER['SERVER_NAME']);

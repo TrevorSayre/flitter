@@ -2,16 +2,13 @@
   $templater->add_css("header.css");
   $templater->add_js("jquery-1.3.2.js");
   $templater->add_js("header.js");
-  require_once $templater->get_path_str("user_session.php",'php');
-
-  $user = $args['user'];
 
   $simg = '<img src="'.$templater->get_path_str("separator.png","img").
           '"width="3" height="18" alt="">';
   $loginbar = 'Welcome <span style="font-weight:bold;">'.
-    $user->get_display_name().'</span> '.$simg.' ';
+    $args['user']['display_name'].'</span> '.$simg.' ';
   //Set Up for a Logged In User
-  if($user->get_id() != -1) {
+  if($args['user']['user_id'] != -1) {
     $loginbar .= '<a href="'.$templater->get_http_path('account/manage').
       '">My Accounts</a> '.$simg.' <a href="'.
       $templater->get_http_path('event/manage').
