@@ -1,5 +1,6 @@
 <?php
   $templater->add_css("header.css");
+  $templater->add_js("jquery-1.3.2.js");
   $templater->add_js("header.js");
   require_once $templater->get_path_str("user_session.php",'php');
 
@@ -12,7 +13,7 @@
   if($user->get_id() != -1) {
     $loginbar .= '<a href="'.$templater->get_http_path('account/manage').
       '">My Account</a> '.$simg.' <a href="'.
-      $templater->get_http_path('account/events').
+      $templater->get_http_path('event/manage').
       '">My Events</a> '.$simg.' <a href="'.
       $templater->get_http_path('account/logout').'">Log Out</a>';
   }
@@ -33,15 +34,18 @@
 </div>
 
 <div id="loginbar">
-  <span id="banner_slice"><img 
-	src="<?=$templater->get_path_str("banner_end.png","img")?>" 
+  <span id="banner_slice">
+	<img src="<?=$templater->get_path_str("banner_end.png","img")?>" 
     width="65" height="50" alt="" id="banner_end">
-    <a href="<?=$templater->get_http_path('follow')?>">Follow</a>
-    <img src="<?=$templater->get_path_str("separator.png","img")?>" 
-      width="3" height="18" alt=""> 
-    <a href="<?=$templater->get_http_path('search')?>">Search</a>
-    <img src="<?=$templater->get_path_str("separator.png","img")?>" 
-      width="3" height="18" alt=""> 
-    <a href="<?=$templater->get_http_path('create')?>">Create</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;<?=$loginbar?></span>
+    <span id="banner_menu">
+      <a href="<?=$templater->get_http_path('follow')?>">Follow</a>
+      <img src="<?=$templater->get_path_str("separator.png","img")?>" 
+        width="3" height="18" alt=""> 
+      <a href="<?=$templater->get_http_path('event/search')?>">Search</a>
+      <img src="<?=$templater->get_path_str("separator.png","img")?>" 
+        width="3" height="18" alt=""> 
+      <a href="<?=$templater->get_http_path('event/create')?>">Create</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;<?=$loginbar?>
+    </span>
+  </span>
 </div>
