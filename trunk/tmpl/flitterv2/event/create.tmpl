@@ -1,5 +1,6 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
   require_once $templater->get_path_str('user_session.php','php');
 
   $user = startUserSession();
@@ -8,15 +9,28 @@
   if($user->get_id() == -1)
     header('Location: '.$templater->get_http_path('account/login'));
 
-  if(isset($_POST['title']) && isset($_POST['location']) && isset($_POST['description'])) {
+  if(isset($_POST['title']) && isset($_POST['location']) && isset($_POST['description']) && isset($_POST['start']) && isset($_POST['end']) ) {
     $flitter = new FlitterLibrary();
-    $id = $flitter->addEvent($_POST['title'],time(),time()+3600,$_POST['location'],$_POST['description']);
-    if($id) {
-      $flitter->addUserEventCommitment($user->get_id(),$id,'admin');
-      header('Location: '.$templater->get_http_path('event/manage'));
+    $match = '/^([0-1][0-9])\/([0-3][0-9])\/([0-9][0-9][0-9][0-9]) ([0-2][0-9]):([0-5][0-9])$/';
+    if( preg_match($match,$_POST['start'],$matches1) && preg_match($match,$_POST['end'],$matches2) ) {
+      $start = mktime($matches1[4],$matches1[5],0,$matches1[1],$matches1[2],$matches1[3]);
+      $end   = mktime($matches2[4],$matches2[5],0,$matches2[1],$matches2[2],$matches2[3]);
+      if($end > $start) {
+	$id = $flitter->addEvent($_POST['title'],$start,$end,$_POST['location'],$_POST['description']);
+	if($id) {
+	  $flitter->addUserEventCommitment($user->get_id(),$id,'admin');
+	  $user = $flitter->getUserById($user->get_id());
+	  
+	  header('Location: '.$templater->get_http_path('event/manage'));
+	}
+	else
+	  $error = 'Error occured while adding event!';
+      }
+      else
+	$error = 'End time must be after the start time';
     }
     else
-      $error = 'Error occured while adding event!';
+      $error = 'Time fields are in the wrong format, use "mm/dd/yyy hh:mm" format.';
   }
 ?>
 
@@ -26,9 +40,12 @@
 <b>Create Event</b>
 <br/><br/>
 <form action="" method="POST">
-  Event Title<input type="textbox" name="title" /><br/><br/>
-  Event Location<input type="textbox" name="location" /><br/><br/>
-  Event Desc<input type="textbox" name="description" /><br/><br/>
+  Title<input type="textbox" name="title" /><br/><br/>
+  Location<input type="textbox" name="location" /><br/><br/>
+  <!--input as follows mm/dd/yyyy hh:mm-->
+  Start Time<input type="textbox" name="start" /><br/><br/>
+  End Time<input type="textbox" name="end" /><br/><br/>
+  Description<input type="textbox" name="description" /><br/><br/>
   <input type="Submit" value="Create Event" />
 </form>
 <br/>

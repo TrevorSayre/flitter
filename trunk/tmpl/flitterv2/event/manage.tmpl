@@ -9,7 +9,7 @@
     header('Location: '.$templater->get_http_path('account/login'));
 
   $flitter = new FlitterLibrary();
-  $events = $flitter->getUserEvents($user->get_id());
+  $commitments = $flitter->getUserCommitments($user->get_id());
 ?>
 
 <br/>
@@ -17,8 +17,16 @@
 <br/>
 <br/>
 <?php
-  foreach($events as $event) {
-    echo '<a href="',$templater->get_http_path('event/view/'.$event['event_id']),'" alt="',$event['event_title'],'"><b>',$event['event_title'],'</b></a> @ ',$event['event_loc'],': ',$event['event_desc'];
+  foreach($commitments as $commitment) {
+    $event = $flitter->getEventById($commitment['event_id']);
+    $eventCommitments = $flitter->getEventCommitments($event['event_id']);
+    echo '(',$commitment['type'],') <a href="',$templater->get_http_path('event/view/'.$event['event_id']),
+	  '" alt="',$event['event_title'],'"><b>',$event['event_title'],'</b></a>
+	  @ ',$event['event_loc'],'. ',count($eventCommitments),' people involved so far<br/>';
+    foreach($eventCommitments as $eventCommitment) {
+      $eventUser = $flitter->getUserById($eventCommitment['user_id']);
+      echo '--> ('.$eventCommitment['type'].') '.$eventUser['email'].'<br/>';
+    }
     echo "<br/><br/>";
   }
 ?>
