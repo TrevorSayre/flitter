@@ -19,7 +19,7 @@
       $user = new User($user);
       //Write user to session
       getSessionResource()->storeResource($user->get_info(),'accounts');
-      header('Location: '.$templater->get_http_path('home'));
+      header('Location: '.$templater->get_http_path('event/manage'));
     }
     else
       $error = 'Invalid user credentials supplied';

@@ -3,6 +3,8 @@
   require_once $templater->get_path_str('user_session.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
 
+  $user = startUserSession();
+
   $flitter = new FlitterLibrary();
   $event = $flitter->getEventById($args['http_detail']);
   echo "<br/>";
@@ -13,6 +15,18 @@
     foreach(array('title','loc','desc') as $key) {
       echo "$key: ",$event['event_'.$key],'<br/>';
     }
+    echo "<br/><br/>";
+    $commitment = $flitter->getUserEventCommitment($user->get_id(),$event['event_id']);
+    if(!$commitment) { //Unaffilitated User
+      echo '<a href="'.$templater->get_http_path('event/join/'.$event['event_id']).'" alt="Join this Event!">Join this Event!</a>';
+    }
+    elseif($commitment['type']=='admin') {
+      echo '<a href="'.$templater->get_http_path('event/remove/'.$event['event_id']).'" alt="Remove this event">Remove this event</a>';
+    }
+    else { //Must be attendee
+      echo '<a href="'.$templater->get_http_path('event/leave/'.$event['event_id']).'" alt="Leave this event">Leave this event</a>';
+    }
+
     echo "<br/><br/>";
     echo "<b>Users Related to the Event</b><br/><br/>";
     $commitments = $flitter->getEventCommitments($args['http_detail']);

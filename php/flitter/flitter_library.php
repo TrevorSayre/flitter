@@ -96,6 +96,32 @@ class FlitterLibrary {
     return $commitments;
   }
 
+  public function getAllEvents() {
+    $result = $this->database->query('SELECT * FROM events');
+    $events = array();
+    while( ($event = mysql_fetch_assoc($result)) )
+      $events[] = $event;
+    return $events;
+  }
+  public function getUserCommitments($user_id,$type=NULL) {
+    $query = 'SELECT * FROM commitments WHERE user_id='.$user_id;
+    //Allow for filtering based on role
+    if($type!=NULL)
+      $query .= ' AND type='.$type;
+    $result = $this->database->query($query);
+    $commitments = array();
+    while( ($commitment = mysql_fetch_assoc($result)) )
+      $commitments[] = $commitment;
+
+    return $commitments;
+  }
+
+  public function getUserEventCommitment($user_id,$event_id) {
+    $query = "SELECT * FROM commitments WHERE user_id=$user_id AND event_id=$event_id";
+    $result = $this->database->query($query);
+    return mysql_fetch_array($result);
+  }
+
   public function getEventById($event_id) {
     $result = $this->database->query('SELECT * FROM events WHERE event_id="'.$event_id.'"');
     return mysql_fetch_assoc($result);
