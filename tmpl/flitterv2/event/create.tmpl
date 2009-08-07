@@ -32,14 +32,16 @@
 	  else $title = $_POST['title'];
 	  $msg = "$title at $location on ".substr($_POST['start'],0,5).". Check it out at $link";
       
-      $accounts = explode(",",substr($_POST['selectedAccounts'],0,-1));
-	  foreach($accounts as $acct) {
-	    $pair = explode('-',$acct);
-	    $account = $flitter->getAccountById($pair[0],$pair[1]);
-	    $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
-	    $response = $twitter->updateStatus($msg);
-	    if ($twitter->lastStatusCode() != 200)
-	      handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
+	  if($_POST['selectedAccounts']=="") {
+	    $accounts = explode(",",substr($_POST['selectedAccounts'],0,-1));
+	    foreach($accounts as $acct) {
+	      $pair = explode('-',$acct);
+	      $account = $flitter->getAccountById($pair[0],$pair[1]);
+	      $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
+	      $response = $twitter->updateStatus($msg);
+	      if ($twitter->lastStatusCode() != 200)
+		handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
+	    }
 	  }
 	  header('Location: '.$templater->get_http_path('event/manage'));
 	}
