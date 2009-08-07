@@ -46,7 +46,7 @@
    */
    
   
-  $file = "";
+  $file = "index.php";
   if( preg_match('/(.*?)([\w\.].*)/',$_GET['http_detail'],$matches) )
     $file = $matches[2];
   $code = file_get_contents($file);
