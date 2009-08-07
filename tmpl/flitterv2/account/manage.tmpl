@@ -22,7 +22,8 @@
       handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
     else {
       $info = simplexml_load_string($response);
-      echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /> - ';
+      echo '<a href="http://twitter.com/account/profile_image/'.$info->screen_name.'" target="_blank">';
+      echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /></a> - ';
       echo '<a href="http://www.twitter.com/'.$info->screen_name.'" target="_blank" 
 	       alt="Link to '.$info->screen_name.' twitter account">',$info->screen_name,"</a>
 	    (twitter) has ",$info->friends_count," friends and ",$info->followers_count,' followers - 
