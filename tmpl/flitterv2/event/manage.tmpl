@@ -1,5 +1,9 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  $templater->add_js('jquery-1.3.2.js','js');
+  $templater->add_js('jquery.tablesorter.js','js');
+  $templater->add_js('manage_events.js','js');
+  $templater->add_css('manage_events.css','css');
 
   //Guest User, Redirect them to login
   if($args['user']['user_id'] == -1)
@@ -9,29 +13,47 @@
   $commitments = $flitter->getUserCommitments($args['user']['user_id']);
 ?>
 
-<br/>
-<a href="<?=$templater->get_http_path('event/create');?>">Create an Event</a> |
-<a href="<?=$templater->get_http_path('event/search');?>">Find an Event</a>
-<br/>
-<br/>
+<table id="eventTable"> 
+<thead> 
+<tr> 
+	<th>Status</th>
+    <th>What</th>
+    <th>When</th>
+    <th>Where</th>
+    <th>Headcount</th>
+</tr> 
+</thead> 
+<tbody>
+
 <?php
   foreach($commitments as $commitment) {
     $event = $flitter->getEventById($commitment['event_id']);
     $eventCommitments = $flitter->getEventCommitments($event['event_id']);
+    $start = date('M j', $event['event_start']);
 
-    if($commitment['type']=='admin')
-      echo '<a href="'.$templater->get_http_path('event/remove/'.$event['event_id']).'" alt="Remove Event">Remove</a>';
+    echo '<tr>';
+    echo '<td>'.$commitment['type'].'</td>';
+
+	echo '<td><span class="title">'.$event['event_title'].'</span>';
+	if($commitment['type']=='admin')
+      echo '<span class="link">(<a href="'.$templater->get_http_path('event/remove/'.$event['event_id']).'" alt="Remove Event">remove</a>)</span>';
     else
-      echo '<a href="'.$templater->get_http_path('event/leave/'.$event['event_id']).'" alt="Leave Event">Leave</a>';
+      echo '<span class="link">(<a href="'.$templater->get_http_path('event/leave/'.$event['event_id']).'" alt="Leave Event">leave</a>)</span>';
+	echo '<span class="link">(<a href="'.$templater->get_http_path('event/view/'.$event['event_id']).'" alt="View Event '.$event['event_id'].'">view</a>)</span>';
+	echo '</td>';
+	
+	echo '<td>'.$start.'</td>';
+	echo '<td>'.$event['event_loc'].'</td>';
+	echo '<td>'.count($eventCommitments).'</td>';
 
-    echo ' (',$commitment['type'],') <a href="',$templater->get_http_path('event/view/'.$event['event_id']),
-	  '" alt="',$event['event_title'],'"><b>',$event['event_title'],'</b></a>
-	  @ ',$event['event_loc'],'. ',count($eventCommitments),' people involved so far<br/>';
-    foreach($eventCommitments as $eventCommitment) {
+    /*foreach($eventCommitments as $eventCommitment) {
       $eventUser = $flitter->getUserById($eventCommitment['user_id']);
       echo '--> ('.$eventCommitment['type'].') '.$eventUser['email'].'<br/>';
-    }
-    echo "<br/><br/>";
+    }*/
+
+    echo '</tr>';
   }
 ?>
-<br/>
+
+</tbody>
+</table>
