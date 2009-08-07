@@ -131,7 +131,7 @@ class FlitterLibrary {
     $query = 'SELECT * FROM commitments WHERE user_id='.$user_id;
     //Allow for filtering based on role
     if($type!=NULL)
-      $query .= ' AND type='.$type;
+      $query .= ' AND type="'.$type.'"';
     $result = $this->database->query($query);
     $commitments = array();
     while( ($commitment = mysql_fetch_assoc($result)) )

@@ -10,12 +10,12 @@
   if($user->get_id() != -1)
     header('Location: http://'.$_SERVER['SERVER_NAME']);
 
-  if(isset($_POST['email']) && isset($_POST['password'])) {
+  if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['display'])) {
     $flitter = new FlitterLibrary();
     if( ($user = $flitter->getUserByEmail($_POST['email'])) === FALSE) {
-      $id = $flitter->addUser(array('email'=>$_POST['email'],'password'=>$_POST['password']));
+      $id = $flitter->addUser(array('email'=>$_POST['email'],'password'=>$_POST['password'],'display_name'=>$_POST['display']));
       if($id) {
-	$user = new User( array('email'=>$_POST['email'],'user_id'=>$id) );
+	$user = new User( array('email'=>$_POST['email'],'user_id'=>$id,'display_name'=>$_POST['display']) );
 	//Write user to session
 	getSessionResource()->storeResource($user->get_info(),'accounts');
 	header('Location: http://'.$_SERVER['SERVER_NAME']);
@@ -32,6 +32,9 @@
 
 <form action="" method="POST">
   <div class="header">Register</div>
+  <img src="<?=$templater->get_path_str("email2.png","img")?>" 
+    width="40" height="18" alt="Display Name"> 
+  <input type="textbox" class="textbox" name="display" /><br />
   <img src="<?=$templater->get_path_str("email2.png","img")?>" 
     width="40" height="18" alt="E-mail"> 
   <input type="textbox" class="textbox" name="email" /><br />
