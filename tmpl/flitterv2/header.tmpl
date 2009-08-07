@@ -4,17 +4,25 @@
   require_once $templater->get_path_str("user_session.php",'php');
 
   $user = startUserSession();
+  $simg = '<img src="'.$templater->get_path_str("separator.png","img").
+          '"width="3" height="18" alt="">';
   $loginbar = 'Welcome <span style="font-weight:bold;">'.
-    $user->get_email().'</span> | ';
+    $user->get_email().'</span> '.$simg.' ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
-    $loginbar .= '<a href="'.$templater->get_http_path('account/manage').'">My Account</a> | <a href="'.$templater->get_http_path('account/logout').'">Log Out</a>';
+    $loginbar .= '<a href="'.$templater->get_http_path('account/manage').
+      '">My Account</a> '.$simg.' <a href="'.
+      $templater->get_http_path('account/events').
+      '">My Events</a> '.$simg.' <a href="'.
+      $templater->get_http_path('account/logout').'">Log Out</a>';
   }
   //Set Up for a Logged out User
   else {
     $loginbar = 'For the full 
       <span style="font-weight:bold;">flitter</span> experience, 
-      <a href="'.$templater->get_http_path('account/login').'">Log In!</a> | <a href="'.$templater->get_http_path('account/register').'">Register</a>'; 
+      <a href="'.$templater->get_http_path('account/login').
+      '">Log In!</a> '.$simg.' <a href="'.
+      $templater->get_http_path('account/register').'">Register</a>'; 
   }
 
 ?>
@@ -27,5 +35,13 @@
 <div id="loginbar">
   <span id="banner_slice"><img 
 	src="<?=$templater->get_path_str("banner_end.png","img")?>" 
-    width="65" height="50" alt="" id="banner_end"><?=$loginbar?></span>
+    width="65" height="50" alt="" id="banner_end">
+    <a href="<?=$templater->get_http_path('follow')?>">Follow</a>
+    <img src="<?=$templater->get_path_str("separator.png","img")?>" 
+      width="3" height="18" alt=""> 
+    <a href="<?=$templater->get_http_path('search')?>">Search</a>
+    <img src="<?=$templater->get_path_str("separator.png","img")?>" 
+      width="3" height="18" alt=""> 
+    <a href="<?=$templater->get_http_path('create')?>">Create</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;<?=$loginbar?></span>
 </div>
