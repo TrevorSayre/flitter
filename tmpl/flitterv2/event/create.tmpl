@@ -22,6 +22,22 @@
 	  $flitter->addCommitment($user->get_id(),$id,'admin');
 	  $user = $flitter->getUserById($user->get_id());
 	  
+//tweet this shit out!!
+	  $link = 'http://'.$_SERVER['SERVER_NAME']."/event/view/$id";
+	  if(strlen($_POST['title'])>37) $title = substr($_POST['title'],0,37).'...';
+	  else $title = $_POST['title'];
+	  if(strlen($_POST['location'])>37) $title = substr($_POST['location'],0,37).'...';
+	  else $title = $_POST['title'];
+	  $msg = "$title at $location on ".substr($_POST['start'],0,5).". Check it out at $link";
+
+	  foreach($_POST['accounts'] as $acct) {
+	    $pair = explode('-',$acct);
+	    $account = $flitter->getAccountById($pair[0],$pair[1]);
+	    $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
+	    $response = $twitter->updateStatus($msg);
+	    if ($twitter->lastStatusCode() != 200)
+	      handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
+	  }
 	  header('Location: '.$templater->get_http_path('event/manage'));
 	}
 	else

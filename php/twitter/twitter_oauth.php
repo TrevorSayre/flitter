@@ -3,6 +3,9 @@
 require_once 'twitter_library.php';
 require_once dirname(__FILE__).'/'.'../OAuth.php';
 
+define('FLITTERTO_CONSUMER_KEY', 'z8uOi3D6YG7CiDWDkQ8FQ');
+define('FLITTERTO_CONSUMER_SECRET','k9TcYRcyQEkeuq2KNImGOIAXiZvS8SUwTw5EuffbIJs');
+
 /**
  * TwitterOAuth Class extending the TwitterBase for OAuth Support
  * Based on on an OAuth class called 
@@ -14,6 +17,9 @@ require_once dirname(__FILE__).'/'.'../OAuth.php';
 class TwitterOAuth extends TwitterLibrary {
 
   private $curl_timeout;
+  private $consumer;
+  private $token;
+  private $sha1_method;
   /* Set up the API root URL */
   public static $TO_API_ROOT = "https://twitter.com/";
  
@@ -105,19 +111,18 @@ class TwitterOAuth extends TwitterLibrary {
     if($format != '') $api_url .= '.'.$format;
     $req = OAuthRequest::from_consumer_and_token($this->consumer, $this->token, strtoupper($http_method), $api_url, $options);
     $req->sign_request($this->sha1_method, $this->consumer, $this->token);
-    
     switch( $http_method ) {
       case 'get': 
 	curl_setopt($curl_handle, CURLOPT_URL, $req->to_url());
 	break;
       case 'post': 
 	curl_setopt($curl_handle, CURLOPT_URL, $req->get_normalized_http_url());
-	curl_setopt($curl_handle, CURLOPT_POST, true);
-	curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req->to_post_data());
+	curl_setopt($curl_handle, CURLOPT_POST, 1);
+	curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $req->to_postdata());
 	break;
       default: die("invalid http method '$http_method' requested");
     }
-
+    
     curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 30);
     curl_setopt($curl_handle, CURLOPT_TIMEOUT, $curl_timeout);
     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
