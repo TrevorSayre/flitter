@@ -1,0 +1,16 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+
+  $flitter = new FlitterLibrary();
+  $events = $flitter->getAllEvents();
+
+  echo '<br/><br/>';
+  foreach($events as $event) {
+    $eventCommitments = $flitter->getEventCommitments($event['event_id']);
+    echo '<a href="',$templater->get_http_path('event/view/'.$event['event_id']),
+	  '" alt="',$event['event_title'],'"><b>',$event['event_title'],'</b></a>
+	  @ ',$event['event_loc'],'. ',count($eventCommitments),' people involved so far';
+    echo '<br/><br/>';
+  }
+?>

@@ -8,11 +8,13 @@ class User {
     $this->user_info = new userInfo();
     $this->user_info->email = (isset($args['email'])) ? $args['email'] : NULL;
     $this->user_info->user_id = (isset($args['user_id'])) ? $args['user_id'] : NULL;
+    $this->user_info->display_name = (isset($args['display_name'])) ? $args['display_name'] : NULL;
     $this->user_info->accounts = array();
   }
 
   public function get_email() { return $this->user_info->email; }
   public function get_id() { return $this->user_info->user_id; }
+  public function get_display_name() { return $this->user_info->display_name; }
   public function get_info() { return $this->user_info; }
 
   public function set_name($name) { $this->user_info->user_name = $name; }

@@ -9,7 +9,7 @@
   $simg = '<img src="'.$templater->get_path_str("separator.png","img").
           '"width="3" height="18" alt="">';
   $loginbar = 'Welcome <span style="font-weight:bold;">'.
-    $user->get_email().'</span> '.$simg.' ';
+    $user->get_display_name().'</span> '.$simg.' ';
   //Set Up for a Logged In User
   if($user->get_id() != -1) {
     $loginbar .= '<a href="'.$templater->get_http_path('account/manage').
