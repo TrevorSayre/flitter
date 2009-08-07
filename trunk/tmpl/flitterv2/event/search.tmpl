@@ -28,7 +28,7 @@
     echo '<td><span class="title">'.$event['event_title'].
       '</span> <span class="link">(<a href="'.$templater->get_http_path('event/view/'.
       $event['event_id']).'" alt="'.$event['event_title'].
-      '">go</a>)</span></td>';
+      '">view</a>)</span></td>';
 	echo '<td>'.$start.'</td>';
 	echo '<td>'.$event['event_loc'].'</td>';
 	echo '<td>'.count($eventCommitments);
