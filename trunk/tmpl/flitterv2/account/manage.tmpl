@@ -1,6 +1,10 @@
 <?php
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
+  $templater->add_js('jquery-1.3.2.js','js');
+  $templater->add_js('jquery.tablesorter.js','js');
+  $templater->add_js('manage_accounts.js','js');
+  $templater->add_css('manage_accounts.css','css');
 
   if($args['user']['user_id'] == -1) //They are a guest
     header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
@@ -10,23 +14,48 @@
   if($accounts==NULL) $accounts=array();
 ?>
 
-<br/>
-<a href="<?=$templater->get_path_str('twitter/twitter_login.php?state=start','php');?>">Add a twitter Account</a><br/><br/>
+<table id="accountTable"> 
+<thead> 
+<tr> 
+  <th>Name</th> 
+  <th>Type</th> 
+  <th>Friends</th> 
+  <th>Followers</th>
+</tr> 
+</thead> 
+<tbody>
+
 <?php
   foreach($accounts as $account) {
     $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
     $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
-    if ($twitter->lastStatusCode() != 200)
+    if ($twitter->lastStatusCode() != 200) {
+      echo '<tr colspan="5">';
       handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
+    }
     else {
       $info = simplexml_load_string($response);
-      echo '<a href="http://twitter.com/account/profile_image/'.$info->screen_name.'" target="_blank">';
-      echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /></a> - ';
-      echo '<a href="http://www.twitter.com/'.$info->screen_name.'" target="_blank" 
-	       alt="Link to '.$info->screen_name.' twitter account">',$info->screen_name,"</a>
-	    (twitter) has ",$info->friends_count," friends and ",$info->followers_count,' followers - 
-            <a href="'.$templater->get_http_path('account/remove/'.$info->id).'" alt="Remove Account"> Remove </a>';
+      echo '<tr>';
+      echo '<td>'.$info->screen_name;
+      echo '<a href="http://twitter.com/account/profile_image/'.$info->screen_name.'" target="_blank">'.
+        '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /></a> ';
+      echo '<span class="link">(<a href="http://www.twitter.com/'.$info->screen_name.'" target="_blank"'. 
+		'alt="Link to '.$info->screen_name.' twitter account">go</a>)</span>';
+	  echo '<span class="link">(<a href="'.$templater->get_http_path('account/remove/'.$info->id).'" target="_blank"'. 
+		'alt="Link to '.$info->screen_name.' twitter account">remove</a>)</span>';
+      echo '</td>';
+	  echo '<td>twitter</td>';
+	  echo '<td>'.$info->friends_count.'</td>';
+	  echo '<td>'.$info->followers_count.'</td>';
     }
-    echo "<br/><br/>";
+    echo '</tr>';
   }
 ?>
+
+</tbody>
+</table>
+
+<a href="<?=$templater->get_path_str('twitter/twitter_login.php?state=start','php');?>" id="twitter_add">
+<img src="<?=$templater->get_path_str("twitter_add.png","img")?>" 
+  width="93" height="20" alt="">
+</a>

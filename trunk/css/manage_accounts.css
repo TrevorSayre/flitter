@@ -1,0 +1,59 @@
+table {
+  padding:10px 0px;
+  font-size: 12px;
+  width: 100%;
+  text-align: left;
+  border-spacing: 0px;
+}
+table td {
+  border: 1px solid #3f3f3f;
+}
+table thead tr th, table.tablesorter tfoot tr th {
+  background-color: #e7ffe5;
+  border: 1px solid #3f3f3f;
+  font-size: 12px;
+  padding: 4px;
+}
+table thead tr .header {
+  background-image: url('../img/bg.gif');
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
+}
+table tbody td {
+  color: #3f3f3f;
+  padding: 4px;
+  background-color: #ffffff;
+  vertical-align: top;
+}
+table tbody tr.odd td {
+  background-color:#dbecf1;
+}
+table thead tr .headerSortUp {
+  background-image: url('../img/asc.gif');
+}
+table thead tr .headerSortDown {
+  background-image: url('../img/desc.gif');
+}
+table thead tr .headerSortDown, table thead tr .headerSortUp {
+  background-color: #b4d7b1;
+}
+table tbody td .title {
+  font-weight:bold;	
+}
+table tbody td .link {
+  float:right;
+  padding-right:3px;
+  padding-top:32px;
+}
+table tbody td img {
+  float:right;	
+}
+
+#twitter_add {
+  margin-left:665px;
+  border:none;	
+}
+#twitter_add img {
+  border:none;
+}
