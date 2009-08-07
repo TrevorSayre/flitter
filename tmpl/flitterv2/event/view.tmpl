@@ -14,9 +14,7 @@
     $format = 'g:i a M j, Y';
     echo "When: ",date($format,$event['event_start'])," to ",date($format,$event['event_end']),"<br/>";
     echo "What: ",$event['event_desc'],"<br/>";
-    echo "<br/>";
-    echo '<a href="" alt="">Tweet This Event</a>';
-    echo '<br/><br/>';
+    echo '<br/>';
     $commitment = $flitter->getUserEventCommitment($args['user']['user_id'],$event['event_id']);
     if(!$commitment) { //Unaffilitated User
       echo '<a href="'.$templater->get_http_path('event/join/'.$event['event_id']).'" alt="Join this Event!">Join this Event!</a>';
