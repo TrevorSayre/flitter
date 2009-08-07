@@ -176,6 +176,14 @@ class FlitterLibrary {
     }
     return $accounts;
   }
+  public function getAccountById($network,$network_id) {
+    switch(strtolower($network)) {
+      case 'twitter': $table = 'twitter_accounts'; break;
+      default: $table = 'Unsupported_Network'; break;
+    }
+    $result = $this->database->query('SELECT * FROM '.$table.' WHERE acct_id='.$network_id);
+    return mysql_fetch_array($result);
+  }
   public function getAccountUsers($network,$network_id) {
     switch(strtolower($network)) {
       case 'twitter': $table = 'twitter_accounts'; break;
