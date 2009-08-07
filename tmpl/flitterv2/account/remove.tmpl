@@ -1,0 +1,13 @@
+<?php
+  require_once $templater->get_path_str('flitter/flitter_library.php','php');
+  require_once $templater->get_path_str('user_session.php','php');
+
+  $flitter = new FlitterLibrary();
+  
+  $connection = $flitter->getUserAccountConnection($args['user']->get_id(),'twitter',$args['http_detail']);
+
+  //If the user is not an event admin
+  if(is_array($connection))
+    $flitter->removeConnection($connection['conn_id']);
+  header('Location: '.$templater->get_http_path('account/manage'));
+?>
