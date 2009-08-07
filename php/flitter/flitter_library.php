@@ -37,9 +37,8 @@ class FlitterLibrary {
     else
       return FALSE;
   }
-
   //Network args is a assoc array of extra args
-  public function addNetworkAccount($network,$network_id,$network_args=array() ) {
+  public function addAccount($network,$network_id,$network_args=array() ) {
     switch(strtolower($network)) {
       case 'twitter':
 	if(count($network_args)!=2) die("missing oauth arguments for twitter account");
@@ -60,6 +59,21 @@ class FlitterLibrary {
       die($this->database->error_msg);
       return FALSE;
     }
+  }
+  public function addConnection($user_id,$network,$network_id) {
+    $query = 'INSERT INTO connections
+	      (user_id,acct_id,type)
+	      VALUES ('.$user_id.',
+		      '.$network_id.',
+		      "'.$network.'")';
+
+    if($this->database->query($query))
+      return mysql_insert_id($this->database->connection);
+    else
+      return FALSE;
+  }
+  public function removeConnection($conn_id) {
+    return $this->database->query("DELETE FROM connections WHERE conn_id=$conn_id");
   }
   public function addEvent($title,$start,$end,$location,$description) {
     $query = 'INSERT INTO events
@@ -89,6 +103,9 @@ class FlitterLibrary {
   public function removeCommitment($comm_id) {
     return $this->database->query("DELETE FROM commitments WHERE comm_id=$comm_id");
   }
+
+
+
 
   public function getEventCommitments($event_id,$type=NULL) {
     $query = 'SELECT * FROM commitments WHERE event_id='.$event_id;
@@ -141,25 +158,13 @@ class FlitterLibrary {
     $result = $this->database->query('SELECT * FROM users WHERE user_id="'.$user_id.'"');
     return mysql_fetch_assoc($result);
   }
-  public function addUserNetworkAccountConnection($user_id,$network,$network_id) {
-    $query = 'INSERT INTO connections
-	      (user_id,acct_id,type)
-	      VALUES ('.$user_id.',
-		      '.$network_id.',
-		      "'.$network.'")';
-
-    if($this->database->query($query))
-      return mysql_insert_id($this->database->connection);
-    else
-      return FALSE;
-  }
   public function validateUser($email,$password) {
     $query = 'SELECT * FROM users WHERE email="'.$email.'" AND password="'.$password.'"';
     $result = $this->database->query($query);
     return mysql_fetch_assoc($result);
   }
 
-  public function getUserNetworkAccounts($user_id,$network) {
+  public function getUserAccounts($user_id,$network) {
     switch(strtolower($network)) {
       case 'twitter': $table = 'twitter_accounts'; break;
       default: $table = 'Unsupported_Network'; break;
@@ -171,7 +176,7 @@ class FlitterLibrary {
     }
     return $accounts;
   }
-  public function getNetworkAccountUsers($network,$network_id) {
+  public function getAccountUsers($network,$network_id) {
     switch(strtolower($network)) {
       case 'twitter': $table = 'twitter_accounts'; break;
       default: $table = 'Unsupported_Network'; break;
@@ -196,7 +201,7 @@ class FlitterLibrary {
     }
     return $events;
   }
-  public function getUserNetworkAccountConnection($user_id,$network,$network_id) {
+  public function getUserAccountConnection($user_id,$network,$network_id) {
     $query = 'SELECT * FROM connections 
 	      WHERE user_id='.$user_id.' 
 		AND acct_id='.$network_id.'
@@ -205,7 +210,7 @@ class FlitterLibrary {
     return mysql_fetch_assoc($result);
   }
 
-  public function getNetworkAccountInfo($network,$network_id) {
+  public function getAccountInfo($network,$network_id) {
     switch(strtolower($network)) {
       case 'twitter': $table = 'twitter_accounts'; break;
       default: $table = 'Unsupported_Network'; break;

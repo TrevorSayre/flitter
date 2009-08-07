@@ -32,9 +32,9 @@ function twitter_oauth_valid_auth_hook($token,$content) {
   $user = startUserSession();
 
   //If the account doesn't exist add it
-  $account = $flitter->getNetworkAccountInfo('twitter',$token['user_id']);
+  $account = $flitter->getAccountInfo('twitter',$token['user_id']);
   if(!$account) {
-    $success = $flitter->addNetworkAccount(
+    $success = $flitter->addAccount(
 		  'twitter', $token['user_id'],
 		  array('oauth_key'=>$token['oauth_token'],
 			'oauth_secret'=>$token['oauth_token_secret']));
@@ -43,12 +43,12 @@ function twitter_oauth_valid_auth_hook($token,$content) {
   }
   else {
     //Check if connection is present between user and account
-    $connection = $flitter->getUserNetworkAccountConnection($user->get_id(),'twitter',$token['user_id']);
+    $connection = $flitter->getUserAccountConnection($user->get_id(),'twitter',$token['user_id']);
     if($connection == NULL) $makeConnect = TRUE;
   }
 
   if($makeConnect === TRUE)
-    $flitter->addUserNetworkAccountConnection($user->get_id(),'twitter',$token['user_id']);
+    $flitter->addConnection($user->get_id(),'twitter',$token['user_id']);
 }
 
 function twitter_oauth_finish_hook($token,$content) {
