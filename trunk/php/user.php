@@ -20,14 +20,7 @@ class User {
 
   public function addAccount($type, $values) {
     //Should probably add some sort of error checking here, maybe not    
-
     $this->user_info->setAr($values,'accounts',$type);
-/*  echo "<b>Values:</b><br/>: ";
-    print_r($values);
-    echo "<br/><br/>";
-    echo "<b>Accounts:</b><br/>: ";
-    print_r($this->user_info->accounts);
-    echo "<br/><br/>";*/
   }
 
   public function getNetworkAccount($network,$id) {

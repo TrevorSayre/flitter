@@ -2,7 +2,8 @@
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('user_session.php','php');
 
-  $user = startUserSession();
+  //Hack so I don't have to change code
+  $user = $args['user'];
   
   //Guest User, Redirect them to login
   if($user->get_id() == -1)

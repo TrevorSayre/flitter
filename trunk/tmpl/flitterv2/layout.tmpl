@@ -1,4 +1,5 @@
 <?php
+  require_once $templater->get_path_str('user_session.php','php');
 
   $templater->add_js("jquery-1.3.2.js");
   $templater->add_js("jquery-ui-1.7.2.custom.min.js");
@@ -6,6 +7,8 @@
   $templater->add_css("redmond/jquery-ui-1.7.2.custom.css");  
   $templater->add_css("index.css");
   
+  $args['user'] = startUserSession();
+
   //Lead the navigation module
   $header = $templater->load_file( 'header.tmpl' , $args );
 

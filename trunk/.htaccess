@@ -10,7 +10,7 @@ RewriteRule ^event/(\w+)/?$	index.php?http_file=$1&http_folder=event [L]
 RewriteRule ^event/view/([\w0-9]+)/?$ index.php?http_file=view&http_folder=event&http_detail=$1 [L]
 RewriteRule ^event/join/([\w0-9]+)/?$ index.php?http_file=join&http_folder=event&http_detail=$1 [L]
 RewriteRule ^event/leave/([\w0-9]+)/?$ index.php?http_file=leave&http_folder=event&http_detail=$1 [L]
-RewriteRule ^event/remove/([\w0-9]+)/?$ index.php?http_file=view&http_folder=event&http_detail=$1 [L]
+RewriteRule ^event/remove/([\w0-9]+)/?$ index.php?http_file=remove&http_folder=event&http_detail=$1 [L]
 
 RewriteRule ^info/(\w+)/?$	index.php?http_file=$1&http_folder=info [L]
 
