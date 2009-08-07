@@ -1,7 +1,7 @@
 // JavaScript Document
-
-var menuYloc = 0;
 /*
+var menuYloc = 0;
+
 function floatMenus (){
   var offset = menuYloc+$(document).scrollTop()+"px";  
   $('#header_container').css({'top':offset});
