@@ -14,14 +14,21 @@
 ?>
 
 <br/>
-<a href="<?=$templater->get_http_path('event/create');?>">Create an Event</a>
+<a href="<?=$templater->get_http_path('event/create');?>">Create an Event</a> |
+<a href="<?=$templater->get_http_path('event/search');?>">Find an Event</a>
 <br/>
 <br/>
 <?php
   foreach($commitments as $commitment) {
     $event = $flitter->getEventById($commitment['event_id']);
     $eventCommitments = $flitter->getEventCommitments($event['event_id']);
-    echo '(',$commitment['type'],') <a href="',$templater->get_http_path('event/view/'.$event['event_id']),
+
+    if($commitment['type']=='admin')
+      echo '<a href="'.$templater->get_http_path('event/remove/'.$event['event_id']).'" alt="Remove Event">Remove</a>';
+    else
+      echo '<a href="'.$templater->get_http_path('event/leave/'.$event['event_id']).'" alt="Leave Event">Leave</a>';
+
+    echo ' (',$commitment['type'],') <a href="',$templater->get_http_path('event/view/'.$event['event_id']),
 	  '" alt="',$event['event_title'],'"><b>',$event['event_title'],'</b></a>
 	  @ ',$event['event_loc'],'. ',count($eventCommitments),' people involved so far<br/>';
     foreach($eventCommitments as $eventCommitment) {

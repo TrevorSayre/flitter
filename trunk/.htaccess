@@ -5,6 +5,7 @@ RewriteRule ^source/(.*) index.php?http_file=source&http_detail=$1 [L]
 
 RewriteRule ^account/(\w+)/?$	index.php?http_file=$1&http_folder=account [L]
 RewriteRule ^account/view/([\w0-9]+)/?$ index.php?http_file=view&http_folder=account&http_detail=$1 [L]
+RewriteRule ^account/remove/([\w0-9]+)/?$ index.php?http_file=remove&http_folder=account&http_detail=$1 [L]
 
 RewriteRule ^event/(\w+)/?$	index.php?http_file=$1&http_folder=event [L]
 RewriteRule ^event/view/([\w0-9]+)/?$ index.php?http_file=view&http_folder=event&http_detail=$1 [L]

@@ -63,7 +63,7 @@ function startUserSession($user_id = NULL) {
     //Loop through supported networks to add their accounts
     foreach( array('twitter') as $type ) {
 	//Get all information about any accounts the user might have and add them
-	$accounts = $flitter->getUserNetworkAccounts($user_id,$type);
+	$accounts = $flitter->getUserAccounts($user_id,$type);
 	if(is_array($accounts)) 
 	  foreach($accounts as $account) {
 	    //echo "<br/>AddingNewAccount<br/>";

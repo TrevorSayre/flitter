@@ -8,7 +8,7 @@
     header('Location: http://'.$_SERVER['SERVER_NAME'].'/login');
   
   $flitter = new FlitterLibrary();
-  $accounts = $flitter->getUserNetworkAccounts($user->get_id(),'twitter');
+  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
   if($accounts==NULL) $accounts=array();
 ?>
 
@@ -22,7 +22,11 @@
       handle_twitter_error($twitter->lastStatusCode(),$twitter->lastApiCall,$repsonse);
     else {
       $info = simplexml_load_string($response);
-      echo "<b>",$info->screen_name,"</b> (twitter) has ",$info->friends_count," friends and ",$info->followers_count," followers";
+      echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /> - ';
+      echo '<a href="http://www.twitter.com/'.$info->screen_name.'" target="_blank" 
+	       alt="Link to '.$info->screen_name.' twitter account">',$info->screen_name,"</a>
+	    (twitter) has ",$info->friends_count," friends and ",$info->followers_count,' followers - 
+            <a href="'.$templater->get_http_path('account/remove/'.$info->id).'" alt="Remove Account"> Remove </a>';
     }
     echo "<br/><br/>";
   }
