@@ -19,7 +19,12 @@
   <a href="<?=$templater->get_http_path('info/licensing')?>" >licensing</a> for more 
      information
   </p>
-  <p id="button_source-code"><a href="<?=$templater->get_http_path("source")?>" alt="source code">
+  <p id="button_source-code">
+<a href="<?
+  if(isset($args['http_folder'])) $path = $args['http_folder'].'/';
+  if(isset($args['http_file'])) $path = $path.$args['http_file'].'.tmpl';
+  else     $path = 'home.tmpl';
+  echo $templater->get_http_path("source/".$templater->get_path_str($path,'layout'))?>" alt="source code">
      <img src="<?=$templater->get_path_str("button_source-code.png",'img')?>" width="102" 
 	 height="34" alt="source code"></a>
   </p>
