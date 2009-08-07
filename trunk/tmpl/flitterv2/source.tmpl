@@ -28,11 +28,11 @@
   }
   
   function tree_view_list($file_struct,$id_it=false, $path='.') {
-    if($id_it == true)  $ret = "<ul id=\"browser\">";
-    else                $ret = "<ul>";
+    if($id_it == true)  $ret = "<ul id=\"browser\" class=\"filetree\">";
+    else                $ret = "<ul class=\"filetree\">";
     foreach($file_struct as $name => $branch ) {
       if( is_array($branch) )
-        $ret .= "<li><span class=\"folder\">$name</span>".tree_view_list($branch,false,$path."/".$name);
+        $ret .= "<li><span class=\"folder\">$name</span>".tree_view_list($branch,false,$path."/".$name)."</li>";
       else
         $ret .= "<li><span class=\"file\"><a class=\"file_link\" href=\"source/$path/$name\">$name</a></span></li>";
     }

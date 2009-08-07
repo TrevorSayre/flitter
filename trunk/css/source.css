@@ -1,64 +1,69 @@
 /* CSS Document */
 
-pre { margin:0px; padding:0px; }
+#source_shell { 
+  margin:0px -10px;
+}
 
-#source_shell { margin:-20px 0px 0px -20px; padding-bottom:20px; }
-#left_col,#code_col,.header_button { 
-  -moz-border-radius:0px; 
-  -webkit-border-radius:0px;
+/*current file header*/
+h1#filepath {
+  font-size:30px;
+  line-height:50px;
+  margin:0px 0px 0px 25px;
+  padding:0px;
 }
 
 #section_header {
-  border-bottom: 2px solid black;
-  background:#f3ff9d;
-  width:100%;
-  -moz-border-radius:10px 0px 0px 0px;
-  -webkit-border-top-left-radius:10px;
-  padding:10px 20px 0px 0px;
+  border-bottom: 2px solid #3f3f3f;
+  padding-top:10px;
+  padding: 0px 10px;
 }
-      #feedback_button,#flip_over_button {
-        float:right;
-        margin:10px 50px 10px 0px;
-      }
-      .header_button {
-        height:30px;
-        line-height:30px;
-        text-align:center;
-        font-variant:small-caps;
-        background:lightblue;
-        cursor:pointer;
-        width:200px;
-        border:1px solid black;
-      }
-      h1#filepath {
-        font-size:30px;
-        line-height:50px;
-        margin:0px 0px 0px 25px;
-        padding:0px;
-      }
-      a.header_link {text-decoration:none; color:black;}
+
+a.header_link {
+  font-weight:normal;
+  border:none;
+  text-decoration:none; 
+  color:#3f3f3f;
+}
+
+a.file_link {
+  font-weight:normal;
+  border:none;
+  text-decoration:none; 
+  color:#3f3f3f;
+}
+
+a:hover.file_link {
+  color:red;	
+}
+
+pre { 
+  margin:0px; 
+  padding:0px; 
+}
       
 #left_col {
-  padding:10px;
+  padding:10px 39px 0px 10px;
   width:200px;
   float:left;
+  border-right:solid #3f3f3f 2px;
 }
-      a.file_link {text-decoration:none; color:black;}
       
 #code_col {
-  margin-top:20px;
-  padding:0px 0px 0px 0px;
-  margin-left:282px;
-  border-left:solid black 2px;
+  margin-top:0px;
+  padding:0px;
+  margin-left:249px;
+  border-left:solid #3f3f3f 2px;
 }
-    #code {
-      margin-top:0px;
-      margin-bottom:0px;
-      padding-left:47px;
-    }
-    #code li {
-      margin:0px;
-      padding:0px 0px 0px 3px;
-      border-left:solid black 1px;
-      min-width:465px;
-    }
+    
+#code {
+  margin-top:0px;
+  margin-bottom:0px;
+  padding-left:47px;
+  overflow:auto;
+}
+
+#code li {
+  margin:0px;
+  padding-left:3px;
+  border-left:solid black 1px;
+}
