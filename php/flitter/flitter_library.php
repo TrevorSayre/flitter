@@ -72,7 +72,11 @@ class FlitterLibrary {
     else
       return FALSE;    
   }
-  public function addUserEventCommitment($user_id,$event_id,$type) {
+  public function removeEvent($event_id) {
+    $this->database->query("DELETE FROM commitments WHERE event_id=$event_id");
+    $this->database->query("DELETE FROM events WHERE event_id=$event_id");
+  }
+  public function addCommitment($user_id,$event_id,$type) {
     $query = 'INSERT INTO commitments
 	      (user_id,event_id,type)
 	      VALUES ('.$user_id.','.$event_id.',"'.$type.'")';
@@ -81,6 +85,9 @@ class FlitterLibrary {
       return mysql_insert_id($this->database->connection);
     else
       return FALSE;
+  }
+  public function removeCommitment($comm_id) {
+    return $this->database->query("DELETE FROM commitments WHERE comm_id=$comm_id");
   }
 
   public function getEventCommitments($event_id,$type=NULL) {

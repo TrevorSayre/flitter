@@ -14,7 +14,7 @@ function twitter_oauth_start_hook($token) {
   //If the user isn't logged in, force them to
   $user = startUserSession();
   if($user->get_id() == -1) {
-    header('Location: http://flitter/login');
+    header('Location: http://'.$_SERVER['SERVER_NAME'].'/account/login');
   }
 
   // If the reffering page contains this server set that as login return point
