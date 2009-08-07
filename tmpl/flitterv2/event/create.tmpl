@@ -45,6 +45,22 @@
   Start Time<input type="textbox" class="textbox" name="start" value="<?=$_POST['start'];?>"/><br/>
   End Time<input type="textbox" class="textbox" name="end" value="<?=$_POST['end'];?>"/><br/>
   Description<input type="textbox" class="textbox" name="description" value="<?=$_POST['description'];?>"/><br/>
+<?php
+  $flitter = new FlitterLibrary();
+  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
+  if(count($accounts)>0) {
+    foreach($accounts as $account) {
+      $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
+      $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
+      if ($twitter->lastStatusCode() == 200) {
+	$info = simplexml_load_string($response);
+	echo '<input type="checkbox" class="checkbox" name="accounts[]" value="twitter-'.$account['acct_id'].'" />';
+	echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /> '.$info->screen_name;
+	echo '<br/></br>';
+      }
+    }
+  }
+?>
   <input type="image" class="submit" 
     src="<?=$templater->get_path_str("submit.png","img")?>" 
     value="Create Event" />
