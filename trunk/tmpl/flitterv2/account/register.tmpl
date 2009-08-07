@@ -14,7 +14,7 @@
       if($id) {
 	$user = array('email'=>$_POST['email'],'user_id'=>$id,'display_name'=>$_POST['display']);
 	//Write user to session
-	getSessionResource()->storeResource($user->get_info(),'accounts');
+	getSessionResource()->store($user);
 	header('Location: http://'.$_SERVER['SERVER_NAME']);
       }
       else
