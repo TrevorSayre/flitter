@@ -36,7 +36,7 @@
     else {
       $info = simplexml_load_string($response);
       echo '<tr>';
-      echo '<td>'.$info->screen_name;
+      echo '<td><span class="title">'.$info->screen_name.'</span>';
       echo '<a href="http://twitter.com/account/profile_image/'.$info->screen_name.'" target="_blank">'.
         '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /></a> ';
       echo '<span class="link">(<a href="http://www.twitter.com/'.$info->screen_name.'" target="_blank"'. 
