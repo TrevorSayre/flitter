@@ -11,7 +11,7 @@
     echo 'user_id ',$args['http_detail'],' is not a valid id';
   }
   else {
-    echo "<b>".$user['display_name']."/b>:<br/><br/>";
+    echo "<b>".$user['display_name']."</b>:<br/><br/>";
     $adminCommitments = $flitter->getUserCommitments($args['http_detail'],'admin');
     if(count($adminCommitments)>0) {
       echo "<b>Events under Administration</b><br/>";
