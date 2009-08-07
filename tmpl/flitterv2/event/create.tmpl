@@ -32,7 +32,7 @@
 	  else $title = $_POST['title'];
 	  $msg = "$title at $location on ".substr($_POST['start'],0,5).". Check it out at $link";
       
-	  if($_POST['selectedAccounts']=="") {
+	  if($_POST['selectedAccounts']!="") {
 	    $accounts = explode(",",substr($_POST['selectedAccounts'],0,-1));
 	    foreach($accounts as $acct) {
 	      $pair = explode('-',$acct);
@@ -67,7 +67,6 @@
 	      $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
 	      if ($twitter->lastStatusCode() == 200) {
 		$info = simplexml_load_string($response);
-		//echo '<input type="checkbox" class="checkbox" name="accounts[]" value="twitter-'.$account['acct_id'].'" />';
 		echo '<li class="ui-state-default ui-selected" name="twitter-'.$account['acct_id'].'">';
 		echo '<img src="'.$info->profile_image_url.'" title="'.$info->screen_name.'" alt="'.$info->screen_name.' Profile Image" /> ';
 		echo '</li>';

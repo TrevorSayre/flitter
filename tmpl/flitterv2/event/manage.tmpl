@@ -11,6 +11,8 @@
 
   $flitter = new FlitterLibrary();
   $commitments = $flitter->getUserCommitments($args['user']['user_id']);
+
+  if(count($commitments)>0) {
 ?>
 
 <table id="eventTable"> 
@@ -29,7 +31,7 @@
   foreach($commitments as $commitment) {
     $event = $flitter->getEventById($commitment['event_id']);
     $eventCommitments = $flitter->getEventCommitments($event['event_id']);
-    $start = date('M j', $event['event_start']);
+    $start = date('M j, Y h:i A', $event['event_start']);
 
     echo '<tr>';
     echo '<td>'.$commitment['type'].'</td>';
@@ -57,3 +59,8 @@
 
 </tbody>
 </table>
+
+<?php
+}
+else { echo "You have no events to manage.  Go find some!"; }
+?>
