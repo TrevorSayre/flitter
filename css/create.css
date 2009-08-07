@@ -35,3 +35,26 @@ form {
 input {
   margin:5px !important;
 }
+
+#accounts ul {
+  position:absolute;
+  margin-top:44px;
+  margin-left:450px;
+  max-width:174px;
+}
+
+#feedback { font-size: 18px; }
+#selectable .ui-selecting { background: #3f3f3f; }
+#selectable .ui-selected { background: #fc3333; }
+#selectable { list-style-type: none; margin: 0; padding: 0; }
+
+#selectable li {
+  float:left; 
+  background: none; 
+  border: none; 
+  width: 48px; 
+  height: 48px; 
+  text-align: center; 
+  margin: 3px;
+  padding: 2px;
+}
