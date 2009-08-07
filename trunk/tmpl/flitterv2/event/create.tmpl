@@ -2,6 +2,10 @@
   require_once $templater->get_path_str('flitter/flitter_library.php','php');
   require_once $templater->get_path_str('twitter/twitter_oauth.php','php');
   $templater->add_css('create.css','css');
+  $templater->add_js('jquery-1.3.2.js','js');
+  $templater->add_js('ui.core.js','js');
+  $templater->add_js('ui.selectable.js','js');
+  $templater->add_js('create.js','js');
 
   //Hack so I don't have to change code
   $user = $args['user'];
@@ -22,15 +26,16 @@
 	  $flitter->addCommitment($user->get_id(),$id,'admin');
 	  $user = $flitter->getUserById($user->get_id());
 	  
-//tweet this shit out!!
+      //tweet this shit out!!
 	  $link = 'http://'.$_SERVER['SERVER_NAME']."/event/view/$id";
 	  if(strlen($_POST['title'])>37) $title = substr($_POST['title'],0,37).'...';
 	  else $title = $_POST['title'];
 	  if(strlen($_POST['location'])>37) $title = substr($_POST['location'],0,37).'...';
 	  else $title = $_POST['title'];
 	  $msg = "$title at $location on ".substr($_POST['start'],0,5).". Check it out at $link";
-
-	  foreach($_POST['accounts'] as $acct) {
+      
+      $accounts = explode(",",substr($_POST['selectedAccounts'],0,-1));
+	  foreach($accounts as $acct) {
 	    $pair = explode('-',$acct);
 	    $account = $flitter->getAccountById($pair[0],$pair[1]);
 	    $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
@@ -51,33 +56,40 @@
   }
 ?>
 
+<div id="accounts">
+  <ul id="selectable">
+	<?php
+	  $flitter = new FlitterLibrary();
+	  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
+	  if(count($accounts)>0) {
+	    foreach($accounts as $account) {
+	      $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
+	      $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
+	      if ($twitter->lastStatusCode() == 200) {
+		$info = simplexml_load_string($response);
+		//echo '<input type="checkbox" class="checkbox" name="accounts[]" value="twitter-'.$account['acct_id'].'" />';
+		echo '<li class="ui-state-default ui-selected" name="twitter-'.$account['acct_id'].'">';
+		echo '<img src="'.$info->profile_image_url.'" title="'.$info->screen_name.'" alt="'.$info->screen_name.' Profile Image" /> ';
+		echo '</li>';
+	      }
+	    }
+	  }
+	?>
+  </ul>
+</div>
+
 <?=$error;?>
 
-<form action="" method="POST">
-  <div class="header">Create Event</div>
+<form action="" method="POST" id="createForm">
+  <div class="header" id="test">Create Event</div>
   Title<input type="textbox" class="textbox" name="title" value="<?=$_POST['title'];?>" /><br/>
   Location<input type="textbox" class="textbox" name="location" value="<?=$_POST['location'];?>"/><br/>
   <!--input as follows mm/dd/yyyy hh:mm-->
-  Start Time<input type="textbox" class="textbox" name="start" value="<?=$_POST['start'];?>"/><br/>
-  End Time<input type="textbox" class="textbox" name="end" value="<?=$_POST['end'];?>"/><br/>
-  Description<input type="textbox" class="textbox" name="description" value="<?=$_POST['description'];?>"/><br/>
-<?php
-  $flitter = new FlitterLibrary();
-  $accounts = $flitter->getUserAccounts($user->get_id(),'twitter');
-  if(count($accounts)>0) {
-    foreach($accounts as $account) {
-      $twitter = new TwitterOAuth(FLITTERTO_CONSUMER_KEY,FLITTERTO_CONSUMER_SECRET,$account['oauth_key'],$account['oauth_secret']);
-      $response = $twitter->showUser(array('user_id'=>$account['acct_id']));
-      if ($twitter->lastStatusCode() == 200) {
-	$info = simplexml_load_string($response);
-	echo '<input type="checkbox" class="checkbox" name="accounts[]" value="twitter-'.$account['acct_id'].'" />';
-	echo '<img src="'.$info->profile_image_url.'" alt="'.$info->screen_name.' Profile Image" /> '.$info->screen_name;
-	echo '<br/></br>';
-      }
-    }
-  }
-?>
+  Start Time<input type="textbox" class="textbox" name="start" value="<?=$_POST['start'];?>" /><br/>
+  End Time<input type="textbox" class="textbox" name="end" value="<?=$_POST['end'];?>" /><br/>
+  Description<input type="textbox" class="textbox" name="description" value="<?=$_POST['description'];?>" /><br/>
   <input type="image" class="submit" 
     src="<?=$templater->get_path_str("submit.png","img")?>" 
     value="Create Event" />
+  <input type="hidden" name="selectedAccounts" value="" id="selectedAccounts">
 </form>

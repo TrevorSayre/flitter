@@ -20,10 +20,12 @@ $(document).ready( function() {
 		    /*$("#loginbar").animate({ 
 		        marginRight: width + "px"
 		      }, 500 );*/
+		    $("#banner_slice").css("paddingRight","1px");
 		    $("#banner_menu").hide();
 		  }
 		  else {
 			toggle = 0;
+			$("#banner_slice").css("paddingRight","32px");
 			$("#banner_menu").show();
 			/*$("#loginbar").animate({ 
 		        marginRight: "0px"
