@@ -14,9 +14,8 @@
     $user = $flitter->validateUser($_POST['email'],$_POST['password']);
     //Valid Credentials
     if($user!=NULL) {
-      $user = new User($user);
       //Write user to session
-      getSessionResource()->storeResource($user->get_info(),'accounts');
+      getSessionResource()->store($user);
       header('Location: '.$templater->get_http_path('event/manage'));
     }
     else
