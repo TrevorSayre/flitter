@@ -15,21 +15,15 @@
  * correct.
  */
 
-if($_SERVER['SERVER_NAME'] == "flitter.to") {
-	define("DB_SERVER", "localhost");
+if($_SERVER['SERVER_NAME'] == "") {
+	define("DB_SERVER", "");
 }
 else {
-	define("DB_SERVER", "kingpinhosting.com");
+	define("DB_SERVER", "");
 }
-define("DB_USER", "gibbon");
-define("DB_PASS", "pr0jectgibb0n");
-define("DB_NAME", "gibbon_flitter");
-/*
-define("DB_SERVER",'localhost');
-define("DB_USER",'root');
-define("DB_PASS",'');
-define("DB_NAME",'flitter');
-*/
+define("DB_USER", "");
+define("DB_PASS", "");
+define("DB_NAME", "");
 /**
  * Database Table Constants - these constants
  * hold the names of all the database tables used
